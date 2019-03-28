@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>My New Post - I have a dream</title>
+<title>Nginx日志切分 - I have a dream</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -67,7 +67,7 @@
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="Search" href="javascript:;">
+            <a class="navbar-item search" title="搜索" href="javascript:;">
                 <i class="fas fa-search"></i>
             </a>
             
@@ -82,30 +82,27 @@
     <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            My New Post
+            Nginx日志切分
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2018-03-28T10:02:35.000Z" itemprop="datePublished">Mar 28 2018</time>
+            <time datetime="2018-03-28T10:02:35.000Z" itemprop="datePublished">3月 28 2018</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            4 minutes read (About 662 words)
+            4 分钟 读完 (约 617 字)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h1 id="Nginx日志切分"><a href="#Nginx日志切分" class="headerlink" title="Nginx日志切分"></a>Nginx日志切分</h1><p><a href="/categories/Nginx/">Nginx</a></p>
-<ul>
-<li>Nginx日志切分</li>
-</ul>
-<p>最近还是有点累，睡了一天感觉还是略困，这周太忙了，但是很多时候忙到最后，却发现得大于失。感谢周围的同事给我提出的一些建议，还有劝勉，能使我得到些许慰借。<br>为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。</p>
-<h2 id="Nginx官方推荐的日志切分方式"><a href="#Nginx官方推荐的日志切分方式" class="headerlink" title="Nginx官方推荐的日志切分方式"></a><a href="#Nginx官方推荐的日志切分方式" title="Nginx官方推荐的日志切分方式"></a>Nginx官方推荐的日志切分方式</h2><p><a href="https://www.nginx.com/resources/wiki/start/topics/examples/logrotation/" target="_blank" rel="noopener">Log Rotation</a>:官方推荐的日志切分实现</p>
+        <p>最近还是有点累，睡了一天感觉还是略困，这周太忙了，但是很多时候忙到最后，却发现得大于失。感谢周围的同事给我提出的一些建议，还有劝勉，能使我得到些许慰借。<br>为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。</p>
+<h3 id="Nginx官方推荐的日志切分方式"><a href="#Nginx官方推荐的日志切分方式" class="headerlink" title="Nginx官方推荐的日志切分方式"></a>Nginx官方推荐的日志切分方式</h3><hr>
+<p><a href="https://www.nginx.com/resources/wiki/start/topics/examples/logrotation/" target="_blank" rel="noopener">Log Rotation</a>:官方推荐的日志切分实现</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mv access.log access.log.0</span><br><span class="line">$ kill -USR1 \`cat master.nginx.pid\`</span><br><span class="line">$ sleep 1</span><br><span class="line">$ gzip access.log.0    # do something with access.log.0</span><br></pre></td></tr></table></figure>
 <p>原理如下：</p>
 <ol>
@@ -115,18 +112,11 @@
 </ol>
 <h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a href="#具体实现" title="具体实现"></a>具体实现</h2><p>设想如果要定时的切分日志，那需要一个定时任务，来定时的对日志文件重命名并且引导nginx写入新的文件，而另一个shell脚本用来做具体的日志切割实现</p>
 <h3 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a><a href="#定时任务" title="定时任务"></a>定时任务</h3><p>如何实现定时任务，有多种多样的solution，为了简单，我就使用mac上的crontab吧， crontab -e添加一行  </p>
-<p>1</p>
-<p>1 <em>/1 </em> <em> </em> * sh ~/logrotation.sh #每一分钟切割一次日志</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/1 * * * * sh ~/logrotation.sh #每一分钟切割一次日志</span><br></pre></td></tr></table></figure>
 <h3 id="日志切割脚本"><a href="#日志切割脚本" class="headerlink" title="日志切割脚本"></a><a href="#日志切割脚本" title="日志切割脚本"></a>日志切割脚本</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line">time=\`date +%Y%m%d%H%m\`</span><br><span class="line">mv access.log access.log.$&#123;time&#125;</span><br><span class="line">kill -USR1 \`ps -ef | grep nginx | grep master |awk &apos;&#123;print $2&#125;&apos;\` ## 获取nginx的pid，没找到pid文件，就偷懒了</span><br><span class="line">sleep 1</span><br></pre></td></tr></table></figure>
-<h2 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a><a href="#执行结果" title="执行结果"></a>执行结果</h2><p>baidudeMacBook-Pro:log echo$ ls<br>access.log        access.log.201709172136    access.log.201709172137</p>
+<h2 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a><a href="#执行结果" title="执行结果"></a>执行结果</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">baidudeMacBook-Pro:log echo$ ls</span><br><span class="line">access.log		access.log.201709172136	access.log.201709172137</span><br></pre></td></tr></table></figure>
 <p>如上图所示，日志切分成功。</p>
 <h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a><a href="#扩展阅读" title="扩展阅读"></a>扩展阅读</h2><p><a href="https://redislabs.com/blog/5-key-takeaways-for-developing-with-redis/" target="_blank" rel="noopener">5个使用Redis时需要注意的事项</a>：对于Redis的使用和建议改了一些比较中肯的建议，很实用。</p>
-<ul>
-<li><a href="/tags/Nginx/">Nginx</a></li>
-</ul>
-<p>[</p>
-<p>布隆过滤器 &gt;</p>
-<p>]</p>
 
     
     </div>
@@ -135,7 +125,7 @@
     <div class="columns is-mobile is-multiline article-nav">
         <span class="column is-12-mobile is-half-desktop  article-nav-prev">
             
-            <a href="/2019/03/28/hello-world/">布隆过滤器</a>
+            <a href="/2019/03/28/布隆过滤器/">布隆过滤器</a>
             
         </span>
         <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-next">
@@ -189,7 +179,7 @@
     window.FontAwesomeConfig = {
         searchPseudoElements: true
     }
-    moment.locale("default");
+    moment.locale("zh-CN");
 </script>
 
 
@@ -214,7 +204,7 @@
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索">
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -226,11 +216,11 @@
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Posts',
-                PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
-                UNTITLED: '(Untitled)',
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
             },
             CONTENT_URL: '/content.json',
         };
