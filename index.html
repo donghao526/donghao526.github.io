@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="검색" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/28/hello-world/" itemprop="url">布隆过滤器</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-28T09:43:44.276Z" itemprop="datePublished">Mar 28 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            9 minutes 소요 (약 1387 단어)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h1 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h1><p>布隆过滤器一种空间数据结构，用来判断一个元素是否在某个集合中。由于具有假阳性，所以布隆过滤器只能得出某个元素有可能在该集合，反之该元素一定不在这个集合中。</p>
+<h2 id="布隆过滤器简介"><a href="#布隆过滤器简介" class="headerlink" title="布隆过滤器简介"></a><a href="#布隆过滤器简介" title="布隆过滤器简介"></a>布隆过滤器简介</h2><p>一个空的布隆过滤器是一个$m$位均为0的比特位数组，同时定义了$ k $个哈希函数，将某个元素得出的哈希值映射到 $ m $ 个比特位中的某一位，将该为置为1，生成一个随机的分布。通常$ k $要远远小于 $ m $ ，$ k 和 m $的选取取决于过滤器的假阳性概率。<br><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Bloom_filter.svg/649px-Bloom_filter.svg.png" alt></p>
+<h3 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a><a href="#添加元素" title="添加元素"></a>添加元素</h3><p>当给布隆过滤器中添加一个元素时，利用$k$个哈希函数得出$k$个位置，并将$m$个比特位中对应的$k$个位置设置为1。</p>
+<h3 id="查询元素"><a href="#查询元素" class="headerlink" title="查询元素"></a><a href="#查询元素" title="查询元素"></a>查询元素</h3><p>查询元素时同样计算出$k$个位置，并获取该$k$个位置的所有元素值，当有一个位为0的话，就证明该元素不在该集合里。若$k$个位置均为1，则表示该元素可能在集合里，因为某些为1的位可能是别的元素在插入时设置的。</p>
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a><a href="#删除元素" title="删除元素"></a>删除元素</h3><p>由于假阳性的引入，布隆过滤器是不能删除元素的。  </p>
+<h2 id="聊天室实例"><a href="#聊天室实例" class="headerlink" title="聊天室实例"></a><a href="#聊天室实例" title="聊天室实例"></a>聊天室实例</h2><h2 id="布隆过滤器的优点"><a href="#布隆过滤器的优点" class="headerlink" title="布隆过滤器的优点"></a><a href="#布隆过滤器的优点" title="布隆过滤器的优点"></a>布隆过滤器的优点</h2><p>链表、哈希表和平衡二叉树都能够做元素的查找，但是布隆过滤器明显在时间和空间利用率上更优</p>
+<h3 id="空间利用率"><a href="#空间利用率" class="headerlink" title="空间利用率"></a><a href="#空间利用率" title="空间利用率"></a>空间利用率</h3><p>一个拥有1%的错误率和一个优化后的$k$的布隆过滤器，存储一个元素只需要9.6bit，没降低1%的错误率每个元素也只需增加4.8bit [文章中写的结论，还需要看证明过程]</p>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a><a href="#时间复杂度" title="时间复杂度"></a>时间复杂度</h3><p>时间复杂度显然是$O(k)$</p>
+<h2 id="假阳性的概率"><a href="#假阳性的概率" class="headerlink" title="假阳性的概率"></a><a href="#假阳性的概率" title="假阳性的概率"></a>假阳性的概率</h2><p>假定一个哈希函数选择每个插入位置的概率都是相等的，且位数组一共$m$位，那么某个比特位被hash函数设为1的概率为<br>$$ 1 - \frac{1}{m}$$<br>那么通过计算$k$个哈希函数后，该位被置为1的概率为<br>$$ ( 1 - \frac{1}{m} )^k$$<br>如果该过滤器有$n$个元素，那么该位为0的概率为<br>$$ ( 1 - \frac{1}{m} )^{kn}$$<br>该位为1的概率为<br>$$ 1- ( 1 - \frac{1}{m} )^kn$$<br>那么随便找k个位置，这些位置都为1的概率(也可认为是假阳性概率)为<br>$$ (1- ( 1 - \frac{1}{m} )^{kn})^k \approx (1 - e^{-kn/m})^k$$<br>需要注意的是，该概率不是严格准确的，因为k个为在被置1时，不是独立事件，但是概率大约是相似的。由此可见，假阳性的概率随着比特位数组长度$m$的增大而减小，随着集合元素$n$的增大而增大。那么证明了如果$m$足够大，布隆过滤器的准确性还是很高的。</p>
+<h2 id="如何寻找最适合的-k"><a href="#如何寻找最适合的-k" class="headerlink" title="如何寻找最适合的$k$"></a><a href="#如何寻找最适合的-k" title="如何寻找最适合的$k$"></a>如何寻找最适合的$k$</h2><p>最适合的$k$就是能够使过滤器假阳性的概率达到最低，直观来讲增加哈希函数可以提升准确率，但是又会影响更多的比特位，所以随着哈希函数数量$k$的增加，假阳性概率或许增加或许减少，因此怎么算最适合的$k$呢。我们拿出上述得到的概率，假定假阳性概率为$f$</p>
+<p>$$ f = (1 - e^{-kn/m})^k$$<br>为了简化运算对$f$取对数<br>$$ g = ln(f) = k(1 - e^{-kn/m})$$<br>对其进行求导<br>$$\frac{dg}{dk} = ln(1 - e^{-kn/m}) + \frac{kn}{m} \frac{e^{-kn/m}}{1 - e^{-kn/m}}$$<br>当导数为0的时候，就是最适合的$k$，我们得出最适合的$k$如下:<br>$$ k = \frac{m}{n}ln(2) $$</p>
+<h2 id="元素数量估算"><a href="#元素数量估算" class="headerlink" title="元素数量估算"></a><a href="#元素数量估算" title="元素数量估算"></a>元素数量估算</h2><p>Swamidass &amp; Baldi提出了布隆过滤器中实际元素估算的方式<br>$$ n^* = - \frac{m}{k} ln [1-\frac{X}{k}] $$</p>
+<p>其中，$n$*为元素个数的近似值，$m$是位数组长度，$k$是哈希函数的数量, $X$是位数组中被置为1的位的数量。<strong>还没有看完证明过程</strong></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a href="#总结" title="总结"></a>总结</h2><p>布隆过滤器由于引入了假阳性，因此不太适合高精度的需求，业务场景需要能够接受一定错误容忍度，但是查询和插入都是$O(k)$的时间复杂度，空间复杂度也相当可观，因此在快速的元素查找定位场景还是大有裨益的。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><a href="#参考文献" title="参考文献"></a>参考文献</h2><p><a href="https://en.wikipedia.org/wiki/Bloom_filter#Optimal_number_of_hash_functions" target="_blank" rel="noopener">Bloom_filter</a><br><a href="https://people.eecs.berkeley.edu/~daw/teaching/cs170-s03/Notes/lecture10.pdf" target="_blank" rel="noopener">Notes 10 for CS 170</a><br><a href="http://pubs.acs.org/doi/abs/10.1021/ci600526a" target="_blank" rel="noopener">Mathematical Correction for Fingerprint Similarity Measures to Improve Chemical Retrieval</a></p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/03/28/My-New-Post/" itemprop="url">My New Post</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-28T10:02:35.000Z" itemprop="datePublished">Mar 28 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            4 minutes 소요 (약 662 단어)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h1 id="Nginx日志切分"><a href="#Nginx日志切分" class="headerlink" title="Nginx日志切分"></a>Nginx日志切分</h1><p><a href="/categories/Nginx/">Nginx</a></p>
+<ul>
+<li>Nginx日志切分</li>
+</ul>
+<p>最近还是有点累，睡了一天感觉还是略困，这周太忙了，但是很多时候忙到最后，却发现得大于失。感谢周围的同事给我提出的一些建议，还有劝勉，能使我得到些许慰借。<br>为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。</p>
+<h2 id="Nginx官方推荐的日志切分方式"><a href="#Nginx官方推荐的日志切分方式" class="headerlink" title="Nginx官方推荐的日志切分方式"></a><a href="#Nginx官方推荐的日志切分方式" title="Nginx官方推荐的日志切分方式"></a>Nginx官方推荐的日志切分方式</h2><p><a href="https://www.nginx.com/resources/wiki/start/topics/examples/logrotation/" target="_blank" rel="noopener">Log Rotation</a>:官方推荐的日志切分实现</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mv access.log access.log.0</span><br><span class="line">$ kill -USR1 \`cat master.nginx.pid\`</span><br><span class="line">$ sleep 1</span><br><span class="line">$ gzip access.log.0    # do something with access.log.0</span><br></pre></td></tr></table></figure>
+<p>原理如下：</p>
+<ol>
+<li>将access.log重命名为access.log.0，由于linux都采取文件描述符来读取文件，因此重命名文件后日志还是会持续的向原文件写入</li>
+<li>USER1是linux中自定义的信号机制，意思就是说我们可以自己在开发中收到该信号时决定来做什么，nginx在收到该信号时会重新读取配置文件</li>
+<li>sleep 1秒能确保nginx将之前的旧日志文件能够彻底的关闭</li>
+</ol>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a href="#具体实现" title="具体实现"></a>具体实现</h2><p>设想如果要定时的切分日志，那需要一个定时任务，来定时的对日志文件重命名并且引导nginx写入新的文件，而另一个shell脚本用来做具体的日志切割实现</p>
+<h3 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a><a href="#定时任务" title="定时任务"></a>定时任务</h3><p>如何实现定时任务，有多种多样的solution，为了简单，我就使用mac上的crontab吧， crontab -e添加一行  </p>
+<p>1</p>
+<p>1 <em>/1 </em> <em> </em> * sh ~/logrotation.sh #每一分钟切割一次日志</p>
+<h3 id="日志切割脚本"><a href="#日志切割脚本" class="headerlink" title="日志切割脚本"></a><a href="#日志切割脚本" title="日志切割脚本"></a>日志切割脚本</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line">time=\`date +%Y%m%d%H%m\`</span><br><span class="line">mv access.log access.log.$&#123;time&#125;</span><br><span class="line">kill -USR1 \`ps -ef | grep nginx | grep master |awk &apos;&#123;print $2&#125;&apos;\` ## 获取nginx的pid，没找到pid文件，就偷懒了</span><br><span class="line">sleep 1</span><br></pre></td></tr></table></figure>
+<h2 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a><a href="#执行结果" title="执行结果"></a>执行结果</h2><p>baidudeMacBook-Pro:log echo$ ls<br>access.log        access.log.201709172136    access.log.201709172137</p>
+<p>如上图所示，日志切分成功。</p>
+<h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a><a href="#扩展阅读" title="扩展阅读"></a>扩展阅读</h2><p><a href="https://redislabs.com/blog/5-key-takeaways-for-developing-with-redis/" target="_blank" rel="noopener">5个使用Redis时需要注意的事项</a>：对于Redis的使用和建议改了一些比较中肯的建议，很实用。</p>
+<ul>
+<li><a href="/tags/Nginx/">Nginx</a></li>
+</ul>
+<p>[</p>
+<p>布隆过滤器 &gt;</p>
+<p>]</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("default");
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="아무거나 입력하세요">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '글',
+                PAGES: '페이지',
+                CATEGORIES: '카테고리 목록',
+                TAGS: '태그 목록',
+                UNTITLED: '(제목없음)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
