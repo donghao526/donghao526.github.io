@@ -14,6 +14,19 @@
 
 
 
+    <meta name="description" content="最近还是有点累，睡了一天感觉还是略困，这周太忙了，但是很多时候忙到最后，却发现得大于失。感谢周围的同事给我提出的一些建议，还有劝勉，能使我得到些许慰借。为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。 Nginx官方推荐的日志切分方式 Log Rotation:官方推荐的日志切分实现 1234$ mv access.log acc">
+<meta name="keywords" content="nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx日志切分">
+<meta property="og:url" content="http://yoursite.com/2018/03/28/nginx日志切分/index.html">
+<meta property="og:site_name" content="I have a dream">
+<meta property="og:description" content="最近还是有点累，睡了一天感觉还是略困，这周太忙了，但是很多时候忙到最后，却发现得大于失。感谢周围的同事给我提出的一些建议，还有劝勉，能使我得到些许慰借。为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。 Nginx官方推荐的日志切分方式 Log Rotation:官方推荐的日志切分实现 1234$ mv access.log acc">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-03-29T01:57:40.346Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx日志切分">
+<meta name="twitter:description" content="最近还是有点累，睡了一天感觉还是略困，这周太忙了，但是很多时候忙到最后，却发现得大于失。感谢周围的同事给我提出的一些建议，还有劝勉，能使我得到些许慰借。为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。 Nginx官方推荐的日志切分方式 Log Rotation:官方推荐的日志切分实现 1234$ mv access.log acc">
+
 
 
 
@@ -27,7 +40,7 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
 
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
 
 <link rel="stylesheet" href="/css/style.css">
 
@@ -36,6 +49,15 @@
 
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+
     
 
 
@@ -47,7 +69,9 @@
         <div class="navbar-brand">
             <a class="navbar-item navbar-logo" href="/">
                 
-                <img src="/images/logo.png" alt height="28">
+                    
+                    Echo
+                    
                 
             </a>
             <div class="navbar-burger">
@@ -60,8 +84,6 @@
         <div class="navbar-menu navbar-start">
             
             <a class="navbar-item " href="/archives">Archives</a>
-            
-            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
         </div>
         
@@ -103,7 +125,7 @@
         <p>最近还是有点累，睡了一天感觉还是略困，这周太忙了，但是很多时候忙到最后，却发现得大于失。感谢周围的同事给我提出的一些建议，还有劝勉，能使我得到些许慰借。<br>为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。</p>
 <h3 id="Nginx官方推荐的日志切分方式"><a href="#Nginx官方推荐的日志切分方式" class="headerlink" title="Nginx官方推荐的日志切分方式"></a>Nginx官方推荐的日志切分方式</h3><hr>
 <p><a href="https://www.nginx.com/resources/wiki/start/topics/examples/logrotation/" target="_blank" rel="noopener">Log Rotation</a>:官方推荐的日志切分实现</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mv access.log access.log.0</span><br><span class="line">$ kill -USR1 \`cat master.nginx.pid\`</span><br><span class="line">$ sleep 1</span><br><span class="line">$ gzip access.log.0    # do something with access.log.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mv access.log access.log.0</span><br><span class="line">$ kill -USR1 `cat master.nginx.pid`</span><br><span class="line">$ sleep 1</span><br><span class="line">$ gzip access.log.0    # do something with access.log.0</span><br></pre></td></tr></table></figure>
 <p>原理如下：</p>
 <ol>
 <li>将access.log重命名为access.log.0，由于linux都采取文件描述符来读取文件，因此重命名文件后日志还是会持续的向原文件写入</li>
@@ -113,11 +135,17 @@
 <h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a href="#具体实现" title="具体实现"></a>具体实现</h2><p>设想如果要定时的切分日志，那需要一个定时任务，来定时的对日志文件重命名并且引导nginx写入新的文件，而另一个shell脚本用来做具体的日志切割实现</p>
 <h3 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a><a href="#定时任务" title="定时任务"></a>定时任务</h3><p>如何实现定时任务，有多种多样的solution，为了简单，我就使用mac上的crontab吧， crontab -e添加一行  </p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/1 * * * * sh ~/logrotation.sh #每一分钟切割一次日志</span><br></pre></td></tr></table></figure>
-<h3 id="日志切割脚本"><a href="#日志切割脚本" class="headerlink" title="日志切割脚本"></a><a href="#日志切割脚本" title="日志切割脚本"></a>日志切割脚本</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line">time=\`date +%Y%m%d%H%m\`</span><br><span class="line">mv access.log access.log.$&#123;time&#125;</span><br><span class="line">kill -USR1 \`ps -ef | grep nginx | grep master |awk &apos;&#123;print $2&#125;&apos;\` ## 获取nginx的pid，没找到pid文件，就偷懒了</span><br><span class="line">sleep 1</span><br></pre></td></tr></table></figure>
-<h2 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a><a href="#执行结果" title="执行结果"></a>执行结果</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">baidudeMacBook-Pro:log echo$ ls</span><br><span class="line">access.log		access.log.201709172136	access.log.201709172137</span><br></pre></td></tr></table></figure>
+<h3 id="日志切割脚本"><a href="#日志切割脚本" class="headerlink" title="日志切割脚本"></a><a href="#日志切割脚本" title="日志切割脚本"></a>日志切割脚本</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line">time=`date +%Y%m%d%H%m`</span><br><span class="line">mv access.log access.log.$&#123;time&#125;</span><br><span class="line">kill -USR1 `ps -ef | grep nginx | grep master |awk &apos;&#123;print $2&#125;&apos;` ## 获取nginx的pid，没找到pid文件，就偷懒了</span><br><span class="line">sleep 1</span><br></pre></td></tr></table></figure>
+<h2 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a><a href="#执行结果" title="执行结果"></a>执行结果</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">baidudeMacBook-Pro:log echo$ ls</span><br><span class="line">access.log access.log.201709172136	access.log.201709172137</span><br></pre></td></tr></table></figure>
 <p>如上图所示，日志切分成功。</p>
 <h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a><a href="#扩展阅读" title="扩展阅读"></a>扩展阅读</h2><p><a href="https://redislabs.com/blog/5-key-takeaways-for-developing-with-redis/" target="_blank" rel="noopener">5个使用Redis时需要注意的事项</a>：对于Redis的使用和建议改了一些比较中肯的建议，很实用。</p>
 
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/nginx/">#nginx</a></span>
     
     </div>
     
@@ -193,6 +221,85 @@
         CommonHTML: {matchFontHeight: false}
     });
 </script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+    
 
     
 
