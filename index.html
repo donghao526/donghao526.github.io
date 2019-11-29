@@ -112,7 +112,7 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h2 id="首先从源码种找入口"><a href="#首先从源码种找入口" class="headerlink" title="首先从源码种找入口"></a>首先从源码种找入口</h2><p>redis源码：src/redis-cli中找到main函数，main函数中核心的处理就是以下部分<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/* Start interactive mode when no command is provided */</span><br><span class="line">if (argc == 0 &amp;&amp; !config.eval) &#123;</span><br><span class="line">    /* Ignore SIGPIPE in interactive mode to force a reconnect */</span><br><span class="line">    signal(SIGPIPE, SIG_IGN);</span><br><span class="line"></span><br><span class="line">    /* Note that in repl mode we don&apos;t abort on connection error.</span><br><span class="line">     * A new attempt will be performed for every command send. */</span><br><span class="line">    cliConnect(0);</span><br><span class="line">    repl();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <h2 id="首先从源码中找入口"><a href="#首先从源码中找入口" class="headerlink" title="首先从源码中找入口"></a>首先从源码中找入口</h2><p>redis源码：src/redis-cli.c中找到main函数，main函数中核心的处理就是以下部分<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/* Start interactive mode when no command is provided */</span><br><span class="line">if (argc == 0 &amp;&amp; !config.eval) &#123;</span><br><span class="line">    /* Ignore SIGPIPE in interactive mode to force a reconnect */</span><br><span class="line">    signal(SIGPIPE, SIG_IGN);</span><br><span class="line"></span><br><span class="line">    /* Note that in repl mode we don&apos;t abort on connection error.</span><br><span class="line">     * A new attempt will be performed for every command send. */</span><br><span class="line">    cliConnect(0);</span><br><span class="line">    repl();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>cliConnect<br>主要是与服务端建立连接，每一个连接都会创建一个redisContext结构来保存</li>
 <li>repl<br>repl实现了发送命令并输出Server返回结果的主要逻辑</li>
@@ -161,7 +161,7 @@
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <p><img src="image/taishan.jpeg" alt="泰山国际马拉松"></p>
-<p>  距离泰山马拉松结束已经两周了，这半年来的坚持，总算还是有些许收获。记</p>
+<p>  距离泰山马拉松结束已经两周了，这半年来的坚持，总算还是有些许收获。</p>
 <p>希望自己不负青春，加油养成自律、坚定的好习惯。</p>
 
     
