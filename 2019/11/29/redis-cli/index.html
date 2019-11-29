@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>I have a dream</title>
+<title>redis-cli的实现原理 - I have a dream</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,13 +14,17 @@
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="I have a dream">
-<meta property="og:url" content="http://yoursite.com/index.html">
+    <meta name="description" content="首先从源码种找入口redis源码：src/redis-cli中找到main函数，main函数中核心的处理就是以下部分12345678910/* Start interactive mode when no command is provided */if (argc == 0 &amp;amp;&amp;amp; !config.eval) &amp;#123;    /* Ignore SIGPIPE in inter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis-cli的实现原理">
+<meta property="og:url" content="http://yoursite.com/2019/11/29/redis-cli/index.html">
 <meta property="og:site_name" content="I have a dream">
+<meta property="og:description" content="首先从源码种找入口redis源码：src/redis-cli中找到main函数，main函数中核心的处理就是以下部分12345678910/* Start interactive mode when no command is provided */if (argc == 0 &amp;amp;&amp;amp; !config.eval) &amp;#123;    /* Ignore SIGPIPE in inter">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-11-29T05:54:22.488Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="I have a dream">
+<meta name="twitter:title" content="redis-cli的实现原理">
+<meta name="twitter:description" content="首先从源码种找入口redis源码：src/redis-cli中找到main函数，main函数中核心的处理就是以下部分12345678910/* Start interactive mode when no command is provided */if (argc == 0 &amp;amp;&amp;amp; !config.eval) &amp;#123;    /* Ignore SIGPIPE in inter">
 
 
 
@@ -96,11 +100,10 @@
 
     <section class="section">
     <div class="container">
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
+    <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/11/29/redis-cli/" itemprop="url">redis-cli的实现原理</a>
+            redis-cli的实现原理
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -138,64 +141,16 @@
     </div>
     
     
-</article>
-
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/11/11/running/" itemprop="url">坚持就会更加坚定</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-11-11T06:12:39.000Z" itemprop="datePublished">11月 11 2019</time>
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
         </span>
-        
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p><img src="image/taishan.jpeg" alt="泰山国际马拉松"></p>
-<p>  距离泰山马拉松结束已经两周了，这半年来的坚持，总算还是有些许收获。记</p>
-<p>希望自己不负青春，加油养成自律、坚定的好习惯。</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/08/22/走出舒适区/" itemprop="url">走出舒适区</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-08-22T06:34:35.000Z" itemprop="datePublished">8月 22 2019</time>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/11/11/running/">坚持就会更加坚定</a>
+            
         </span>
-        
-        
     </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p><img src="image/beidaihe.jpeg" alt="北戴河"></p>
-<p>说来惭愧，上一次更新已经三个月了，这三个月发生了很多，但自己始终没有成长，加油，make change！</p>
-
-    
-    </div>
-    
     
 </article>
 
@@ -203,150 +158,6 @@
 
 
 
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/05/13/mothersday/" itemprop="url">好文共赏吧</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-05-13T12:22:35.000Z" itemprop="datePublished">5月 13 2019</time>
-        </span>
-        
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <h2 id="好文共赏"><a href="#好文共赏" class="headerlink" title="好文共赏"></a>好文共赏</h2><p><a href="https://mp.weixin.qq.com/s/muS68_vtXTrIGd1JNmS50A" target="_blank" rel="noopener">揭秘！现代IM系统的消息架构如何设计？</a>。之前的IM系统都做的很简单，推拉很难平衡，文中提供了一个新的思路。<br><a href="https://mp.weixin.qq.com/s/F7hmjN5rlHcEifT8NzlYqA" target="_blank" rel="noopener">一个技术人，如何做到比别人更突出</a>。1.做出承诺，超出预期;2.重要不紧急的事<br><a href="https://softwareengineering.stackexchange.com/questions/110933/how-to-determine-the-levels-of-abstraction" target="_blank" rel="noopener">如何决定函数的抽象层级</a><br><a href="https://my.oschina.net/jamesview/blog/2994112" target="_blank" rel="noopener">https://my.oschina.net/jamesview/blog/2994112</a></p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/05/05/shinian/" itemprop="url">小长假</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-05-05T10:45:35.000Z" itemprop="datePublished">5月 5 2019</time>
-        </span>
-        
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p><img src="image/shanghai.jpeg" alt="上海"><br>千万不要在小长假出行，人实在太多，看来灭霸是有些道理的</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/28/布隆过滤器/" itemprop="url">布隆过滤器</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-28T09:43:44.276Z" itemprop="datePublished">3月 28 2019</time>
-        </span>
-        
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>布隆过滤器一种空间数据结构，用来判断一个元素是否在某个集合中。由于具有假阳性，所以布隆过滤器只能得出某个元素有可能在该集合，反之该元素一定不在这个集合中。</p>
-<h2 id="布隆过滤器简介"><a href="#布隆过滤器简介" class="headerlink" title="布隆过滤器简介"></a><a href="#布隆过滤器简介" title="布隆过滤器简介"></a>布隆过滤器简介</h2><p>一个空的布隆过滤器是一个m位均为0的比特位数组，同时定义了k个哈希函数，将某个元素得出的哈希值映射到m个比特位中的某一位，将该为置为1，生成一个随机的分布。通常k要远远小于m，k和m的选取取决于过滤器的假阳性概率。<br><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Bloom_filter.svg/649px-Bloom_filter.svg.png" alt></p>
-<h3 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a><a href="#添加元素" title="添加元素"></a>添加元素</h3><p>当给布隆过滤器中添加一个元素时，利用k个哈希函数得出k个位置，并将$m$个比特位中对应的k个位置设置为1。</p>
-<h3 id="查询元素"><a href="#查询元素" class="headerlink" title="查询元素"></a><a href="#查询元素" title="查询元素"></a>查询元素</h3><p>查询元素时同样计算出k个位置，并获取该$k$个位置的所有元素值，当有一个位为0的话，就证明该元素不在该集合里。若k个位置均为1，则表示该元素可能在集合里，因为某些为1的位可能是别的元素在插入时设置的。</p>
-<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a><a href="#删除元素" title="删除元素"></a>删除元素</h3><p>由于假阳性的引入，布隆过滤器是不能删除元素的。  </p>
-<h2 id="布隆过滤器的优点"><a href="#布隆过滤器的优点" class="headerlink" title="布隆过滤器的优点"></a><a href="#布隆过滤器的优点" title="布隆过滤器的优点"></a>布隆过滤器的优点</h2><p>链表、哈希表和平衡二叉树都能够做元素的查找，但是布隆过滤器明显在时间和空间利用率上更优</p>
-<h3 id="空间利用率"><a href="#空间利用率" class="headerlink" title="空间利用率"></a><a href="#空间利用率" title="空间利用率"></a>空间利用率</h3><p>一个拥有1%的错误率和一个优化后的$k$的布隆过滤器，存储一个元素只需要9.6bit，没降低1%的错误率每个元素也只需增加4.8bit [文章中写的结论，还需要看证明过程]</p>
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a><a href="#时间复杂度" title="时间复杂度"></a>时间复杂度</h3><p>时间复杂度显然是$O(k)$</p>
-<h2 id="假阳性的概率"><a href="#假阳性的概率" class="headerlink" title="假阳性的概率"></a><a href="#假阳性的概率" title="假阳性的概率"></a>假阳性的概率</h2><p>假定一个哈希函数选择每个插入位置的概率都是相等的，且位数组一共m位，那么某个比特位被hash函数设为1的概率为<br>$$ 1 - \frac{1}{m}$$<br>那么通过计算k个哈希函数后，该位被置为1的概率为<br>$$ ( 1 - \frac{1}{m} )^k$$<br>如果该过滤器有n个元素，那么该位为0的概率为<br>$$ ( 1 - \frac{1}{m} )^{kn}$$<br>该位为1的概率为<br>$$ 1- ( 1 - \frac{1}{m} )^kn$$<br>那么随便找k个位置，这些位置都为1的概率(也可认为是假阳性概率)为<br>$$ (1- ( 1 - \frac{1}{m} )^{kn})^k \approx (1 - e^{-kn/m})^k$$<br>需要注意的是，该概率不是严格准确的，因为$k$个为在被置1时，不是独立事件，但是概率大约是相似的。由此可见，假阳性的概率随着比特位数组长度$m$的增大而减小，随着集合元素$n的增大而增大。那么证明了如果$m$足够大，布隆过滤器的准确性还是很高的。</p>
-<h2 id="如何寻找最适合的k"><a href="#如何寻找最适合的k" class="headerlink" title="如何寻找最适合的k"></a><a href="#如何寻找最适合的-k" title="如何寻找最适合的k"></a>如何寻找最适合的k</h2><p>最适合的$k$就是能够使过滤器假阳性的概率达到最低，直观来讲增加哈希函数可以提升准确率，但是又会影响更多的比特位，所以随着哈希函数数量k的增加，假阳性概率或许增加或许减少，因此怎么算最适合的k呢。我们拿出上述得到的概率，假定假阳性概率为f</p>
-<p>$$ f = (1 - e^{-kn/m})^k$$<br>为了简化运算对$f$取对数<br>$$ g = ln(f) = k(1 - e^{-kn/m})$$<br>对其进行求导<br>$$\frac{dg}{dk} = ln(1 - e^{-kn/m}) + \frac{kn}{m} \frac{e^{-kn/m}}{1 - e^{-kn/m}}$$<br>当导数为0的时候，就是最适合的k，我们得出最适合的k如下:<br>$$ k = \frac{m}{n}ln(2) $$</p>
-<h2 id="元素数量估算"><a href="#元素数量估算" class="headerlink" title="元素数量估算"></a><a href="#元素数量估算" title="元素数量估算"></a>元素数量估算</h2><p>Swamidass &amp; Baldi提出了布隆过滤器中实际元素估算的方式<br>$$ n^* = - \frac{m}{k} ln [1-\frac{X}{k}] $$</p>
-<p>其中，$$ n$*为元素个数的近似值，m是位数组长度，k是哈希函数的数量, $X$是位数组中被置为1的位的数量。<strong>还没有看完证明过程</strong></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a href="#总结" title="总结"></a>总结</h2><p>布隆过滤器由于引入了假阳性，因此不太适合高精度的需求，业务场景需要能够接受一定错误容忍度，但是查询和插入都是$O(k)$的时间复杂度，空间复杂度也相当可观，因此在快速的元素查找定位场景还是大有裨益的。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><a href="#参考文献" title="参考文献"></a>参考文献</h2><p><a href="https://en.wikipedia.org/wiki/Bloom_filter#Optimal_number_of_hash_functions" target="_blank" rel="noopener">Bloom_filter</a><br><a href="https://people.eecs.berkeley.edu/~daw/teaching/cs170-s03/Notes/lecture10.pdf" target="_blank" rel="noopener">Notes 10 for CS 170</a><br><a href="http://pubs.acs.org/doi/abs/10.1021/ci600526a" target="_blank" rel="noopener">Mathematical Correction for Fingerprint Similarity Measures to Improve Chemical Retrieval</a></p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/03/28/nginx日志切分/" itemprop="url">Nginx日志切分</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-03-28T10:02:35.000Z" itemprop="datePublished">3月 28 2018</time>
-        </span>
-        
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>最近还是有点累，睡了一天感觉还是略困，这周太忙了，但是很多时候忙到最后，却发现得大于失。感谢周围的同事给我提出的一些建议，还有劝勉，能使我得到些许慰借。<br>为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。</p>
-<h3 id="Nginx官方推荐的日志切分方式"><a href="#Nginx官方推荐的日志切分方式" class="headerlink" title="Nginx官方推荐的日志切分方式"></a>Nginx官方推荐的日志切分方式</h3><hr>
-<p><a href="https://www.nginx.com/resources/wiki/start/topics/examples/logrotation/" target="_blank" rel="noopener">Log Rotation</a>:官方推荐的日志切分实现</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mv access.log access.log.0</span><br><span class="line">$ kill -USR1 `cat master.nginx.pid`</span><br><span class="line">$ sleep 1</span><br><span class="line">$ gzip access.log.0    # do something with access.log.0</span><br></pre></td></tr></table></figure>
-<p>原理如下：</p>
-<ol>
-<li>将access.log重命名为access.log.0，由于linux都采取文件描述符来读取文件，因此重命名文件后日志还是会持续的向原文件写入</li>
-<li>USER1是linux中自定义的信号机制，意思就是说我们可以自己在开发中收到该信号时决定来做什么，nginx在收到该信号时会重新读取配置文件</li>
-<li>sleep 1秒能确保nginx将之前的旧日志文件能够彻底的关闭</li>
-</ol>
-<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a href="#具体实现" title="具体实现"></a>具体实现</h2><p>设想如果要定时的切分日志，那需要一个定时任务，来定时的对日志文件重命名并且引导nginx写入新的文件，而另一个shell脚本用来做具体的日志切割实现</p>
-<h3 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a><a href="#定时任务" title="定时任务"></a>定时任务</h3><p>如何实现定时任务，有多种多样的solution，为了简单，我就使用mac上的crontab吧， crontab -e添加一行  </p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/1 * * * * sh ~/logrotation.sh #每一分钟切割一次日志</span><br></pre></td></tr></table></figure>
-<h3 id="日志切割脚本"><a href="#日志切割脚本" class="headerlink" title="日志切割脚本"></a><a href="#日志切割脚本" title="日志切割脚本"></a>日志切割脚本</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line">time=`date +%Y%m%d%H%m`</span><br><span class="line">mv access.log access.log.$&#123;time&#125;</span><br><span class="line">kill -USR1 `ps -ef | grep nginx | grep master |awk &apos;&#123;print $2&#125;&apos;` ## 获取nginx的pid，没找到pid文件，就偷懒了</span><br><span class="line">sleep 1</span><br></pre></td></tr></table></figure>
-<h2 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a><a href="#执行结果" title="执行结果"></a>执行结果</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">baidudeMacBook-Pro:log echo$ ls</span><br><span class="line">access.log access.log.201709172136	access.log.201709172137</span><br></pre></td></tr></table></figure>
-<p>如上图所示，日志切分成功。</p>
-<h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a><a href="#扩展阅读" title="扩展阅读"></a>扩展阅读</h2><p><a href="https://redislabs.com/blog/5-key-takeaways-for-developing-with-redis/" target="_blank" rel="noopener">5个使用Redis时需要注意的事项</a>：对于Redis的使用和建议改了一些比较中肯的建议，很实用。</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-
-    
-    
     </div>
 </section>
     <footer class="footer">
