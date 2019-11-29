@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>redis-cli的实现原理 - I have a dream</title>
+<title>标签: redis - I have a dream</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,18 +14,13 @@
 
 
 
-    <meta name="description" content="首先从源码中找入口redis源码：src/redis-cli.c中找到main函数，main函数中核心的处理就是以下部分12345678910/* Start interactive mode when no command is provided */if (argc == 0 &amp;amp;&amp;amp; !config.eval) &amp;#123;    /* Ignore SIGPIPE in int">
-<meta name="keywords" content="redis">
-<meta property="og:type" content="article">
-<meta property="og:title" content="redis-cli的实现原理">
-<meta property="og:url" content="http://yoursite.com/2019/11/29/redis-cli/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="I have a dream">
+<meta property="og:url" content="http://yoursite.com/tags/redis/index.html">
 <meta property="og:site_name" content="I have a dream">
-<meta property="og:description" content="首先从源码中找入口redis源码：src/redis-cli.c中找到main函数，main函数中核心的处理就是以下部分12345678910/* Start interactive mode when no command is provided */if (argc == 0 &amp;amp;&amp;amp; !config.eval) &amp;#123;    /* Ignore SIGPIPE in int">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-11-29T06:10:03.883Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis-cli的实现原理">
-<meta name="twitter:description" content="首先从源码中找入口redis源码：src/redis-cli.c中找到main函数，main函数中核心的处理就是以下部分12345678910/* Start interactive mode when no command is provided */if (argc == 0 &amp;amp;&amp;amp; !config.eval) &amp;#123;    /* Ignore SIGPIPE in int">
+<meta name="twitter:title" content="I have a dream">
 
 
 
@@ -99,12 +94,20 @@
     </div>
 </nav>
 
-    <section class="section">
+    <section class="section section-heading">
     <div class="container">
-    <article class="article content gallery" itemscope itemprop="blogPost">
+        <div class="content">
+            <h5>#redis</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            redis-cli的实现原理
+            <a href="/2019/11/29/redis-cli/" itemprop="url">redis-cli的实现原理</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -141,23 +144,6 @@
     
     </div>
     
-    <div class="columns is-variable is-1 is-multiline is-mobile">
-    
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/redis/">#redis</a></span>
-    
-    </div>
-    
-    
-    <div class="columns is-mobile is-multiline article-nav">
-        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
-            
-        </span>
-        <span class="column is-12-mobile is-half-desktop  article-nav-next">
-            
-            <a href="/2019/11/11/running/">坚持就会更加坚定</a>
-            
-        </span>
-    </div>
     
 </article>
 
@@ -165,6 +151,8 @@
 
 
 
+    
+    
     </div>
 </section>
     <footer class="footer">
