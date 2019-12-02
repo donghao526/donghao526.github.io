@@ -317,7 +317,7 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>最近还是有点累，睡了一天感觉还是略困，这周太忙了，但是很多时候忙到最后，却发现得大于失。感谢周围的同事给我提出的一些建议，还有劝勉，能使我得到些许慰借。<br>为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。</p>
+        <p>  为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。</p>
 <h3 id="Nginx官方推荐的日志切分方式"><a href="#Nginx官方推荐的日志切分方式" class="headerlink" title="Nginx官方推荐的日志切分方式"></a>Nginx官方推荐的日志切分方式</h3><hr>
 <p><a href="https://www.nginx.com/resources/wiki/start/topics/examples/logrotation/" target="_blank" rel="noopener">Log Rotation</a>:官方推荐的日志切分实现</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mv access.log access.log.0</span><br><span class="line">$ kill -USR1 `cat master.nginx.pid`</span><br><span class="line">$ sleep 1</span><br><span class="line">$ gzip access.log.0    # do something with access.log.0</span><br></pre></td></tr></table></figure>
