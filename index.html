@@ -329,7 +329,7 @@
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mv access.log access.log.0</span><br><span class="line">$ kill -USR1 `cat master.nginx.pid`</span><br><span class="line">$ sleep 1</span><br><span class="line">$ gzip access.log.0    # do something with access.log.0</span><br></pre></td></tr></table></figure>
 <p>原理如下：</p>
 <ol>
-<li>将access.log重命名为access.log.0，由于linux都采取文件描述符来读取文件，因此重命名文件后日志还是会持续的向原文件写入</li>
+<li>将access.log重命名为access.log.0，由于linux都采取文件描述符来读取文件，因此重命名文件后日志还将持续的向原文件写入</li>
 <li>USER1是linux中自定义的信号机制，意思就是说我们可以自己在开发中收到该信号时决定来做什么，nginx在收到该信号时会重新读取配置文件</li>
 <li>sleep 1秒能确保nginx将之前的旧日志文件能够彻底的关闭</li>
 </ol>

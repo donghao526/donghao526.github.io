@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="I have a dream">
 <meta property="og:description" content="为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。 Nginx官方推荐的日志切分方式 Log Rotation:官方推荐的日志切分实现 1234$ mv access.log access.log.0$ kill -USR1 `cat master.nginx.pid`$ sleep 1$ gzip access.log.0">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-12-02T04:08:57.551Z">
+<meta property="og:updated_time" content="2019-12-03T02:13:04.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx日志切分">
 <meta name="twitter:description" content="为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。 Nginx官方推荐的日志切分方式 Log Rotation:官方推荐的日志切分实现 1234$ mv access.log access.log.0$ kill -USR1 `cat master.nginx.pid`$ sleep 1$ gzip access.log.0">
@@ -128,7 +128,7 @@
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mv access.log access.log.0</span><br><span class="line">$ kill -USR1 `cat master.nginx.pid`</span><br><span class="line">$ sleep 1</span><br><span class="line">$ gzip access.log.0    # do something with access.log.0</span><br></pre></td></tr></table></figure>
 <p>原理如下：</p>
 <ol>
-<li>将access.log重命名为access.log.0，由于linux都采取文件描述符来读取文件，因此重命名文件后日志还是会持续的向原文件写入</li>
+<li>将access.log重命名为access.log.0，由于linux都采取文件描述符来读取文件，因此重命名文件后日志还将持续的向原文件写入</li>
 <li>USER1是linux中自定义的信号机制，意思就是说我们可以自己在开发中收到该信号时决定来做什么，nginx在收到该信号时会重新读取配置文件</li>
 <li>sleep 1秒能确保nginx将之前的旧日志文件能够彻底的关闭</li>
 </ol>
