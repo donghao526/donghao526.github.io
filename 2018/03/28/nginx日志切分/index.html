@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="I have a dream">
 <meta property="og:description" content="为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。 Nginx官方推荐的日志切分方式 Log Rotation:官方推荐的日志切分实现 1234$ mv access.log access.log.0$ kill -USR1 `cat master.nginx.pid`$ sleep 1$ gzip access.log.0">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-12-03T02:13:04.347Z">
+<meta property="og:updated_time" content="2019-12-03T06:57:44.447Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx日志切分">
 <meta name="twitter:description" content="为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。 Nginx官方推荐的日志切分方式 Log Rotation:官方推荐的日志切分实现 1234$ mv access.log access.log.0$ kill -USR1 `cat master.nginx.pid`$ sleep 1$ gzip access.log.0">
@@ -129,7 +129,7 @@
 <p>原理如下：</p>
 <ol>
 <li>将access.log重命名为access.log.0，由于linux都采取文件描述符来读取文件，因此重命名文件后日志还将持续的向原文件写入</li>
-<li>USER1是linux中自定义的信号机制，意思就是说我们可以自己在开发中收到该信号时决定来做什么，nginx在收到该信号时会重新读取配置文件</li>
+<li>USER1是linux中自定义的信号机制，nginx在收到该信号时会重新读取配置文件</li>
 <li>sleep 1秒能确保nginx将之前的旧日志文件能够彻底的关闭</li>
 </ol>
 <h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a href="#具体实现" title="具体实现"></a>具体实现</h2><p>设想如果要定时的切分日志，那需要一个定时任务，来定时的对日志文件重命名并且引导nginx写入新的文件，而另一个shell脚本用来做具体的日志切割实现</p>
