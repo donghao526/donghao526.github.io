@@ -23,7 +23,7 @@
 <meta property="og:description" content="redisGetReply方法 redisGetReply 中的 redisBufferRead 的作用是将数据读取到 redis context 的 reader 中，每个 reader 都包含一个读 buf，pos 和 len 记录了 buf 的长度和读取位置  12345678910111213141516typedef struct redisReader &amp;#123;    int e">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://yoursite.com/2020/01/07/Redis-get-reply/image/liancang.jpeg">
-<meta property="og:updated_time" content="2020-01-07T03:47:49.326Z">
+<meta property="og:updated_time" content="2020-01-07T05:09:08.832Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis cli处理服务端的返回逻辑">
 <meta name="twitter:description" content="redisGetReply方法 redisGetReply 中的 redisBufferRead 的作用是将数据读取到 redis context 的 reader 中，每个 reader 都包含一个读 buf，pos 和 len 记录了 buf 的长度和读取位置  12345678910111213141516typedef struct redisReader &amp;#123;    int e">
@@ -132,11 +132,12 @@
 <ul>
 <li>buf：读缓冲区</li>
 <li>pos：当前读取到的位置</li>
-<li>len：buff 的长度</li>
-</ul>
+<li>len：buff 的长度<a id="more"></a>
 <h3 id="redisReaderGetReply"><a href="#redisReaderGetReply" class="headerlink" title="redisReaderGetReply"></a>redisReaderGetReply</h3><blockquote>
 <p><strong>redisReaderGetReply</strong>是将reader中保存的数据生成一个reply</p>
 </blockquote>
+</li>
+</ul>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">先来看用到的数据结构</span><br><span class="line">typedef struct redisReadTask &#123;</span><br><span class="line">    int type;</span><br><span class="line">    int elements; /* number of elements in multibulk container */</span><br><span class="line">    int idx; /* index in parent (array) object */</span><br><span class="line">    void *obj; /* holds user-generated value for a read task */</span><br><span class="line">    struct redisReadTask *parent; /* parent task */</span><br><span class="line">    void *privdata; /* user-settable arbitrary field */</span><br><span class="line">&#125; redisReadTask;</span><br><span class="line"></span><br><span class="line">/* This is the reply object returned by redisCommand() */</span><br><span class="line">typedef struct redisReply &#123;</span><br><span class="line">    int type; /* REDIS_REPLY_* */</span><br><span class="line">    long long integer; /* The integer when type is REDIS_REPLY_INTEGER */</span><br><span class="line">    double dval; /* The double when type is REDIS_REPLY_DOUBLE */</span><br><span class="line">    size_t len; /* Length of string */</span><br><span class="line">    char *str; /* Used for REDIS_REPLY_ERROR, REDIS_REPLY_STRING</span><br><span class="line">                  and REDIS_REPLY_DOUBLE (in additionl to dval). */</span><br><span class="line">    char vtype[4]; /* Used for REDIS_REPLY_VERB, contains the null</span><br><span class="line">                      terminated 3 character content type, such as &quot;txt&quot;. */</span><br><span class="line">    size_t elements; /* number of elements, for REDIS_REPLY_ARRAY */</span><br><span class="line">    struct redisReply **element; /* elements vector for REDIS_REPLY_ARRAY */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h3><ol>
 <li>redisReaderGetReply中初始化栈，生成根节点，如下所示</li>
