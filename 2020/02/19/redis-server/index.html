@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="I have a dream">
 <meta property="og:description" content="首先在initServer中，注册eventloop，为io复用做准备 12server.cserver.el = aeCreateEventLoop(server.maxclients+CONFIG_FDSET_INCR);  ListenToPort创建基于tcp的socket连接，并监听客户端连接，并将该socket设置为非阻塞 12345server.c/* Open the TCP l">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2020-02-20T06:36:30.605Z">
+<meta property="og:updated_time" content="2020-02-24T10:43:42.598Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis-server">
 <meta name="twitter:description" content="首先在initServer中，注册eventloop，为io复用做准备 12server.cserver.el = aeCreateEventLoop(server.maxclients+CONFIG_FDSET_INCR);  ListenToPort创建基于tcp的socket连接，并监听客户端连接，并将该socket设置为非阻塞 12345server.c/* Open the TCP l">
@@ -132,6 +132,9 @@
 <li><p>为每个server的fd设置可读事件回调</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (j = 0; j &lt; server.ipfd_count; j++) &#123;</span><br><span class="line">    if (aeCreateFileEvent(server.el, server.ipfd[j], AE_READABLE, acceptTcpHandler,NULL) == AE_ERR) &#123;</span><br><span class="line">        serverPanic(&quot;Unrecoverable error creating server.ipfd file event.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
+</ol>
+<a id="more"></a>
+<ol start="4">
 <li><p>aeCreateFileEvent</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">ae.c</span><br><span class="line">typedef struct aeFileEvent &#123;</span><br><span class="line">    int mask; /* one of AE_(READABLE|WRITABLE|BARRIER) */</span><br><span class="line">    aeFileProc *rfileProc;</span><br><span class="line">    aeFileProc *wfileProc;</span><br><span class="line">    void *clientData;</span><br><span class="line">&#125; aeFileEvent;</span><br><span class="line">int aeCreateFileEvent(aeEventLoop *eventLoop, int fd, int mask,</span><br><span class="line">        aeFileProc *proc, void *clientData)</span><br><span class="line">&#123;</span><br><span class="line">    if (fd &gt;= eventLoop-&gt;setsize) &#123;</span><br><span class="line">        errno = ERANGE;</span><br><span class="line">        return AE_ERR;</span><br><span class="line">    &#125;</span><br><span class="line">    // 获取对应server socket fd对应的event</span><br><span class="line">    aeFileEvent *fe = &amp;eventLoop-&gt;events[fd];</span><br><span class="line"></span><br><span class="line">    // 把fd写入eventloop的state里</span><br><span class="line">    if (aeApiAddEvent(eventLoop, fd, mask) == -1)</span><br><span class="line">        return AE_ERR;</span><br><span class="line">        </span><br><span class="line">    // 设置该fd对应event的读状态或写状态</span><br><span class="line">    fe-&gt;mask |= mask;</span><br><span class="line">    </span><br><span class="line">    // 注册读写处理的回调函数proc</span><br><span class="line">    if (mask &amp; AE_READABLE) fe-&gt;rfileProc = proc;</span><br><span class="line">    if (mask &amp; AE_WRITABLE) fe-&gt;wfileProc = proc;</span><br><span class="line">    </span><br><span class="line">    // 存储数据</span><br><span class="line">    fe-&gt;clientData = clientData;</span><br><span class="line">    </span><br><span class="line">    // 更新eventloop的最大fd</span><br><span class="line">    if (fd &gt; eventLoop-&gt;maxfd)</span><br><span class="line">        eventLoop-&gt;maxfd = fd;</span><br><span class="line">    return AE_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -156,7 +159,9 @@
     
     
     <div class="columns is-mobile is-multiline article-nav">
-        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2020/02/24/epoll/">IO复用之epoll</a>
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">
