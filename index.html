@@ -106,6 +106,36 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2020/04/26/git/" itemprop="url">git 配置</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2020-04-26T03:03:37.000Z" itemprop="datePublished">4月 26 2020</time>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>经常使用公司的git仓库，同时也需要使用github，此时git的配置就会出问题。由于git配置的用户名和密码均是全局的，会导致如果使用github的配置如果不指定，就按照公司的git配置中的默认用户名提交。</p>
+<p>解决办法，在github仓库中设置local配置</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global  user.name <span class="hljs-string">'XXX'</span></span><br><span class="line">git config --global  user.email <span class="hljs-string">'XXX'</span></span><br></pre></td></tr></table></figure>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2020/02/24/epoll/" itemprop="url">IO复用之epoll</a>
         
     </h1>
@@ -228,12 +258,14 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h2 id="首先从源码中找入口"><a href="#首先从源码中找入口" class="headerlink" title="首先从源码中找入口"></a>首先从源码中找入口</h2><p>redis源码：src/redis-cli.c中找到main函数，main函数中核心的处理就是以下部分<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/* Start interactive mode when no command is provided */</span><br><span class="line">if (argc == 0 &amp;&amp; !config.eval) &#123;</span><br><span class="line">    /* Ignore SIGPIPE in interactive mode to force a reconnect */</span><br><span class="line">    signal(SIGPIPE, SIG_IGN);</span><br><span class="line"></span><br><span class="line">    /* Note that in repl mode we don&apos;t abort on connection error.</span><br><span class="line">     * A new attempt will be performed for every command send. */</span><br><span class="line">    cliConnect(0);</span><br><span class="line">    repl();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <h2 id="首先从源码中找入口"><a href="#首先从源码中找入口" class="headerlink" title="首先从源码中找入口"></a>首先从源码中找入口</h2><p>redis源码：src/redis-cli.c中找到main函数，main函数中核心的处理就是以下部分</p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* Start interactive mode when no command is provided */</span></span><br><span class="line"><span class="hljs-keyword">if</span> (argc == <span class="hljs-number">0</span> &amp;&amp; !config.eval) &#123;</span><br><span class="line">    <span class="hljs-comment">/* Ignore SIGPIPE in interactive mode to force a reconnect */</span></span><br><span class="line">    signal(SIGPIPE, SIG_IGN);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/* Note that in repl mode we don't abort on connection error.</span></span><br><span class="line"><span class="hljs-comment">     * A new attempt will be performed for every command send. */</span></span><br><span class="line">    cliConnect(<span class="hljs-number">0</span>);</span><br><span class="line">    repl();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>cliConnect<br>主要是与服务端建立连接，每一个连接都会创建一个redisContext结构来保存</li>
 <li>repl<br>repl实现了发送命令并输出Server返回结果的主要逻辑</li>
 </ul>
-<h2 id="RedisContext"><a href="#RedisContext" class="headerlink" title="RedisContext"></a>RedisContext</h2><p>redisContext结构如下，重要的字段都进行了注释<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">typedef struct redisContext &#123;</span><br><span class="line">    int err; /* Error flags, 0 when there is no error */</span><br><span class="line">    char errstr[128]; /* String representation of error when applicable */</span><br><span class="line">    int fd; // socket句柄，用户连接redis server</span><br><span class="line">    int flags;</span><br><span class="line">    char *obuf; /* Write buffer */ //主要存储发送的命令，resp协议封装后的sds</span><br><span class="line">    redisReader *reader; /* Protocol reader */ // 存储server返回的数据</span><br><span class="line"></span><br><span class="line">    enum redisConnectionType connection_type;</span><br><span class="line">    struct timeval *timeout;</span><br><span class="line"></span><br><span class="line">    struct &#123;</span><br><span class="line">        char *host;</span><br><span class="line">        char *source_addr;</span><br><span class="line">        int port;</span><br><span class="line">    &#125; tcp;</span><br><span class="line"></span><br><span class="line">    struct &#123;</span><br><span class="line">        char *path;</span><br><span class="line">    &#125; unix_sock;</span><br><span class="line"></span><br><span class="line">&#125; redisContext;</span><br></pre></td></tr></table></figure></p>
+<h2 id="RedisContext"><a href="#RedisContext" class="headerlink" title="RedisContext"></a>RedisContext</h2><p>redisContext结构如下，重要的字段都进行了注释</p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">redisContext</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> err; <span class="hljs-comment">/* Error flags, 0 when there is no error */</span></span><br><span class="line">    <span class="hljs-keyword">char</span> errstr[<span class="hljs-number">128</span>]; <span class="hljs-comment">/* String representation of error when applicable */</span></span><br><span class="line">    <span class="hljs-keyword">int</span> fd; <span class="hljs-comment">// socket句柄，用户连接redis server</span></span><br><span class="line">    <span class="hljs-keyword">int</span> flags;</span><br><span class="line">    <span class="hljs-keyword">char</span> *obuf; <span class="hljs-comment">/* Write buffer */</span> <span class="hljs-comment">//主要存储发送的命令，resp协议封装后的sds</span></span><br><span class="line">    redisReader *reader; <span class="hljs-comment">/* Protocol reader */</span> <span class="hljs-comment">// 存储server返回的数据</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">enum</span> redisConnectionType connection_type;</span><br><span class="line">    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">timeval</span> *<span class="hljs-title">timeout</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span></span><br><span class="line">        <span class="hljs-keyword">char</span> *host;</span><br><span class="line">        <span class="hljs-keyword">char</span> *source_addr;</span><br><span class="line">        <span class="hljs-keyword">int</span> port;</span><br><span class="line">    &#125; tcp;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span></span><br><span class="line">        <span class="hljs-keyword">char</span> *path;</span><br><span class="line">    &#125; unix_sock;</span><br><span class="line"></span><br><span class="line">&#125; redisContext;</span><br></pre></td></tr></table></figure>
         <p class="article-more-link">
             <a href="/2019/11/29/redis-cli/#more">阅读更多</a>
         </p>
@@ -405,50 +437,23 @@
 
 
     
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+    
         
-            <a href="/2018/03/28/nginx日志切分/" itemprop="url">Nginx日志切分</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-03-28T10:02:35.000Z" itemprop="datePublished">3月 28 2018</time>
-        </span>
-        
-        
+<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+    <div class="pagination-previous is-invisible is-hidden-mobile">
+        <a href="/page/0/">上一页</a>
     </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>  为什么想写日志切分，因为一直我好像没有研究过它如何实现，至于如何实现，的确也有多种方法，先写nginx官方推荐的吧。</p>
-<h3 id="Nginx官方推荐的日志切分方式"><a href="#Nginx官方推荐的日志切分方式" class="headerlink" title="Nginx官方推荐的日志切分方式"></a>Nginx官方推荐的日志切分方式</h3><hr>
-<p><a href="https://www.nginx.com/resources/wiki/start/topics/examples/logrotation/" target="_blank" rel="noopener">Log Rotation</a>:官方推荐的日志切分实现</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mv access.log access.log.0</span><br><span class="line">$ kill -USR1 `cat master.nginx.pid`</span><br><span class="line">$ sleep 1</span><br><span class="line">$ gzip access.log.0    # do something with access.log.0</span><br></pre></td></tr></table></figure>
-<p>原理如下：</p>
-<ol>
-<li>将access.log重命名为access.log.0，由于linux都采取文件描述符来读取文件，因此重命名文件后日志还将持续的向原文件写入</li>
-<li>USER1是linux中自定义的信号机制，nginx在收到该信号时会重新读取配置文件</li>
-<li>sleep 1秒能确保nginx将之前的旧日志文件能够彻底的关闭</li>
-</ol>
-<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a href="#具体实现" title="具体实现"></a>具体实现</h2><p>设想如果要定时的切分日志，那需要一个定时任务，来定时的对日志文件重命名并且引导nginx写入新的文件，而另一个shell脚本用来做具体的日志切割实现</p>
-<h3 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a><a href="#定时任务" title="定时任务"></a>定时任务</h3><p>如何实现定时任务，有多种多样的solution，为了简单，我就使用mac上的crontab吧， crontab -e添加一行  </p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/1 * * * * sh ~/logrotation.sh #每一分钟切割一次日志</span><br></pre></td></tr></table></figure>
-<h3 id="日志切割脚本"><a href="#日志切割脚本" class="headerlink" title="日志切割脚本"></a><a href="#日志切割脚本" title="日志切割脚本"></a>日志切割脚本</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line">time=`date +%Y%m%d%H%m`</span><br><span class="line">mv access.log access.log.$&#123;time&#125;</span><br><span class="line">kill -USR1 `ps -ef | grep nginx | grep master |awk &apos;&#123;print $2&#125;&apos;` ## 获取nginx的pid，没找到pid文件，就偷懒了</span><br><span class="line">sleep 1</span><br></pre></td></tr></table></figure>
-<h2 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a><a href="#执行结果" title="执行结果"></a>执行结果</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">baidudeMacBook-Pro:log echo$ ls</span><br><span class="line">access.log access.log.201709172136	access.log.201709172137</span><br></pre></td></tr></table></figure>
-<p>如上图所示，日志切分成功。</p>
-<h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a><a href="#扩展阅读" title="扩展阅读"></a>扩展阅读</h2><p><a href="https://redislabs.com/blog/5-key-takeaways-for-developing-with-redis/" target="_blank" rel="noopener">5个使用Redis时需要注意的事项</a>：对于Redis的使用和建议改了一些比较中肯的建议，很实用。</p>
-
-    
+    <div class="pagination-next">
+        <a href="/page/2/">下一页</a>
     </div>
-    
-    
-</article>
-
-
-
-
-
-    
+    <ul class="pagination-list is-hidden-mobile">
+        
+        <li><a class="pagination-link is-current" href="/">1</a></li>
+        
+        <li><a class="pagination-link" href="/page/2/">2</a></li>
+        
+    </ul>
+</nav>
     
     </div>
 </section>

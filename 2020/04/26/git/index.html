@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>归档: 2020 - I have a dream</title>
+<title>git 配置 - I have a dream</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,13 +14,18 @@
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="I have a dream">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+    <meta name="description" content="经常使用公司的git仓库，同时也需要使用github，此时git的配置就会出问题。由于git配置的用户名和密码均是全局的，会导致如果使用github的配置如果不指定，就按照公司的git配置中的默认用户名提交。 解决办法，在github仓库中设置local配置 12git config --global  user.name &apos;XXX&apos;git config --global  user.email">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 配置">
+<meta property="og:url" content="http://yoursite.com/2020/04/26/git/index.html">
 <meta property="og:site_name" content="I have a dream">
+<meta property="og:description" content="经常使用公司的git仓库，同时也需要使用github，此时git的配置就会出问题。由于git配置的用户名和密码均是全局的，会导致如果使用github的配置如果不指定，就按照公司的git配置中的默认用户名提交。 解决办法，在github仓库中设置local配置 12git config --global  user.name &apos;XXX&apos;git config --global  user.email">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-04-26T03:07:21.047Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="I have a dream">
+<meta name="twitter:title" content="git 配置">
+<meta name="twitter:description" content="经常使用公司的git仓库，同时也需要使用github，此时git的配置就会出问题。由于git配置的用户名和密码均是全局的，会导致如果使用github的配置如果不指定，就按照公司的git配置中的默认用户名提交。 解决办法，在github仓库中设置local配置 12git config --global  user.name &apos;XXX&apos;git config --global  user.email">
 
 
 
@@ -102,40 +107,52 @@
 
     <section class="section">
     <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            git 配置
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2020-04-26T03:03:37.000Z" itemprop="datePublished">4月 26 2020</time>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>经常使用公司的git仓库，同时也需要使用github，此时git的配置就会出问题。由于git配置的用户名和密码均是全局的，会导致如果使用github的配置如果不指定，就按照公司的git配置中的默认用户名提交。</p>
+<p>解决办法，在github仓库中设置local配置</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global  user.name <span class="hljs-string">'XXX'</span></span><br><span class="line">git config --global  user.email <span class="hljs-string">'XXX'</span></span><br></pre></td></tr></table></figure>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/git/">#git</a></span>
+    
+    </div>
     
     
-        <div class="archive content">
-            <h4 class="title is-4" id="2020">2020</h4>
-            <div class="articles">
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
             
-                <div class="article content>">
-                    <time class="is-text-small" datetime="2020-04-26T03:03:37.000Z" itemprop="datePublished">
-                        4月 26</time>
-                    <h6 class="title is-6"><a href="/2020/04/26/git/">git 配置</a></h6>
-                </div>
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
             
-                <div class="article content>">
-                    <time class="is-text-small" datetime="2020-02-24T10:39:53.000Z" itemprop="datePublished">
-                        2月 24</time>
-                    <h6 class="title is-6"><a href="/2020/02/24/epoll/">IO复用之epoll</a></h6>
-                </div>
+            <a href="/2020/02/24/epoll/">IO复用之epoll</a>
             
-                <div class="article content>">
-                    <time class="is-text-small" datetime="2020-02-19T02:09:32.000Z" itemprop="datePublished">
-                        2月 19</time>
-                    <h6 class="title is-6"><a href="/2020/02/19/redis-server/">redis-server</a></h6>
-                </div>
-            
-                <div class="article content>">
-                    <time class="is-text-small" datetime="2020-01-07T03:20:00.000Z" itemprop="datePublished">
-                        1月 7</time>
-                    <h6 class="title is-6"><a href="/2020/01/07/Redis-get-reply/">Redis cli处理服务端的返回逻辑</a></h6>
-                </div>
-            
-            </div>
-        </div>
+        </span>
+    </div>
     
-    
+</article>
+
+
+
+
+
     </div>
 </section>
     <footer class="footer">
