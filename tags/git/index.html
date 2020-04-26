@@ -127,7 +127,7 @@
     
         <p>经常使用公司的git仓库，同时也需要使用github，此时git的配置就会出问题。由于git配置的用户名和密码均是全局的，会导致如果使用github的配置如果不指定，就按照公司的git配置中的默认用户名提交。</p>
 <p>解决办法，在github仓库中设置local配置</p>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global  user.name <span class="hljs-string">'XXX'</span></span><br><span class="line">git config --global  user.email <span class="hljs-string">'XXX'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="hljs-built_in">local</span> user.name xxx</span><br><span class="line">git config --<span class="hljs-built_in">local</span> user.email xxx@xxx.com</span><br></pre></td></tr></table></figure>
 
     
     </div>
