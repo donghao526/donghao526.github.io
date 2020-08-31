@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>分类 - I have a dream</title>
+<title>标签: mysql - I have a dream</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,10 +14,9 @@
 
 
 
-    <meta name="keywords" content="IO复用,mysql,redis,git,nginx,run,life">
-<meta property="og:type" content="website">
+    <meta property="og:type" content="website">
 <meta property="og:title" content="I have a dream">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/mysql/index.html">
 <meta property="og:site_name" content="I have a dream">
 <meta property="og:locale" content="zh-cn">
 <meta name="twitter:card" content="summary">
@@ -81,7 +80,7 @@
             
             <a class="navbar-item " href="/archives">Archives</a>
             
-            <a class="navbar-item is-active" href="/categories">Categories</a>
+            <a class="navbar-item " href="/categories">Categories</a>
             
             <a class="navbar-item " href="/tags">Tags</a>
             
@@ -104,15 +103,102 @@
     <section class="section section-heading">
     <div class="container">
         <div class="content">
-            <h5><i class="far fa-folder"></i>分类</h5>
+            <h5>#mysql</h5>
         </div>
     </div>
 </section>
 <section class="section">
     <div class="container">
-        <div class="columns is-variable is-1 is-multiline is-mobile">
-            
-        </div>
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2020/08/31/innodblock/" itemprop="url">Innodb Locks</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2020-08-31T12:37:09.000Z" itemprop="datePublished">8月 31 2020</time>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html" target="_blank" rel="noopener">本文参考Mysql官方文档</a></p>
+<h2 id="共享锁和排它锁"><a href="#共享锁和排它锁" class="headerlink" title="共享锁和排它锁"></a>共享锁和排它锁</h2><ul>
+<li>共享锁（shared locks：s lock）</li>
+<li>排它锁（exclusive locks：x lock）</li>
+</ul>
+<h2 id="意向锁（intention-locks）-表级别"><a href="#意向锁（intention-locks）-表级别" class="headerlink" title="意向锁（intention locks）-  表级别"></a>意向锁（intention locks）-  表级别</h2><ul>
+<li>共享意向锁（intention shared lock -&gt; IS）</li>
+<li>排他意向锁（intention exclusive lock -&gt; IX）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>X</th>
+<th>IX</th>
+<th>S</th>
+<th>IS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Conflict</td>
+</tr>
+<tr>
+<td>IX</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Conflict</td>
+<td>Conflict</td>
+</tr>
+<tr>
+<td>S</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Compatible</td>
+</tr>
+<tr>
+<td>IS</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Compatible</td>
+<td>Compatible</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>事务申请一个表中某行记录的共享锁前，必须申请该表的IS lock或更强的锁</li>
+<li>事务申请一个表中某行记录的排他锁前，必须申请该表的IX lock</li>
+</ul>
+<blockquote>
+<p>意向锁只阻塞表级别的加锁请求（for example, <a href="https://dev.mysql.com/doc/refman/8.0/en/lock-tables.html" target="_blank" rel="noopener"><code>LOCK TABLES ... WRITE</code></a>)。意图锁主要是为了表明某些客户端正在或将要锁住表中的某一行。</p>
+</blockquote>
+<h2 id="记录锁"><a href="#记录锁" class="headerlink" title="记录锁"></a>记录锁</h2><p>A record lock is a lock on an index record. For example, <code>SELECT c1 FROM t WHERE c1 = 10 FOR UPDATE;</code> prevents any other transaction from inserting, updating, or deleting rows where the value of <code>t.c1</code> is <code>10</code>.</p>
+<p>Record locks always lock index records, even if a table is defined with no indexes. For such cases, <code>InnoDB</code> creates a hidden clustered index and uses this index for record locking. See <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html" target="_blank" rel="noopener">Section 15.6.2.1, “Clustered and Secondary Indexes”</a>.<br></p>
+        <p class="article-more-link">
+            <a href="/2020/08/31/innodblock/#more">阅读更多</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+
+    
+    
     </div>
 </section>
     <footer class="footer">

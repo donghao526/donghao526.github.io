@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Innodb Locks - I have a dream</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="本文参考Mysql官方文档 共享锁和排它锁 共享锁（shared locks：s lock） 排它锁（exclusive locks：x lock）  意向锁（intention locks）-  表级别 共享意向锁（intention shared lock -&amp;gt; IS） 排他意向锁（intention exclusive lock -&amp;gt; IX）      X IX S IS">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Innodb Locks">
+<meta property="og:url" content="http://yoursite.com/2020/08/31/innodblock/index.html">
+<meta property="og:site_name" content="I have a dream">
+<meta property="og:description" content="本文参考Mysql官方文档 共享锁和排它锁 共享锁（shared locks：s lock） 排它锁（exclusive locks：x lock）  意向锁（intention locks）-  表级别 共享意向锁（intention shared lock -&amp;gt; IS） 排他意向锁（intention exclusive lock -&amp;gt; IX）      X IX S IS">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-08-31T13:16:43.956Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Innodb Locks">
+<meta name="twitter:description" content="本文参考Mysql官方文档 共享锁和排它锁 共享锁（shared locks：s lock） 排它锁（exclusive locks：x lock）  意向锁（intention locks）-  表级别 共享意向锁（intention shared lock -&amp;gt; IS） 排他意向锁（intention exclusive lock -&amp;gt; IX）      X IX S IS">
+
+
+
+
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    Echo
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Categories</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+            <a class="navbar-item " href="https://github.com/donghao526">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="搜索" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Innodb Locks
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2020-08-31T12:37:09.000Z" itemprop="datePublished">8月 31 2020</time>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html" target="_blank" rel="noopener">本文参考Mysql官方文档</a></p>
+<h2 id="共享锁和排它锁"><a href="#共享锁和排它锁" class="headerlink" title="共享锁和排它锁"></a>共享锁和排它锁</h2><ul>
+<li>共享锁（shared locks：s lock）</li>
+<li>排它锁（exclusive locks：x lock）</li>
+</ul>
+<h2 id="意向锁（intention-locks）-表级别"><a href="#意向锁（intention-locks）-表级别" class="headerlink" title="意向锁（intention locks）-  表级别"></a>意向锁（intention locks）-  表级别</h2><ul>
+<li>共享意向锁（intention shared lock -&gt; IS）</li>
+<li>排他意向锁（intention exclusive lock -&gt; IX）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>X</th>
+<th>IX</th>
+<th>S</th>
+<th>IS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Conflict</td>
+</tr>
+<tr>
+<td>IX</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Conflict</td>
+<td>Conflict</td>
+</tr>
+<tr>
+<td>S</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Compatible</td>
+</tr>
+<tr>
+<td>IS</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Compatible</td>
+<td>Compatible</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>事务申请一个表中某行记录的共享锁前，必须申请该表的IS lock或更强的锁</li>
+<li>事务申请一个表中某行记录的排他锁前，必须申请该表的IX lock</li>
+</ul>
+<blockquote>
+<p>意向锁只阻塞表级别的加锁请求（for example, <a href="https://dev.mysql.com/doc/refman/8.0/en/lock-tables.html" target="_blank" rel="noopener"><code>LOCK TABLES ... WRITE</code></a>)。意图锁主要是为了表明某些客户端正在或将要锁住表中的某一行。</p>
+</blockquote>
+<h2 id="记录锁"><a href="#记录锁" class="headerlink" title="记录锁"></a>记录锁</h2><p>A record lock is a lock on an index record. For example, <code>SELECT c1 FROM t WHERE c1 = 10 FOR UPDATE;</code> prevents any other transaction from inserting, updating, or deleting rows where the value of <code>t.c1</code> is <code>10</code>.</p>
+<p>Record locks always lock index records, even if a table is defined with no indexes. For such cases, <code>InnoDB</code> creates a hidden clustered index and uses this index for record locking. See <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html" target="_blank" rel="noopener">Section 15.6.2.1, “Clustered and Secondary Indexes”</a>.<br><a id="more"></a></p>
+<h3 id="Gap-Lock"><a href="#Gap-Lock" class="headerlink" title="Gap Lock"></a>Gap Lock</h3><p>Gap lock是一个锁定索引记录间隙的锁，或者是一个可锁住第一条记录之前或者最后一条记录之后的锁。例如, <code>SELECT c1 FROM t WHERE c1 BETWEEN 10 and 20 FOR UPDATE;</code> 阻止其他事务插入一个 <code>t.c1</code>的值为15的记录，无论是否已经存在列为15的记录, 因为15到20间的gap已经被锁。</p>
+<p>A gap 可能作用于一个索引，或多个索引，甚至为空。</p>
+<p>Gap锁对于使用唯一索引来查找一个唯一的行记录是没有必要的。例如对于一个unique索引的<code>id</code>列，以下的语句仅仅使用了记录锁锁住了id为100的行，并不影响其他事务在间隙中进行插入操作。</p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">child</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">100</span>;</span><br></pre></td></tr></table></figure>
+<p>如果id所在列没有索引或者是一个非唯一索引，那这条语句可以锁住语句的间隙。</p>
+<p>It is also worth noting here that conflicting locks can be held on a gap by different transactions. For example, transaction A can hold a shared gap lock (gap S-lock) on a gap while transaction B holds an exclusive gap lock (gap X-lock) on the same gap. The reason conflicting gap locks are allowed is that if a record is purged from an index, the gap locks held on the record by different transactions must be merged.</p>
+<p>Gap locks in <code>InnoDB</code> are “purely inhibitive”, which means that their only purpose is to prevent other transactions from inserting to the gap. Gap locks can co-exist. A gap lock taken by one transaction does not prevent another transaction from taking a gap lock on the same gap. There is no difference between shared and exclusive gap locks. They do not conflict with each other, and they perform the same function.</p>
+<p>Gap locking can be disabled explicitly. This occurs if you change the transaction isolation level to <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-isolation-levels.html#isolevel_read-committed" target="_blank" rel="noopener"><code>READ COMMITTED</code></a>. Under these circumstances, gap locking is disabled for searches and index scans and is used only for foreign-key constraint checking and duplicate-key checking.</p>
+<p>There are also other effects of using the <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-isolation-levels.html#isolevel_read-committed" target="_blank" rel="noopener"><code>READ COMMITTED</code></a> isolation level. Record locks for nonmatching rows are released after MySQL has evaluated the <code>WHERE</code> condition. For <code>UPDATE</code> statements, <code>InnoDB</code> does a “semi-consistent” read, such that it returns the latest committed version to MySQL so that MySQL can determine whether the row matches the <code>WHERE</code> condition of the <a href="https://dev.mysql.com/doc/refman/8.0/en/update.html" target="_blank" rel="noopener"><code>UPDATE</code></a>.</p>
+<h4 id="索引为uniq时的gap-lock"><a href="#索引为uniq时的gap-lock" class="headerlink" title="索引为uniq时的gap lock"></a>索引为uniq时的gap lock</h4><p>首先我们来建一张表，并给表中插入一部分数据：</p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-string">`demo`</span> (</span><br><span class="line">  <span class="hljs-string">`id`</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,</span><br><span class="line">  <span class="hljs-string">`number`</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">'0'</span>,</span><br><span class="line">  PRIMARY <span class="hljs-keyword">KEY</span> (<span class="hljs-string">`id`</span>),</span><br><span class="line">  <span class="hljs-keyword">KEY</span> <span class="hljs-string">`number`</span> (<span class="hljs-string">`number`</span>)</span><br><span class="line">) <span class="hljs-keyword">ENGINE</span>=<span class="hljs-keyword">InnoDB</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">CHARSET</span>=utf8</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> demo; </span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">| id | number |</span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">| 20 |      0 |</span><br><span class="line">| 30 |      0 |</span><br><span class="line">|  1 |      1 |</span><br><span class="line">| 10 |      1 |</span><br><span class="line">|  2 |      3 |</span><br><span class="line">|  3 |      3 |</span><br><span class="line">|  8 |      3 |</span><br><span class="line">| 18 |      3 |</span><br><span class="line">| 21 |      4 |</span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">9 rows in <span class="hljs-keyword">set</span> (<span class="hljs-number">0.01</span> sec)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>tran 1 : select不存在的数据；tran 2：插入数据</li>
+</ul>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; begin;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from demo where id = 4 for update;</span><br><span class="line">Empty <span class="hljs-keyword">set</span> (<span class="hljs-number">0.01</span> sec)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; begin;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into demo values (5,2);</span><br><span class="line">ERROR 1205 (HY000): <span class="hljs-keyword">Lock</span> <span class="hljs-keyword">wait</span> <span class="hljs-keyword">timeout</span> exceeded; try restarting transaction</span><br></pre></td></tr></table></figure>
+<p>我们可以看到tran2 被阻塞</p>
+<ul>
+<li>tran 1 : select存在的数据；tran 2：插入数据</li>
+</ul>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; begin;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from demo where id = 18 for update;</span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">| id | number |</span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">| 18 |      3 |</span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">1 row in <span class="hljs-keyword">set</span> (<span class="hljs-number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; begin;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into demo values (19,2);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>我们可以看到tran 2并没有被阻塞，同时也插入了对应的数据。</p>
+<h4 id="非uniq-key索引情况下的-gap-lock"><a href="#非uniq-key索引情况下的-gap-lock" class="headerlink" title="非uniq key索引情况下的 gap lock"></a>非uniq key索引情况下的 gap lock</h4><p>还是同样的表，采用number列来做展示</p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from demo;</span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">| id | number |</span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">| 20 |      0 |</span><br><span class="line">|  1 |      1 |</span><br><span class="line">| 19 |      2 |</span><br><span class="line">|  8 |      3 |</span><br><span class="line">|  2 |      5 |</span><br><span class="line">|  3 |      8 |</span><br><span class="line">| 10 |      9 |</span><br><span class="line">| 30 |     12 |</span><br><span class="line">| 18 |     15 |</span><br><span class="line">| 21 |     20 |</span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">10 rows in <span class="hljs-keyword">set</span> (<span class="hljs-number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>tran 1：查询已有数据；tran 2：插入数据</li>
+</ul>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; begin;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from demo where number = 15 for update; // 锁住(12, 20)范围内的间隙</span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">| id | number |</span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">| 18 |     15 |</span><br><span class="line">+<span class="hljs-comment">----+--------+</span></span><br><span class="line">1 row in <span class="hljs-keyword">set</span> (<span class="hljs-number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; begin;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">// 插入number = 13的记录到间隙内，导致事务2阻塞</span><br><span class="line">// 因为事务2如果插入number=15的记录，会导致事务1产生幻读，因此为了避免该操作，只能锁住(12, 20)的间隙，这样插入number=13也会阻塞</span><br><span class="line">mysql&gt; insert into demo values (24, 13);</span><br><span class="line">ERROR 1205 (HY000): <span class="hljs-keyword">Lock</span> <span class="hljs-keyword">wait</span> <span class="hljs-keyword">timeout</span> exceeded; try restarting transaction</span><br></pre></td></tr></table></figure>
+<ul>
+<li>tran 1：查询已有数据；tran 2：插入数据</li>
+</ul>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">transaction 1</span><br><span class="line">mysql&gt; begin;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">//number = 17记录不存在，同样锁住(15, 20)区间</span><br><span class="line">mysql&gt; select * from demo where number = 17 for update; </span><br><span class="line">Empty <span class="hljs-keyword">set</span> (<span class="hljs-number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; begin;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">// 插入number = 18的记录到间隙内，导致事务2阻塞</span><br><span class="line">// 因为事务2如果插入number=17的记录，会导致事务1产生幻读（第二次查突然有了数据），因此为了避免该操作，只能锁住(12, 20)的间隙，这便导致number=18的数据也无法插入</span><br><span class="line">mysql&gt; insert into demo values (29, 18);</span><br><span class="line">ERROR 1205 (HY000): <span class="hljs-keyword">Lock</span> <span class="hljs-keyword">wait</span> <span class="hljs-keyword">timeout</span> exceeded; try restarting transaction</span><br><span class="line"></span><br><span class="line">// number = 12 和 number = 20 的记录可以插入，证明间隙锁是一锁一个开区间的间隙</span><br><span class="line">mysql&gt; insert into demo values (29, 20);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line">mysql&gt; insert into demo values (39, 12);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><ul>
+<li>唯一索引<ol>
+<li>如果查询索引为unique索引，在记录存在的情况下，加锁不产生任何间隙加锁，等同于行锁，因为记录为唯一索引，锁着该行，其他事务无法进行插入和修改</li>
+<li>如果查询索引为unique索引，在记录不存在的情况下，加锁会对该记录上下界开区间的间隙产生加锁行为，因为mysql不允许其他事务在该间隙内部插入新的数据或修改数据将新值更新到该间隙区间，导致此事务内部产生幻读</li>
+</ol>
+</li>
+<li>非唯一索引<br>非唯一索引下，记录无论是否存在都会对间隙加锁，防止其他事务在修改数据更新到间隙内导致幻读</li>
+</ul>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/mysql/">#mysql</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2020/04/26/git/">git 配置</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

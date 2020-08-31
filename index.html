@@ -106,6 +106,94 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2020/08/31/innodblock/" itemprop="url">Innodb Locks</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2020-08-31T12:37:09.000Z" itemprop="datePublished">8月 31 2020</time>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html" target="_blank" rel="noopener">本文参考Mysql官方文档</a></p>
+<h2 id="共享锁和排它锁"><a href="#共享锁和排它锁" class="headerlink" title="共享锁和排它锁"></a>共享锁和排它锁</h2><ul>
+<li>共享锁（shared locks：s lock）</li>
+<li>排它锁（exclusive locks：x lock）</li>
+</ul>
+<h2 id="意向锁（intention-locks）-表级别"><a href="#意向锁（intention-locks）-表级别" class="headerlink" title="意向锁（intention locks）-  表级别"></a>意向锁（intention locks）-  表级别</h2><ul>
+<li>共享意向锁（intention shared lock -&gt; IS）</li>
+<li>排他意向锁（intention exclusive lock -&gt; IX）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>X</th>
+<th>IX</th>
+<th>S</th>
+<th>IS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Conflict</td>
+</tr>
+<tr>
+<td>IX</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Conflict</td>
+<td>Conflict</td>
+</tr>
+<tr>
+<td>S</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Compatible</td>
+</tr>
+<tr>
+<td>IS</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Compatible</td>
+<td>Compatible</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>事务申请一个表中某行记录的共享锁前，必须申请该表的IS lock或更强的锁</li>
+<li>事务申请一个表中某行记录的排他锁前，必须申请该表的IX lock</li>
+</ul>
+<blockquote>
+<p>意向锁只阻塞表级别的加锁请求（for example, <a href="https://dev.mysql.com/doc/refman/8.0/en/lock-tables.html" target="_blank" rel="noopener"><code>LOCK TABLES ... WRITE</code></a>)。意图锁主要是为了表明某些客户端正在或将要锁住表中的某一行。</p>
+</blockquote>
+<h2 id="记录锁"><a href="#记录锁" class="headerlink" title="记录锁"></a>记录锁</h2><p>A record lock is a lock on an index record. For example, <code>SELECT c1 FROM t WHERE c1 = 10 FOR UPDATE;</code> prevents any other transaction from inserting, updating, or deleting rows where the value of <code>t.c1</code> is <code>10</code>.</p>
+<p>Record locks always lock index records, even if a table is defined with no indexes. For such cases, <code>InnoDB</code> creates a hidden clustered index and uses this index for record locking. See <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html" target="_blank" rel="noopener">Section 15.6.2.1, “Clustered and Secondary Indexes”</a>.<br></p>
+        <p class="article-more-link">
+            <a href="/2020/08/31/innodblock/#more">阅读更多</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2020/04/26/git/" itemprop="url">git 配置</a>
         
     </h1>
@@ -224,7 +312,7 @@
 <h3 id="redisGetReply方法"><a href="#redisGetReply方法" class="headerlink" title="redisGetReply方法"></a>redisGetReply方法</h3><blockquote>
 <p><strong>redisGetReply</strong> 中的 redisBufferRead 的作用是将数据读取到 redis context 的 reader 中，每个 reader 都包含一个读 buf，pos 和 len 记录了 buf 的长度和读取位置</p>
 </blockquote>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">typedef struct redisReader &#123;</span><br><span class="line">    int err; /* Error flags, 0 when there is no error */</span><br><span class="line">    char errstr[128]; /* String representation of error when applicable */</span><br><span class="line"></span><br><span class="line">    char *buf; /* Read buffer */</span><br><span class="line">    size_t pos; /* Buffer cursor */</span><br><span class="line">    size_t len; /* Buffer length */</span><br><span class="line">    size_t maxbuf; /* Max length of unused buffer */</span><br><span class="line"></span><br><span class="line">    redisReadTask rstack[9]; // 遍历使用的栈</span><br><span class="line">    int ridx; /* Index of current read task */ 标识遍历到哪一层</span><br><span class="line">    void *reply; /* Temporary reply pointer */</span><br><span class="line"></span><br><span class="line">    redisReplyObjectFunctions *fn;</span><br><span class="line">    void *privdata;</span><br><span class="line">&#125; redisReader;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">redisReader</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> err; <span class="hljs-comment">/* Error flags, 0 when there is no error */</span></span><br><span class="line">    <span class="hljs-keyword">char</span> errstr[<span class="hljs-number">128</span>]; <span class="hljs-comment">/* String representation of error when applicable */</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">char</span> *buf; <span class="hljs-comment">/* Read buffer */</span></span><br><span class="line">    <span class="hljs-keyword">size_t</span> pos; <span class="hljs-comment">/* Buffer cursor */</span></span><br><span class="line">    <span class="hljs-keyword">size_t</span> len; <span class="hljs-comment">/* Buffer length */</span></span><br><span class="line">    <span class="hljs-keyword">size_t</span> maxbuf; <span class="hljs-comment">/* Max length of unused buffer */</span></span><br><span class="line"></span><br><span class="line">    redisReadTask rstack[<span class="hljs-number">9</span>]; <span class="hljs-comment">// 遍历使用的栈</span></span><br><span class="line">    <span class="hljs-keyword">int</span> ridx; <span class="hljs-comment">/* Index of current read task */</span> 标识遍历到哪一层</span><br><span class="line">    <span class="hljs-keyword">void</span> *reply; <span class="hljs-comment">/* Temporary reply pointer */</span></span><br><span class="line"></span><br><span class="line">    redisReplyObjectFunctions *fn;</span><br><span class="line">    <span class="hljs-keyword">void</span> *privdata;</span><br><span class="line">&#125; redisReader;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>buf：读缓冲区</li>
 <li>pos：当前读取到的位置</li>
@@ -298,35 +386,6 @@
         <p><img src="image/taishan.jpeg" alt="泰山国际马拉松"></p>
 <p>  距离泰山马拉松结束已经两周了，这半年来的坚持，总算还是有些许收获。</p>
 <p>希望自己不负青春，加油养成自律、坚定的好习惯。</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/08/22/走出舒适区/" itemprop="url">走出舒适区</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-08-22T06:34:35.000Z" itemprop="datePublished">8月 22 2019</time>
-        </span>
-        
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p><img src="image/beidaihe.jpeg" alt="北戴河"></p>
-<p>说来惭愧，上一次更新已经三个月了，这三个月发生了很多，但自己始终没有成长，加油，make change！</p>
 
     
     </div>
