@@ -111,22 +111,24 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2020-08-31T12:37:09.000Z" itemprop="datePublished">8月 31 2020</time>
+            
+                <time datetime="2020-08-31T12:37:09.000Z" itemprop="datePublished">8月 31 2020</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="image/beijing.JPG" alt="济南"></p>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html" target="_blank" rel="noopener">本文参考Mysql官方文档</a></p>
-<h2 id="共享锁和排它锁"><a href="#共享锁和排它锁" class="headerlink" title="共享锁和排它锁"></a>共享锁和排它锁</h2><ul>
-<li>共享锁（shared locks：s lock）</li>
-<li>排它锁（exclusive locks：x lock）</li>
+        <p><img src="image/beijing.JPG" alt="&#x6D4E;&#x5357;"></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html" target="_blank" rel="noopener">&#x672C;&#x6587;&#x53C2;&#x8003;Mysql&#x5B98;&#x65B9;&#x6587;&#x6863;</a></p>
+<h2 id="&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;"><a href="#&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;" class="headerlink" title="&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;"></a>&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;</h2><ul>
+<li>&#x5171;&#x4EAB;&#x9501;&#xFF08;shared locks&#xFF1A;s lock&#xFF09;</li>
+<li>&#x6392;&#x5B83;&#x9501;&#xFF08;exclusive locks&#xFF1A;x lock&#xFF09;</li>
 </ul>
-<h2 id="意向锁（intention-locks）-表级别"><a href="#意向锁（intention-locks）-表级别" class="headerlink" title="意向锁（intention locks）-  表级别"></a>意向锁（intention locks）-  表级别</h2><ul>
-<li>共享意向锁（intention shared lock -&gt; IS）</li>
-<li>排他意向锁（intention exclusive lock -&gt; IX）</li>
+<h2 id="&#x610F;&#x5411;&#x9501;&#xFF08;intention-locks&#xFF09;-&#x8868;&#x7EA7;&#x522B;"><a href="#&#x610F;&#x5411;&#x9501;&#xFF08;intention-locks&#xFF09;-&#x8868;&#x7EA7;&#x522B;" class="headerlink" title="&#x610F;&#x5411;&#x9501;&#xFF08;intention locks&#xFF09;-  &#x8868;&#x7EA7;&#x522B;"></a>&#x610F;&#x5411;&#x9501;&#xFF08;intention locks&#xFF09;-  &#x8868;&#x7EA7;&#x522B;</h2><ul>
+<li>&#x5171;&#x4EAB;&#x610F;&#x5411;&#x9501;&#xFF08;intention shared lock -&gt; IS&#xFF09;</li>
+<li>&#x6392;&#x4ED6;&#x610F;&#x5411;&#x9501;&#xFF08;intention exclusive lock -&gt; IX&#xFF09;</li>
 </ul>
 <table>
 <thead>
@@ -170,13 +172,13 @@
 </tbody>
 </table>
 <ul>
-<li>事务申请一个表中某行记录的共享锁前，必须申请该表的IS lock或更强的锁</li>
-<li>事务申请一个表中某行记录的排他锁前，必须申请该表的IX lock</li>
+<li>&#x4E8B;&#x52A1;&#x7533;&#x8BF7;&#x4E00;&#x4E2A;&#x8868;&#x4E2D;&#x67D0;&#x884C;&#x8BB0;&#x5F55;&#x7684;&#x5171;&#x4EAB;&#x9501;&#x524D;&#xFF0C;&#x5FC5;&#x987B;&#x7533;&#x8BF7;&#x8BE5;&#x8868;&#x7684;IS lock&#x6216;&#x66F4;&#x5F3A;&#x7684;&#x9501;</li>
+<li>&#x4E8B;&#x52A1;&#x7533;&#x8BF7;&#x4E00;&#x4E2A;&#x8868;&#x4E2D;&#x67D0;&#x884C;&#x8BB0;&#x5F55;&#x7684;&#x6392;&#x4ED6;&#x9501;&#x524D;&#xFF0C;&#x5FC5;&#x987B;&#x7533;&#x8BF7;&#x8BE5;&#x8868;&#x7684;IX lock</li>
 </ul>
 <blockquote>
-<p>意向锁只阻塞表级别的加锁请求（for example, <a href="https://dev.mysql.com/doc/refman/8.0/en/lock-tables.html" target="_blank" rel="noopener"><code>LOCK TABLES ... WRITE</code></a>)。意图锁主要是为了表明某些客户端正在或将要锁住表中的某一行。</p>
+<p>&#x610F;&#x5411;&#x9501;&#x53EA;&#x963B;&#x585E;&#x8868;&#x7EA7;&#x522B;&#x7684;&#x52A0;&#x9501;&#x8BF7;&#x6C42;&#xFF08;for example, <a href="https://dev.mysql.com/doc/refman/8.0/en/lock-tables.html" target="_blank" rel="noopener"><code>LOCK TABLES ... WRITE</code></a>)&#x3002;&#x610F;&#x56FE;&#x9501;&#x4E3B;&#x8981;&#x662F;&#x4E3A;&#x4E86;&#x8868;&#x660E;&#x67D0;&#x4E9B;&#x5BA2;&#x6237;&#x7AEF;&#x6B63;&#x5728;&#x6216;&#x5C06;&#x8981;&#x9501;&#x4F4F;&#x8868;&#x4E2D;&#x7684;&#x67D0;&#x4E00;&#x884C;&#x3002;</p>
 </blockquote>
-<h2 id="记录锁-record-lock"><a href="#记录锁-record-lock" class="headerlink" title="记录锁(record lock)"></a>记录锁(record lock)</h2><p>记录锁也叫做行锁，是用来在一条索引记录上加锁来实现。例如<code>SELECT c1 FROM t WHERE c1 = 10 FOR UPDATE;</code> 会阻止其他事务插入、更新或删除<code>t.c1</code>值为<code>10</code>的数据行。记录锁通常通过锁住索引记录来实现，即便一个mysql的table没有定义索引，在这种情况下InnoDB会创建一个隐藏的索引来用该索引来加记录锁。See <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html" target="_blank" rel="noopener">Section 15.6.2.1, “Clustered and Secondary Indexes”</a>.<br></p>
+<h2 id="&#x8BB0;&#x5F55;&#x9501;-record-lock"><a href="#&#x8BB0;&#x5F55;&#x9501;-record-lock" class="headerlink" title="&#x8BB0;&#x5F55;&#x9501;(record lock)"></a>&#x8BB0;&#x5F55;&#x9501;(record lock)</h2><p>&#x8BB0;&#x5F55;&#x9501;&#x4E5F;&#x53EB;&#x505A;&#x884C;&#x9501;&#xFF0C;&#x662F;&#x7528;&#x6765;&#x5728;&#x4E00;&#x6761;&#x7D22;&#x5F15;&#x8BB0;&#x5F55;&#x4E0A;&#x52A0;&#x9501;&#x6765;&#x5B9E;&#x73B0;&#x3002;&#x4F8B;&#x5982;<code>SELECT c1 FROM t WHERE c1 = 10 FOR UPDATE;</code> &#x4F1A;&#x963B;&#x6B62;&#x5176;&#x4ED6;&#x4E8B;&#x52A1;&#x63D2;&#x5165;&#x3001;&#x66F4;&#x65B0;&#x6216;&#x5220;&#x9664;<code>t.c1</code>&#x503C;&#x4E3A;<code>10</code>&#x7684;&#x6570;&#x636E;&#x884C;&#x3002;&#x8BB0;&#x5F55;&#x9501;&#x901A;&#x5E38;&#x901A;&#x8FC7;&#x9501;&#x4F4F;&#x7D22;&#x5F15;&#x8BB0;&#x5F55;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x5373;&#x4FBF;&#x4E00;&#x4E2A;mysql&#x7684;table&#x6CA1;&#x6709;&#x5B9A;&#x4E49;&#x7D22;&#x5F15;&#xFF0C;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;InnoDB&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x9690;&#x85CF;&#x7684;&#x7D22;&#x5F15;&#x6765;&#x7528;&#x8BE5;&#x7D22;&#x5F15;&#x6765;&#x52A0;&#x8BB0;&#x5F55;&#x9501;&#x3002;See <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html" target="_blank" rel="noopener">Section 15.6.2.1, &#x201C;Clustered and Secondary Indexes&#x201D;</a>.<br></p>
         <p class="article-more-link">
             <a href="/2020/08/31/innodblock/#more">阅读更多</a>
         </p>
@@ -185,7 +187,6 @@
     
     
 </article>
-
 
 
 
@@ -199,23 +200,25 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2020-04-26T03:03:37.000Z" itemprop="datePublished">4月 26 2020</time>
+            
+                <time datetime="2020-04-26T03:03:37.000Z" itemprop="datePublished">4月 26 2020</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>经常使用公司的git仓库，同时也需要使用github，此时git的配置就会出问题。由于git配置的用户名和密码均是全局的，会导致如果使用github的配置如果不指定，就按照公司的git配置中的默认用户名提交。</p>
-<p>解决办法，在github仓库中设置local配置</p>
+        <p>&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#x516C;&#x53F8;&#x7684;git&#x4ED3;&#x5E93;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x9700;&#x8981;&#x4F7F;&#x7528;github&#xFF0C;&#x6B64;&#x65F6;git&#x7684;&#x914D;&#x7F6E;&#x5C31;&#x4F1A;&#x51FA;&#x95EE;&#x9898;&#x3002;&#x7531;&#x4E8E;git&#x914D;&#x7F6E;&#x7684;&#x7528;&#x6237;&#x540D;&#x548C;&#x5BC6;&#x7801;&#x5747;&#x662F;&#x5168;&#x5C40;&#x7684;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x5982;&#x679C;&#x4F7F;&#x7528;github&#x7684;&#x914D;&#x7F6E;&#x5982;&#x679C;&#x4E0D;&#x6307;&#x5B9A;&#xFF0C;&#x5C31;&#x6309;&#x7167;&#x516C;&#x53F8;&#x7684;git&#x914D;&#x7F6E;&#x4E2D;&#x7684;&#x9ED8;&#x8BA4;&#x7528;&#x6237;&#x540D;&#x63D0;&#x4EA4;&#x3002;</p>
+<p>&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#xFF0C;&#x5728;github&#x4ED3;&#x5E93;&#x4E2D;&#x8BBE;&#x7F6E;local&#x914D;&#x7F6E;</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="hljs-built_in">local</span> user.name xxx</span><br><span class="line">git config --<span class="hljs-built_in">local</span> user.email xxx@xxx.com</span><br></pre></td></tr></table></figure>
+
 
     
     </div>
     
     
 </article>
-
 
 
 
@@ -229,16 +232,18 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2020-02-24T10:39:53.000Z" itemprop="datePublished">2月 24 2020</time>
+            
+                <time datetime="2020-02-24T10:39:53.000Z" itemprop="datePublished">2月 24 2020</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="image/jinan.jpg" alt="济南"></p>
-<h2 id="IO复用"><a href="#IO复用" class="headerlink" title="IO复用"></a>IO复用</h2><p>select、poll和epoll是三个常用的IO多路复用方法，具体的差别和性能从左到右都是有区别的。但对于这几种IO复用方法是如何使用的，还是一知半解。</p>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>这几天，通过阅读redis的源码，对epoll的使用方法有了进一步的认识。因此，这里使用epoll做一个简单的接受io请求的例子<br></p>
+        <p><img src="image/jinan.jpg" alt="&#x6D4E;&#x5357;"></p>
+<h2 id="IO&#x590D;&#x7528;"><a href="#IO&#x590D;&#x7528;" class="headerlink" title="IO&#x590D;&#x7528;"></a>IO&#x590D;&#x7528;</h2><p>select&#x3001;poll&#x548C;epoll&#x662F;&#x4E09;&#x4E2A;&#x5E38;&#x7528;&#x7684;IO&#x591A;&#x8DEF;&#x590D;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x5DEE;&#x522B;&#x548C;&#x6027;&#x80FD;&#x4ECE;&#x5DE6;&#x5230;&#x53F3;&#x90FD;&#x662F;&#x6709;&#x533A;&#x522B;&#x7684;&#x3002;&#x4F46;&#x5BF9;&#x4E8E;&#x8FD9;&#x51E0;&#x79CD;IO&#x590D;&#x7528;&#x65B9;&#x6CD5;&#x662F;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x8FD8;&#x662F;&#x4E00;&#x77E5;&#x534A;&#x89E3;&#x3002;</p>
+<h2 id="&#x5B9E;&#x4F8B;"><a href="#&#x5B9E;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x4F8B;"></a>&#x5B9E;&#x4F8B;</h2><p>&#x8FD9;&#x51E0;&#x5929;&#xFF0C;&#x901A;&#x8FC7;&#x9605;&#x8BFB;redis&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x5BF9;epoll&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x6709;&#x4E86;&#x8FDB;&#x4E00;&#x6B65;&#x7684;&#x8BA4;&#x8BC6;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;epoll&#x505A;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x63A5;&#x53D7;io&#x8BF7;&#x6C42;&#x7684;&#x4F8B;&#x5B50;<br></p>
         <p class="article-more-link">
             <a href="/2020/02/24/epoll/#more">阅读更多</a>
         </p>
@@ -247,7 +252,6 @@
     
     
 </article>
-
 
 
 
@@ -261,7 +265,9 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2020-02-19T02:09:32.000Z" itemprop="datePublished">2月 19 2020</time>
+            
+                <time datetime="2020-02-19T02:09:32.000Z" itemprop="datePublished">2月 19 2020</time>
+            
         </span>
         
         
@@ -269,14 +275,15 @@
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <ol>
-<li><p>首先在initServer中，注册eventloop，为io复用做准备</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server.c</span><br><span class="line">server.el = aeCreateEventLoop(server.maxclients+CONFIG_FDSET_INCR);</span><br></pre></td></tr></table></figure>
+<li><p>&#x9996;&#x5148;&#x5728;initServer&#x4E2D;&#xFF0C;&#x6CE8;&#x518C;eventloop&#xFF0C;&#x4E3A;io&#x590D;&#x7528;&#x505A;&#x51C6;&#x5907;</p>
+<epacse hidden>35</epacse>
 </li>
-<li><p>ListenToPort创建基于tcp的socket连接，并监听客户端连接，并将该socket设置为非阻塞</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server.c</span><br><span class="line">/* Open the TCP listening socket for the user commands. */</span><br><span class="line">if (server.port != 0 &amp;&amp;</span><br><span class="line">    listenToPort(server.port,server.ipfd,&amp;server.ipfd_count) == C_ERR)</span><br><span class="line">    exit(1);</span><br></pre></td></tr></table></figure>
+<li><p>ListenToPort&#x521B;&#x5EFA;&#x57FA;&#x4E8E;tcp&#x7684;socket&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x76D1;&#x542C;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x5C06;&#x8BE5;socket&#x8BBE;&#x7F6E;&#x4E3A;&#x975E;&#x963B;&#x585E;</p>
+<epacse hidden>36</epacse>
 </li>
-<li><p>为每个server的fd设置可读事件回调</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (j = 0; j &lt; server.ipfd_count; j++) &#123;</span><br><span class="line">    if (aeCreateFileEvent(server.el, server.ipfd[j], AE_READABLE, acceptTcpHandler,NULL) == AE_ERR) &#123;</span><br><span class="line">        serverPanic(&quot;Unrecoverable error creating server.ipfd file event.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>&#x4E3A;&#x6BCF;&#x4E2A;server&#x7684;fd&#x8BBE;&#x7F6E;&#x53EF;&#x8BFB;&#x4E8B;&#x4EF6;&#x56DE;&#x8C03;</p>
+<epacse hidden>37</epacse>
+
 </li>
 </ol>
         <p class="article-more-link">
@@ -291,7 +298,6 @@
 
 
 
-
     
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
@@ -301,22 +307,25 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2020-01-07T03:20:00.000Z" itemprop="datePublished">1月 7 2020</time>
+            
+                <time datetime="2020-01-07T03:20:00.000Z" itemprop="datePublished">1月 7 2020</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="image/liancang.jpeg" alt="日本镰仓"></p>
-<h3 id="redisGetReply方法"><a href="#redisGetReply方法" class="headerlink" title="redisGetReply方法"></a>redisGetReply方法</h3><blockquote>
-<p><strong>redisGetReply</strong> 中的 redisBufferRead 的作用是将数据读取到 redis context 的 reader 中，每个 reader 都包含一个读 buf，pos 和 len 记录了 buf 的长度和读取位置</p>
+        <p><img src="image/liancang.jpeg" alt="&#x65E5;&#x672C;&#x9570;&#x4ED3;"></p>
+<h3 id="redisGetReply&#x65B9;&#x6CD5;"><a href="#redisGetReply&#x65B9;&#x6CD5;" class="headerlink" title="redisGetReply&#x65B9;&#x6CD5;"></a>redisGetReply&#x65B9;&#x6CD5;</h3><blockquote>
+<p><strong>redisGetReply</strong> &#x4E2D;&#x7684; redisBufferRead &#x7684;&#x4F5C;&#x7528;&#x662F;&#x5C06;&#x6570;&#x636E;&#x8BFB;&#x53D6;&#x5230; redis context &#x7684; reader &#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A; reader &#x90FD;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x8BFB; buf&#xFF0C;pos &#x548C; len &#x8BB0;&#x5F55;&#x4E86; buf &#x7684;&#x957F;&#x5EA6;&#x548C;&#x8BFB;&#x53D6;&#x4F4D;&#x7F6E;</p>
 </blockquote>
-<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">redisReader</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> err; <span class="hljs-comment">/* Error flags, 0 when there is no error */</span></span><br><span class="line">    <span class="hljs-keyword">char</span> errstr[<span class="hljs-number">128</span>]; <span class="hljs-comment">/* String representation of error when applicable */</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">char</span> *buf; <span class="hljs-comment">/* Read buffer */</span></span><br><span class="line">    <span class="hljs-keyword">size_t</span> pos; <span class="hljs-comment">/* Buffer cursor */</span></span><br><span class="line">    <span class="hljs-keyword">size_t</span> len; <span class="hljs-comment">/* Buffer length */</span></span><br><span class="line">    <span class="hljs-keyword">size_t</span> maxbuf; <span class="hljs-comment">/* Max length of unused buffer */</span></span><br><span class="line"></span><br><span class="line">    redisReadTask rstack[<span class="hljs-number">9</span>]; <span class="hljs-comment">// 遍历使用的栈</span></span><br><span class="line">    <span class="hljs-keyword">int</span> ridx; <span class="hljs-comment">/* Index of current read task */</span> 标识遍历到哪一层</span><br><span class="line">    <span class="hljs-keyword">void</span> *reply; <span class="hljs-comment">/* Temporary reply pointer */</span></span><br><span class="line"></span><br><span class="line">    redisReplyObjectFunctions *fn;</span><br><span class="line">    <span class="hljs-keyword">void</span> *privdata;</span><br><span class="line">&#125; redisReader;</span><br></pre></td></tr></table></figure>
+<epacse hidden>3</epacse>
+
 <ul>
-<li>buf：读缓冲区</li>
-<li>pos：当前读取到的位置</li>
-<li>len：buff 的长度</li></ul>
+<li>buf&#xFF1A;&#x8BFB;&#x7F13;&#x51B2;&#x533A;</li>
+<li>pos&#xFF1A;&#x5F53;&#x524D;&#x8BFB;&#x53D6;&#x5230;&#x7684;&#x4F4D;&#x7F6E;</li>
+<li>len&#xFF1A;buff &#x7684;&#x957F;&#x5EA6;</li></ul>
         <p class="article-more-link">
             <a href="/2020/01/07/Redis-get-reply/#more">阅读更多</a>
         </p>
@@ -325,7 +334,6 @@
     
     
 </article>
-
 
 
 
@@ -339,21 +347,24 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-11-29T05:44:11.000Z" itemprop="datePublished">11月 29 2019</time>
+            
+                <time datetime="2019-11-29T05:44:11.000Z" itemprop="datePublished">11月 29 2019</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h2 id="首先从源码中找入口"><a href="#首先从源码中找入口" class="headerlink" title="首先从源码中找入口"></a>首先从源码中找入口</h2><p>redis源码：src/redis-cli.c中找到main函数，main函数中核心的处理就是以下部分</p>
-<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* Start interactive mode when no command is provided */</span></span><br><span class="line"><span class="hljs-keyword">if</span> (argc == <span class="hljs-number">0</span> &amp;&amp; !config.eval) &#123;</span><br><span class="line">    <span class="hljs-comment">/* Ignore SIGPIPE in interactive mode to force a reconnect */</span></span><br><span class="line">    signal(SIGPIPE, SIG_IGN);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/* Note that in repl mode we don't abort on connection error.</span></span><br><span class="line"><span class="hljs-comment">     * A new attempt will be performed for every command send. */</span></span><br><span class="line">    cliConnect(<span class="hljs-number">0</span>);</span><br><span class="line">    repl();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;"><a href="#&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;" class="headerlink" title="&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;"></a>&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;</h2><p>redis&#x6E90;&#x7801;&#xFF1A;src/redis-cli.c&#x4E2D;&#x627E;&#x5230;main&#x51FD;&#x6570;&#xFF0C;main&#x51FD;&#x6570;&#x4E2D;&#x6838;&#x5FC3;&#x7684;&#x5904;&#x7406;&#x5C31;&#x662F;&#x4EE5;&#x4E0B;&#x90E8;&#x5206;</p>
+<epacse hidden>23</epacse>
+
 <ul>
-<li>cliConnect<br>主要是与服务端建立连接，每一个连接都会创建一个redisContext结构来保存</li>
-<li>repl<br>repl实现了发送命令并输出Server返回结果的主要逻辑</li>
+<li>cliConnect<br>&#x4E3B;&#x8981;&#x662F;&#x4E0E;&#x670D;&#x52A1;&#x7AEF;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;redisContext&#x7ED3;&#x6784;&#x6765;&#x4FDD;&#x5B58;</li>
+<li>repl<br>repl&#x5B9E;&#x73B0;&#x4E86;&#x53D1;&#x9001;&#x547D;&#x4EE4;&#x5E76;&#x8F93;&#x51FA;Server&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x7684;&#x4E3B;&#x8981;&#x903B;&#x8F91;</li>
 </ul>
-<h2 id="RedisContext"><a href="#RedisContext" class="headerlink" title="RedisContext"></a>RedisContext</h2><p>redisContext结构如下，重要的字段都进行了注释</p>
-<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">redisContext</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> err; <span class="hljs-comment">/* Error flags, 0 when there is no error */</span></span><br><span class="line">    <span class="hljs-keyword">char</span> errstr[<span class="hljs-number">128</span>]; <span class="hljs-comment">/* String representation of error when applicable */</span></span><br><span class="line">    <span class="hljs-keyword">int</span> fd; <span class="hljs-comment">// socket句柄，用户连接redis server</span></span><br><span class="line">    <span class="hljs-keyword">int</span> flags;</span><br><span class="line">    <span class="hljs-keyword">char</span> *obuf; <span class="hljs-comment">/* Write buffer */</span> <span class="hljs-comment">//主要存储发送的命令，resp协议封装后的sds</span></span><br><span class="line">    redisReader *reader; <span class="hljs-comment">/* Protocol reader */</span> <span class="hljs-comment">// 存储server返回的数据</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">enum</span> redisConnectionType connection_type;</span><br><span class="line">    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">timeval</span> *<span class="hljs-title">timeout</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span></span><br><span class="line">        <span class="hljs-keyword">char</span> *host;</span><br><span class="line">        <span class="hljs-keyword">char</span> *source_addr;</span><br><span class="line">        <span class="hljs-keyword">int</span> port;</span><br><span class="line">    &#125; tcp;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span></span><br><span class="line">        <span class="hljs-keyword">char</span> *path;</span><br><span class="line">    &#125; unix_sock;</span><br><span class="line"></span><br><span class="line">&#125; redisContext;</span><br></pre></td></tr></table></figure>
+<h2 id="RedisContext"><a href="#RedisContext" class="headerlink" title="RedisContext"></a>RedisContext</h2><p>redisContext&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF0C;&#x91CD;&#x8981;&#x7684;&#x5B57;&#x6BB5;&#x90FD;&#x8FDB;&#x884C;&#x4E86;&#x6CE8;&#x91CA;</p>
+<epacse hidden>24</epacse>
         <p class="article-more-link">
             <a href="/2019/11/29/redis-cli/#more">阅读更多</a>
         </p>
@@ -362,7 +373,6 @@
     
     
 </article>
-
 
 
 
@@ -376,23 +386,24 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-11-11T06:12:39.000Z" itemprop="datePublished">11月 11 2019</time>
+            
+                <time datetime="2019-11-11T06:12:39.000Z" itemprop="datePublished">11月 11 2019</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="image/taishan.jpeg" alt="泰山国际马拉松"></p>
-<p>  距离泰山马拉松结束已经两周了，这半年来的坚持，总算还是有些许收获。</p>
-<p>希望自己不负青春，加油养成自律、坚定的好习惯。</p>
+        <p><img src="image/taishan.jpeg" alt="&#x6CF0;&#x5C71;&#x56FD;&#x9645;&#x9A6C;&#x62C9;&#x677E;"></p>
+<p>  &#x8DDD;&#x79BB;&#x6CF0;&#x5C71;&#x9A6C;&#x62C9;&#x677E;&#x7ED3;&#x675F;&#x5DF2;&#x7ECF;&#x4E24;&#x5468;&#x4E86;&#xFF0C;&#x8FD9;&#x534A;&#x5E74;&#x6765;&#x7684;&#x575A;&#x6301;&#xFF0C;&#x603B;&#x7B97;&#x8FD8;&#x662F;&#x6709;&#x4E9B;&#x8BB8;&#x6536;&#x83B7;&#x3002;</p>
+<p>&#x5E0C;&#x671B;&#x81EA;&#x5DF1;&#x4E0D;&#x8D1F;&#x9752;&#x6625;&#xFF0C;&#x52A0;&#x6CB9;&#x517B;&#x6210;&#x81EA;&#x5F8B;&#x3001;&#x575A;&#x5B9A;&#x7684;&#x597D;&#x4E60;&#x60EF;&#x3002;</p>
 
     
     </div>
     
     
 </article>
-
 
 
 
@@ -406,21 +417,22 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-05-13T12:22:35.000Z" itemprop="datePublished">5月 13 2019</time>
+            
+                <time datetime="2019-05-13T12:22:35.000Z" itemprop="datePublished">5月 13 2019</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h2 id="好文共赏"><a href="#好文共赏" class="headerlink" title="好文共赏"></a>好文共赏</h2><p><a href="https://mp.weixin.qq.com/s/muS68_vtXTrIGd1JNmS50A" target="_blank" rel="noopener">揭秘！现代IM系统的消息架构如何设计？</a>。之前的IM系统都做的很简单，推拉很难平衡，文中提供了一个新的思路。<br><a href="https://mp.weixin.qq.com/s/F7hmjN5rlHcEifT8NzlYqA" target="_blank" rel="noopener">一个技术人，如何做到比别人更突出</a>。1.做出承诺，超出预期;2.重要不紧急的事<br><a href="https://softwareengineering.stackexchange.com/questions/110933/how-to-determine-the-levels-of-abstraction" target="_blank" rel="noopener">如何决定函数的抽象层级</a><br><a href="https://my.oschina.net/jamesview/blog/2994112" target="_blank" rel="noopener">https://my.oschina.net/jamesview/blog/2994112</a></p>
+        <h2 id="&#x597D;&#x6587;&#x5171;&#x8D4F;"><a href="#&#x597D;&#x6587;&#x5171;&#x8D4F;" class="headerlink" title="&#x597D;&#x6587;&#x5171;&#x8D4F;"></a>&#x597D;&#x6587;&#x5171;&#x8D4F;</h2><p><a href="https://mp.weixin.qq.com/s/muS68_vtXTrIGd1JNmS50A" target="_blank" rel="noopener">&#x63ED;&#x79D8;&#xFF01;&#x73B0;&#x4EE3;IM&#x7CFB;&#x7EDF;&#x7684;&#x6D88;&#x606F;&#x67B6;&#x6784;&#x5982;&#x4F55;&#x8BBE;&#x8BA1;&#xFF1F;</a>&#x3002;&#x4E4B;&#x524D;&#x7684;IM&#x7CFB;&#x7EDF;&#x90FD;&#x505A;&#x7684;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x63A8;&#x62C9;&#x5F88;&#x96BE;&#x5E73;&#x8861;&#xFF0C;&#x6587;&#x4E2D;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x601D;&#x8DEF;&#x3002;<br><a href="https://mp.weixin.qq.com/s/F7hmjN5rlHcEifT8NzlYqA" target="_blank" rel="noopener">&#x4E00;&#x4E2A;&#x6280;&#x672F;&#x4EBA;&#xFF0C;&#x5982;&#x4F55;&#x505A;&#x5230;&#x6BD4;&#x522B;&#x4EBA;&#x66F4;&#x7A81;&#x51FA;</a>&#x3002;1.&#x505A;&#x51FA;&#x627F;&#x8BFA;&#xFF0C;&#x8D85;&#x51FA;&#x9884;&#x671F;;2.&#x91CD;&#x8981;&#x4E0D;&#x7D27;&#x6025;&#x7684;&#x4E8B;<br><a href="https://softwareengineering.stackexchange.com/questions/110933/how-to-determine-the-levels-of-abstraction" target="_blank" rel="noopener">&#x5982;&#x4F55;&#x51B3;&#x5B9A;&#x51FD;&#x6570;&#x7684;&#x62BD;&#x8C61;&#x5C42;&#x7EA7;</a><br><a href="https://my.oschina.net/jamesview/blog/2994112" target="_blank" rel="noopener">https://my.oschina.net/jamesview/blog/2994112</a></p>
 
     
     </div>
     
     
 </article>
-
 
 
 
@@ -434,21 +446,22 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-05-05T10:45:35.000Z" itemprop="datePublished">5月 5 2019</time>
+            
+                <time datetime="2019-05-05T10:45:35.000Z" itemprop="datePublished">5月 5 2019</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="image/shanghai.jpeg" alt="上海"><br>千万不要在小长假出行，人实在太多，看来灭霸是有些道理的</p>
+        <p><img src="image/shanghai.jpeg" alt="&#x4E0A;&#x6D77;"><br>&#x5343;&#x4E07;&#x4E0D;&#x8981;&#x5728;&#x5C0F;&#x957F;&#x5047;&#x51FA;&#x884C;&#xFF0C;&#x4EBA;&#x5B9E;&#x5728;&#x592A;&#x591A;&#xFF0C;&#x770B;&#x6765;&#x706D;&#x9738;&#x662F;&#x6709;&#x4E9B;&#x9053;&#x7406;&#x7684;</p>
 
     
     </div>
     
     
 </article>
-
 
 
 
@@ -462,35 +475,36 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-03-28T09:43:44.276Z" itemprop="datePublished">3月 28 2019</time>
+            
+                <time datetime="2019-03-28T09:43:44.276Z" itemprop="datePublished">3月 28 2019</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>布隆过滤器一种空间数据结构，用来判断一个元素是否在某个集合中。由于具有假阳性，所以布隆过滤器只能得出某个元素有可能在该集合，反之该元素一定不在这个集合中。</p>
-<h2 id="布隆过滤器简介"><a href="#布隆过滤器简介" class="headerlink" title="布隆过滤器简介"></a><a href="#布隆过滤器简介" title="布隆过滤器简介"></a>布隆过滤器简介</h2><p>一个空的布隆过滤器是一个\(m\)位均为\(0\)的比特位数组，同时定义了\(k\)个哈希函数，将某个元素得出的哈希值映射到m个比特位中的某一位，将该为置为1，生成一个随机的分布。通常\(k\)要远远小于\(m\)，\(k\)和\(m\)的选取取决于过滤器的假阳性概率。<br><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Bloom_filter.svg/649px-Bloom_filter.svg.png" alt></p>
-<h3 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a><a href="#添加元素" title="添加元素"></a>添加元素</h3><p>当给布隆过滤器中添加一个元素时，利用\(k\)个哈希函数得出\(k\)个位置，并将\(m\)个比特位中对应的\(k\)个位置设置为\(1\)。</p>
-<h3 id="查询元素"><a href="#查询元素" class="headerlink" title="查询元素"></a><a href="#查询元素" title="查询元素"></a>查询元素</h3><p>查询元素时同样计算出\(k\)个位置，并获取该\(k\)个位置的所有元素值，当有一个位为\(0\)的话，就证明该元素不在该集合里。若\(k\)个位置均为\(1\)，则表示该元素可能在集合里，因为某些为\(1\)的位可能是别的元素在插入时设置的。</p>
-<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a><a href="#删除元素" title="删除元素"></a>删除元素</h3><p>由于假阳性的引入，布隆过滤器是不能删除元素的。  </p>
-<h2 id="布隆过滤器的优点"><a href="#布隆过滤器的优点" class="headerlink" title="布隆过滤器的优点"></a><a href="#布隆过滤器的优点" title="布隆过滤器的优点"></a>布隆过滤器的优点</h2><p>链表、哈希表和平衡二叉树都能够做元素的查找，但是布隆过滤器明显在时间和空间利用率上更优</p>
-<h3 id="空间利用率"><a href="#空间利用率" class="headerlink" title="空间利用率"></a><a href="#空间利用率" title="空间利用率"></a>空间利用率</h3><p>一个拥有1%的错误率和一个优化后的\(k\)的布隆过滤器，存储一个元素只需要\(9.6\)bit，没降低\(1%\)的错误率每个元素也只需增加\(4.8\)bit [文章中写的结论，还需要看证明过程]</p>
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a><a href="#时间复杂度" title="时间复杂度"></a>时间复杂度</h3><p>时间复杂度显然是\(O(k)\)</p>
-<h2 id="假阳性的概率"><a href="#假阳性的概率" class="headerlink" title="假阳性的概率"></a><a href="#假阳性的概率" title="假阳性的概率"></a>假阳性的概率</h2><p>假定一个哈希函数选择每个插入位置的概率都是相等的，且位数组一共\(m\)位，那么某个比特位被hash函数设为1的概率为<br>$$ 1 - \frac{1}{m}$$<br>那么通过计算k个哈希函数后，该位被置为1的概率为<br>$$ ( 1 - \frac{1}{m} )^k$$<br>如果该过滤器有n个元素，那么该位为0的概率为<br>$$ ( 1 - \frac{1}{m} )^{kn}$$<br>该位为1的概率为<br>$$ 1- ( 1 - \frac{1}{m} )^{kn}$$<br>那么随便找k个位置，这些位置都为1的概率(也可认为是假阳性概率)为<br>$$ (1- ( 1 - \frac{1}{m} )^{kn})^k \approx (1 - e^{-kn/m})^k$$<br>需要注意的是，该概率不是严格准确的，因为\(k\)个为在被置1时，不是独立事件，但是概率大约是相似的。由此可见，假阳性的概率随着比特位数组长度\(m\)的增大而减小，随着集合元素\(n\)的增大而增大。那么证明了如果\(m\)足够大，布隆过滤器的准确性还是很高的。</p>
-<h2 id="如何寻找最适合的k"><a href="#如何寻找最适合的k" class="headerlink" title="如何寻找最适合的k"></a><a href="#如何寻找最适合的-k" title="如何寻找最适合的k"></a>如何寻找最适合的k</h2><p>最适合的\(k\)就是能够使过滤器假阳性的概率达到最低，直观来讲增加哈希函数可以提升准确率，但是又会影响更多的比特位，所以随着哈希函数数量k的增加，假阳性概率或许增加或许减少，因此怎么算最适合的k呢。我们拿出上述得到的概率，假定假阳性概率为\(f\)</p>
-<p>$$ f = (1 - e^{-kn/m})^k$$<br>为了简化运算对$f$取对数<br>$$ g = ln(f) = k*ln(1 - e^{-kn/m})$$<br>对其进行求导<br>$$\frac{dg}{dk} = ln(1 - e^{-kn/m}) + \frac{kn}{m} \frac{e^{-kn/m}}{1 - e^{-kn/m}}$$<br>当导数为0的时候，就是最适合的k，我们得出最适合的k如下:<br>$$ k = \frac{m}{n}ln(2) $$</p>
-<h2 id="元素数量估算"><a href="#元素数量估算" class="headerlink" title="元素数量估算"></a><a href="#元素数量估算" title="元素数量估算"></a>元素数量估算</h2><p>Swamidass &amp; Baldi提出了布隆过滤器中实际元素估算的方式<br>$$ n^* = - \frac{mln[1-\frac{X}{k}]}{m}  $$</p>
-<p>其中，\(n^*\)为元素个数的近似值，\(m\)是位数组长度，\(k\)是哈希函数的数量, \(X\)是位数组中被置为1的位的数量。<strong>还没有看完证明过程</strong></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a href="#总结" title="总结"></a>总结</h2><p>布隆过滤器由于引入了假阳性，因此不太适合高精度的需求，业务场景需要能够接受一定错误容忍度，但是查询和插入都是\(O(k)\)的时间复杂度，空间复杂度也相当可观，因此在快速的元素查找定位场景还是大有裨益的。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><a href="#参考文献" title="参考文献"></a>参考文献</h2><p><a href="https://en.wikipedia.org/wiki/Bloom_filter#Optimal_number_of_hash_functions" target="_blank" rel="noopener">Bloom_filter</a><br><a href="https://people.eecs.berkeley.edu/~daw/teaching/cs170-s03/Notes/lecture10.pdf" target="_blank" rel="noopener">Notes 10 for CS 170</a><br><a href="http://pubs.acs.org/doi/abs/10.1021/ci600526a" target="_blank" rel="noopener">Mathematical Correction for Fingerprint Similarity Measures to Improve Chemical Retrieval</a></p>
+        <p>&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x4E00;&#x79CD;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x7528;&#x6765;&#x5224;&#x65AD;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x662F;&#x5426;&#x5728;&#x67D0;&#x4E2A;&#x96C6;&#x5408;&#x4E2D;&#x3002;&#x7531;&#x4E8E;&#x5177;&#x6709;&#x5047;&#x9633;&#x6027;&#xFF0C;&#x6240;&#x4EE5;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x53EA;&#x80FD;&#x5F97;&#x51FA;&#x67D0;&#x4E2A;&#x5143;&#x7D20;&#x6709;&#x53EF;&#x80FD;&#x5728;&#x8BE5;&#x96C6;&#x5408;&#xFF0C;&#x53CD;&#x4E4B;&#x8BE5;&#x5143;&#x7D20;&#x4E00;&#x5B9A;&#x4E0D;&#x5728;&#x8FD9;&#x4E2A;&#x96C6;&#x5408;&#x4E2D;&#x3002;</p>
+<h2 id="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;"><a href="#&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;" class="headerlink" title="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;"></a><a href="#&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;" title="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;"></a>&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;</h2><p>&#x4E00;&#x4E2A;&#x7A7A;&#x7684;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x662F;&#x4E00;&#x4E2A;\(m\)&#x4F4D;&#x5747;&#x4E3A;\(0\)&#x7684;&#x6BD4;&#x7279;&#x4F4D;&#x6570;&#x7EC4;&#xFF0C;&#x540C;&#x65F6;&#x5B9A;&#x4E49;&#x4E86;\(k\)&#x4E2A;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#xFF0C;&#x5C06;&#x67D0;&#x4E2A;&#x5143;&#x7D20;&#x5F97;&#x51FA;&#x7684;&#x54C8;&#x5E0C;&#x503C;&#x6620;&#x5C04;&#x5230;m&#x4E2A;&#x6BD4;&#x7279;&#x4F4D;&#x4E2D;&#x7684;&#x67D0;&#x4E00;&#x4F4D;&#xFF0C;&#x5C06;&#x8BE5;&#x4E3A;&#x7F6E;&#x4E3A;1&#xFF0C;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x7684;&#x5206;&#x5E03;&#x3002;&#x901A;&#x5E38;\(k\)&#x8981;&#x8FDC;&#x8FDC;&#x5C0F;&#x4E8E;\(m\)&#xFF0C;\(k\)&#x548C;\(m\)&#x7684;&#x9009;&#x53D6;&#x53D6;&#x51B3;&#x4E8E;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x5047;&#x9633;&#x6027;&#x6982;&#x7387;&#x3002;<br><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Bloom_filter.svg/649px-Bloom_filter.svg.png" alt></p>
+<h3 id="&#x6DFB;&#x52A0;&#x5143;&#x7D20;"><a href="#&#x6DFB;&#x52A0;&#x5143;&#x7D20;" class="headerlink" title="&#x6DFB;&#x52A0;&#x5143;&#x7D20;"></a><a href="#&#x6DFB;&#x52A0;&#x5143;&#x7D20;" title="&#x6DFB;&#x52A0;&#x5143;&#x7D20;"></a>&#x6DFB;&#x52A0;&#x5143;&#x7D20;</h3><p>&#x5F53;&#x7ED9;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x4E2D;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x65F6;&#xFF0C;&#x5229;&#x7528;\(k\)&#x4E2A;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x5F97;&#x51FA;\(k\)&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x5E76;&#x5C06;\(m\)&#x4E2A;&#x6BD4;&#x7279;&#x4F4D;&#x4E2D;&#x5BF9;&#x5E94;&#x7684;\(k\)&#x4E2A;&#x4F4D;&#x7F6E;&#x8BBE;&#x7F6E;&#x4E3A;\(1\)&#x3002;</p>
+<h3 id="&#x67E5;&#x8BE2;&#x5143;&#x7D20;"><a href="#&#x67E5;&#x8BE2;&#x5143;&#x7D20;" class="headerlink" title="&#x67E5;&#x8BE2;&#x5143;&#x7D20;"></a><a href="#&#x67E5;&#x8BE2;&#x5143;&#x7D20;" title="&#x67E5;&#x8BE2;&#x5143;&#x7D20;"></a>&#x67E5;&#x8BE2;&#x5143;&#x7D20;</h3><p>&#x67E5;&#x8BE2;&#x5143;&#x7D20;&#x65F6;&#x540C;&#x6837;&#x8BA1;&#x7B97;&#x51FA;\(k\)&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x5E76;&#x83B7;&#x53D6;&#x8BE5;\(k\)&#x4E2A;&#x4F4D;&#x7F6E;&#x7684;&#x6240;&#x6709;&#x5143;&#x7D20;&#x503C;&#xFF0C;&#x5F53;&#x6709;&#x4E00;&#x4E2A;&#x4F4D;&#x4E3A;\(0\)&#x7684;&#x8BDD;&#xFF0C;&#x5C31;&#x8BC1;&#x660E;&#x8BE5;&#x5143;&#x7D20;&#x4E0D;&#x5728;&#x8BE5;&#x96C6;&#x5408;&#x91CC;&#x3002;&#x82E5;\(k\)&#x4E2A;&#x4F4D;&#x7F6E;&#x5747;&#x4E3A;\(1\)&#xFF0C;&#x5219;&#x8868;&#x793A;&#x8BE5;&#x5143;&#x7D20;&#x53EF;&#x80FD;&#x5728;&#x96C6;&#x5408;&#x91CC;&#xFF0C;&#x56E0;&#x4E3A;&#x67D0;&#x4E9B;&#x4E3A;\(1\)&#x7684;&#x4F4D;&#x53EF;&#x80FD;&#x662F;&#x522B;&#x7684;&#x5143;&#x7D20;&#x5728;&#x63D2;&#x5165;&#x65F6;&#x8BBE;&#x7F6E;&#x7684;&#x3002;</p>
+<h3 id="&#x5220;&#x9664;&#x5143;&#x7D20;"><a href="#&#x5220;&#x9664;&#x5143;&#x7D20;" class="headerlink" title="&#x5220;&#x9664;&#x5143;&#x7D20;"></a><a href="#&#x5220;&#x9664;&#x5143;&#x7D20;" title="&#x5220;&#x9664;&#x5143;&#x7D20;"></a>&#x5220;&#x9664;&#x5143;&#x7D20;</h3><p>&#x7531;&#x4E8E;&#x5047;&#x9633;&#x6027;&#x7684;&#x5F15;&#x5165;&#xFF0C;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x662F;&#x4E0D;&#x80FD;&#x5220;&#x9664;&#x5143;&#x7D20;&#x7684;&#x3002;  </p>
+<h2 id="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;"><a href="#&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;" class="headerlink" title="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;"></a><a href="#&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;" title="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;"></a>&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;</h2><p>&#x94FE;&#x8868;&#x3001;&#x54C8;&#x5E0C;&#x8868;&#x548C;&#x5E73;&#x8861;&#x4E8C;&#x53C9;&#x6811;&#x90FD;&#x80FD;&#x591F;&#x505A;&#x5143;&#x7D20;&#x7684;&#x67E5;&#x627E;&#xFF0C;&#x4F46;&#x662F;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x660E;&#x663E;&#x5728;&#x65F6;&#x95F4;&#x548C;&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;&#x4E0A;&#x66F4;&#x4F18;</p>
+<h3 id="&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;"><a href="#&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;" class="headerlink" title="&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;"></a><a href="#&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;" title="&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;"></a>&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;</h3><p>&#x4E00;&#x4E2A;&#x62E5;&#x6709;1%&#x7684;&#x9519;&#x8BEF;&#x7387;&#x548C;&#x4E00;&#x4E2A;&#x4F18;&#x5316;&#x540E;&#x7684;\(k\)&#x7684;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#xFF0C;&#x5B58;&#x50A8;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x53EA;&#x9700;&#x8981;\(9.6\)bit&#xFF0C;&#x6CA1;&#x964D;&#x4F4E;\(1%\)&#x7684;&#x9519;&#x8BEF;&#x7387;&#x6BCF;&#x4E2A;&#x5143;&#x7D20;&#x4E5F;&#x53EA;&#x9700;&#x589E;&#x52A0;\(4.8\)bit [&#x6587;&#x7AE0;&#x4E2D;&#x5199;&#x7684;&#x7ED3;&#x8BBA;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x770B;&#x8BC1;&#x660E;&#x8FC7;&#x7A0B;]</p>
+<h3 id="&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;"><a href="#&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;" class="headerlink" title="&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;"></a><a href="#&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;" title="&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;"></a>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;</h3><p>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x663E;&#x7136;&#x662F;\(O(k)\)</p>
+<h2 id="&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;"><a href="#&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;" class="headerlink" title="&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;"></a><a href="#&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;" title="&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;"></a>&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;</h2><p>&#x5047;&#x5B9A;&#x4E00;&#x4E2A;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x9009;&#x62E9;&#x6BCF;&#x4E2A;&#x63D2;&#x5165;&#x4F4D;&#x7F6E;&#x7684;&#x6982;&#x7387;&#x90FD;&#x662F;&#x76F8;&#x7B49;&#x7684;&#xFF0C;&#x4E14;&#x4F4D;&#x6570;&#x7EC4;&#x4E00;&#x5171;\(m\)&#x4F4D;&#xFF0C;&#x90A3;&#x4E48;&#x67D0;&#x4E2A;&#x6BD4;&#x7279;&#x4F4D;&#x88AB;hash&#x51FD;&#x6570;&#x8BBE;&#x4E3A;1&#x7684;&#x6982;&#x7387;&#x4E3A;<br>$$ 1 - \frac{1}{m}$$<br>&#x90A3;&#x4E48;&#x901A;&#x8FC7;&#x8BA1;&#x7B97;k&#x4E2A;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x540E;&#xFF0C;&#x8BE5;&#x4F4D;&#x88AB;&#x7F6E;&#x4E3A;1&#x7684;&#x6982;&#x7387;&#x4E3A;<br>$$ ( 1 - \frac{1}{m} )^k$$<br>&#x5982;&#x679C;&#x8BE5;&#x8FC7;&#x6EE4;&#x5668;&#x6709;n&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x90A3;&#x4E48;&#x8BE5;&#x4F4D;&#x4E3A;0&#x7684;&#x6982;&#x7387;&#x4E3A;<br>$$ ( 1 - \frac{1}{m} )^{kn}$$<br>&#x8BE5;&#x4F4D;&#x4E3A;1&#x7684;&#x6982;&#x7387;&#x4E3A;<br>$$ 1- ( 1 - \frac{1}{m} )^{kn}$$<br>&#x90A3;&#x4E48;&#x968F;&#x4FBF;&#x627E;k&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x8FD9;&#x4E9B;&#x4F4D;&#x7F6E;&#x90FD;&#x4E3A;1&#x7684;&#x6982;&#x7387;(&#x4E5F;&#x53EF;&#x8BA4;&#x4E3A;&#x662F;&#x5047;&#x9633;&#x6027;&#x6982;&#x7387;)&#x4E3A;<br>$$ (1- ( 1 - \frac{1}{m} )^{kn})^k \approx (1 - e^{-kn/m})^k$$<br>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x8BE5;&#x6982;&#x7387;&#x4E0D;&#x662F;&#x4E25;&#x683C;&#x51C6;&#x786E;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;\(k\)&#x4E2A;&#x4E3A;&#x5728;&#x88AB;&#x7F6E;1&#x65F6;&#xFF0C;&#x4E0D;&#x662F;&#x72EC;&#x7ACB;&#x4E8B;&#x4EF6;&#xFF0C;&#x4F46;&#x662F;&#x6982;&#x7387;&#x5927;&#x7EA6;&#x662F;&#x76F8;&#x4F3C;&#x7684;&#x3002;&#x7531;&#x6B64;&#x53EF;&#x89C1;&#xFF0C;&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;&#x968F;&#x7740;&#x6BD4;&#x7279;&#x4F4D;&#x6570;&#x7EC4;&#x957F;&#x5EA6;\(m\)&#x7684;&#x589E;&#x5927;&#x800C;&#x51CF;&#x5C0F;&#xFF0C;&#x968F;&#x7740;&#x96C6;&#x5408;&#x5143;&#x7D20;\(n\)&#x7684;&#x589E;&#x5927;&#x800C;&#x589E;&#x5927;&#x3002;&#x90A3;&#x4E48;&#x8BC1;&#x660E;&#x4E86;&#x5982;&#x679C;\(m\)&#x8DB3;&#x591F;&#x5927;&#xFF0C;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x51C6;&#x786E;&#x6027;&#x8FD8;&#x662F;&#x5F88;&#x9AD8;&#x7684;&#x3002;</p>
+<h2 id="&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;k"><a href="#&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;k" class="headerlink" title="&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;k"></a><a href="#&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;-k" title="&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;k"></a>&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;k</h2><p>&#x6700;&#x9002;&#x5408;&#x7684;\(k\)&#x5C31;&#x662F;&#x80FD;&#x591F;&#x4F7F;&#x8FC7;&#x6EE4;&#x5668;&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;&#x8FBE;&#x5230;&#x6700;&#x4F4E;&#xFF0C;&#x76F4;&#x89C2;&#x6765;&#x8BB2;&#x589E;&#x52A0;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x63D0;&#x5347;&#x51C6;&#x786E;&#x7387;&#xFF0C;&#x4F46;&#x662F;&#x53C8;&#x4F1A;&#x5F71;&#x54CD;&#x66F4;&#x591A;&#x7684;&#x6BD4;&#x7279;&#x4F4D;&#xFF0C;&#x6240;&#x4EE5;&#x968F;&#x7740;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x6570;&#x91CF;k&#x7684;&#x589E;&#x52A0;&#xFF0C;&#x5047;&#x9633;&#x6027;&#x6982;&#x7387;&#x6216;&#x8BB8;&#x589E;&#x52A0;&#x6216;&#x8BB8;&#x51CF;&#x5C11;&#xFF0C;&#x56E0;&#x6B64;&#x600E;&#x4E48;&#x7B97;&#x6700;&#x9002;&#x5408;&#x7684;k&#x5462;&#x3002;&#x6211;&#x4EEC;&#x62FF;&#x51FA;&#x4E0A;&#x8FF0;&#x5F97;&#x5230;&#x7684;&#x6982;&#x7387;&#xFF0C;&#x5047;&#x5B9A;&#x5047;&#x9633;&#x6027;&#x6982;&#x7387;&#x4E3A;\(f\)</p>
+<p>$$ f = (1 - e^{-kn/m})^k$$<br>&#x4E3A;&#x4E86;&#x7B80;&#x5316;&#x8FD0;&#x7B97;&#x5BF9;$f$&#x53D6;&#x5BF9;&#x6570;<br>$$ g = ln(f) = k*ln(1 - e^{-kn/m})$$<br>&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x6C42;&#x5BFC;<br>$$\frac{dg}{dk} = ln(1 - e^{-kn/m}) + \frac{kn}{m} \frac{e^{-kn/m}}{1 - e^{-kn/m}}$$<br>&#x5F53;&#x5BFC;&#x6570;&#x4E3A;0&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x662F;&#x6700;&#x9002;&#x5408;&#x7684;k&#xFF0C;&#x6211;&#x4EEC;&#x5F97;&#x51FA;&#x6700;&#x9002;&#x5408;&#x7684;k&#x5982;&#x4E0B;:<br>$$ k = \frac{m}{n}ln(2) $$</p>
+<h2 id="&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;"><a href="#&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;" class="headerlink" title="&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;"></a><a href="#&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;" title="&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;"></a>&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;</h2><p>Swamidass &amp; Baldi&#x63D0;&#x51FA;&#x4E86;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x4E2D;&#x5B9E;&#x9645;&#x5143;&#x7D20;&#x4F30;&#x7B97;&#x7684;&#x65B9;&#x5F0F;<br>$$ n^* = - \frac{mln[1-\frac{X}{k}]}{m}  $$</p>
+<p>&#x5176;&#x4E2D;&#xFF0C;\(n^*\)&#x4E3A;&#x5143;&#x7D20;&#x4E2A;&#x6570;&#x7684;&#x8FD1;&#x4F3C;&#x503C;&#xFF0C;\(m\)&#x662F;&#x4F4D;&#x6570;&#x7EC4;&#x957F;&#x5EA6;&#xFF0C;\(k\)&#x662F;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x7684;&#x6570;&#x91CF;, \(X\)&#x662F;&#x4F4D;&#x6570;&#x7EC4;&#x4E2D;&#x88AB;&#x7F6E;&#x4E3A;1&#x7684;&#x4F4D;&#x7684;&#x6570;&#x91CF;&#x3002;<strong>&#x8FD8;&#x6CA1;&#x6709;&#x770B;&#x5B8C;&#x8BC1;&#x660E;&#x8FC7;&#x7A0B;</strong></p>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a><a href="#&#x603B;&#x7ED3;" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7531;&#x4E8E;&#x5F15;&#x5165;&#x4E86;&#x5047;&#x9633;&#x6027;&#xFF0C;&#x56E0;&#x6B64;&#x4E0D;&#x592A;&#x9002;&#x5408;&#x9AD8;&#x7CBE;&#x5EA6;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x9700;&#x8981;&#x80FD;&#x591F;&#x63A5;&#x53D7;&#x4E00;&#x5B9A;&#x9519;&#x8BEF;&#x5BB9;&#x5FCD;&#x5EA6;&#xFF0C;&#x4F46;&#x662F;&#x67E5;&#x8BE2;&#x548C;&#x63D2;&#x5165;&#x90FD;&#x662F;\(O(k)\)&#x7684;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#xFF0C;&#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E5F;&#x76F8;&#x5F53;&#x53EF;&#x89C2;&#xFF0C;&#x56E0;&#x6B64;&#x5728;&#x5FEB;&#x901F;&#x7684;&#x5143;&#x7D20;&#x67E5;&#x627E;&#x5B9A;&#x4F4D;&#x573A;&#x666F;&#x8FD8;&#x662F;&#x5927;&#x6709;&#x88E8;&#x76CA;&#x7684;&#x3002;</p>
+<h2 id="&#x53C2;&#x8003;&#x6587;&#x732E;"><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x732E;"></a><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;" title="&#x53C2;&#x8003;&#x6587;&#x732E;"></a>&#x53C2;&#x8003;&#x6587;&#x732E;</h2><p><a href="https://en.wikipedia.org/wiki/Bloom_filter#Optimal_number_of_hash_functions" target="_blank" rel="noopener">Bloom_filter</a><br><a href="https://people.eecs.berkeley.edu/~daw/teaching/cs170-s03/Notes/lecture10.pdf" target="_blank" rel="noopener">Notes 10 for CS 170</a><br><a href="http://pubs.acs.org/doi/abs/10.1021/ci600526a" target="_blank" rel="noopener">Mathematical Correction for Fingerprint Similarity Measures to Improve Chemical Retrieval</a></p>
 
     
     </div>
     
     
 </article>
-
 
 
 
@@ -564,9 +578,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <script>
     MathJax.Hub.Config({
-        "HTML-CSS": {matchFontHeight: false},
-        SVG: {matchFontHeight: false},
-        CommonHTML: {matchFontHeight: false}
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
     });
 </script>
 
@@ -602,6 +628,11 @@
             color: #9a9a9a;
             background: none;
             border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
         }
 
         .hljs > .clipboard-btn {
@@ -643,6 +674,9 @@
             return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
           }
         });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
       })
     </script>
 

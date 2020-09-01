@@ -118,7 +118,9 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2020-02-19T02:09:32.000Z" itemprop="datePublished">2月 19 2020</time>
+            
+                <time datetime="2020-02-19T02:09:32.000Z" itemprop="datePublished">2月 19 2020</time>
+            
         </span>
         
         
@@ -126,14 +128,15 @@
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <ol>
-<li><p>首先在initServer中，注册eventloop，为io复用做准备</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server.c</span><br><span class="line">server.el = aeCreateEventLoop(server.maxclients+CONFIG_FDSET_INCR);</span><br></pre></td></tr></table></figure>
+<li><p>&#x9996;&#x5148;&#x5728;initServer&#x4E2D;&#xFF0C;&#x6CE8;&#x518C;eventloop&#xFF0C;&#x4E3A;io&#x590D;&#x7528;&#x505A;&#x51C6;&#x5907;</p>
+<epacse hidden>35</epacse>
 </li>
-<li><p>ListenToPort创建基于tcp的socket连接，并监听客户端连接，并将该socket设置为非阻塞</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server.c</span><br><span class="line">/* Open the TCP listening socket for the user commands. */</span><br><span class="line">if (server.port != 0 &amp;&amp;</span><br><span class="line">    listenToPort(server.port,server.ipfd,&amp;server.ipfd_count) == C_ERR)</span><br><span class="line">    exit(1);</span><br></pre></td></tr></table></figure>
+<li><p>ListenToPort&#x521B;&#x5EFA;&#x57FA;&#x4E8E;tcp&#x7684;socket&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x76D1;&#x542C;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x5C06;&#x8BE5;socket&#x8BBE;&#x7F6E;&#x4E3A;&#x975E;&#x963B;&#x585E;</p>
+<epacse hidden>36</epacse>
 </li>
-<li><p>为每个server的fd设置可读事件回调</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (j = 0; j &lt; server.ipfd_count; j++) &#123;</span><br><span class="line">    if (aeCreateFileEvent(server.el, server.ipfd[j], AE_READABLE, acceptTcpHandler,NULL) == AE_ERR) &#123;</span><br><span class="line">        serverPanic(&quot;Unrecoverable error creating server.ipfd file event.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>&#x4E3A;&#x6BCF;&#x4E2A;server&#x7684;fd&#x8BBE;&#x7F6E;&#x53EF;&#x8BFB;&#x4E8B;&#x4EF6;&#x56DE;&#x8C03;</p>
+<epacse hidden>37</epacse>
+
 </li>
 </ol>
         <p class="article-more-link">
@@ -148,7 +151,6 @@
 
 
 
-
     
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
@@ -158,22 +160,25 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2020-01-07T03:20:00.000Z" itemprop="datePublished">1月 7 2020</time>
+            
+                <time datetime="2020-01-07T03:20:00.000Z" itemprop="datePublished">1月 7 2020</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="image/liancang.jpeg" alt="日本镰仓"></p>
-<h3 id="redisGetReply方法"><a href="#redisGetReply方法" class="headerlink" title="redisGetReply方法"></a>redisGetReply方法</h3><blockquote>
-<p><strong>redisGetReply</strong> 中的 redisBufferRead 的作用是将数据读取到 redis context 的 reader 中，每个 reader 都包含一个读 buf，pos 和 len 记录了 buf 的长度和读取位置</p>
+        <p><img src="image/liancang.jpeg" alt="&#x65E5;&#x672C;&#x9570;&#x4ED3;"></p>
+<h3 id="redisGetReply&#x65B9;&#x6CD5;"><a href="#redisGetReply&#x65B9;&#x6CD5;" class="headerlink" title="redisGetReply&#x65B9;&#x6CD5;"></a>redisGetReply&#x65B9;&#x6CD5;</h3><blockquote>
+<p><strong>redisGetReply</strong> &#x4E2D;&#x7684; redisBufferRead &#x7684;&#x4F5C;&#x7528;&#x662F;&#x5C06;&#x6570;&#x636E;&#x8BFB;&#x53D6;&#x5230; redis context &#x7684; reader &#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A; reader &#x90FD;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x8BFB; buf&#xFF0C;pos &#x548C; len &#x8BB0;&#x5F55;&#x4E86; buf &#x7684;&#x957F;&#x5EA6;&#x548C;&#x8BFB;&#x53D6;&#x4F4D;&#x7F6E;</p>
 </blockquote>
-<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">redisReader</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> err; <span class="hljs-comment">/* Error flags, 0 when there is no error */</span></span><br><span class="line">    <span class="hljs-keyword">char</span> errstr[<span class="hljs-number">128</span>]; <span class="hljs-comment">/* String representation of error when applicable */</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">char</span> *buf; <span class="hljs-comment">/* Read buffer */</span></span><br><span class="line">    <span class="hljs-keyword">size_t</span> pos; <span class="hljs-comment">/* Buffer cursor */</span></span><br><span class="line">    <span class="hljs-keyword">size_t</span> len; <span class="hljs-comment">/* Buffer length */</span></span><br><span class="line">    <span class="hljs-keyword">size_t</span> maxbuf; <span class="hljs-comment">/* Max length of unused buffer */</span></span><br><span class="line"></span><br><span class="line">    redisReadTask rstack[<span class="hljs-number">9</span>]; <span class="hljs-comment">// 遍历使用的栈</span></span><br><span class="line">    <span class="hljs-keyword">int</span> ridx; <span class="hljs-comment">/* Index of current read task */</span> 标识遍历到哪一层</span><br><span class="line">    <span class="hljs-keyword">void</span> *reply; <span class="hljs-comment">/* Temporary reply pointer */</span></span><br><span class="line"></span><br><span class="line">    redisReplyObjectFunctions *fn;</span><br><span class="line">    <span class="hljs-keyword">void</span> *privdata;</span><br><span class="line">&#125; redisReader;</span><br></pre></td></tr></table></figure>
+<epacse hidden>3</epacse>
+
 <ul>
-<li>buf：读缓冲区</li>
-<li>pos：当前读取到的位置</li>
-<li>len：buff 的长度</li></ul>
+<li>buf&#xFF1A;&#x8BFB;&#x7F13;&#x51B2;&#x533A;</li>
+<li>pos&#xFF1A;&#x5F53;&#x524D;&#x8BFB;&#x53D6;&#x5230;&#x7684;&#x4F4D;&#x7F6E;</li>
+<li>len&#xFF1A;buff &#x7684;&#x957F;&#x5EA6;</li></ul>
         <p class="article-more-link">
             <a href="/2020/01/07/Redis-get-reply/#more">阅读更多</a>
         </p>
@@ -182,7 +187,6 @@
     
     
 </article>
-
 
 
 
@@ -196,21 +200,24 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-11-29T05:44:11.000Z" itemprop="datePublished">11月 29 2019</time>
+            
+                <time datetime="2019-11-29T05:44:11.000Z" itemprop="datePublished">11月 29 2019</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h2 id="首先从源码中找入口"><a href="#首先从源码中找入口" class="headerlink" title="首先从源码中找入口"></a>首先从源码中找入口</h2><p>redis源码：src/redis-cli.c中找到main函数，main函数中核心的处理就是以下部分</p>
-<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* Start interactive mode when no command is provided */</span></span><br><span class="line"><span class="hljs-keyword">if</span> (argc == <span class="hljs-number">0</span> &amp;&amp; !config.eval) &#123;</span><br><span class="line">    <span class="hljs-comment">/* Ignore SIGPIPE in interactive mode to force a reconnect */</span></span><br><span class="line">    signal(SIGPIPE, SIG_IGN);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/* Note that in repl mode we don't abort on connection error.</span></span><br><span class="line"><span class="hljs-comment">     * A new attempt will be performed for every command send. */</span></span><br><span class="line">    cliConnect(<span class="hljs-number">0</span>);</span><br><span class="line">    repl();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;"><a href="#&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;" class="headerlink" title="&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;"></a>&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;</h2><p>redis&#x6E90;&#x7801;&#xFF1A;src/redis-cli.c&#x4E2D;&#x627E;&#x5230;main&#x51FD;&#x6570;&#xFF0C;main&#x51FD;&#x6570;&#x4E2D;&#x6838;&#x5FC3;&#x7684;&#x5904;&#x7406;&#x5C31;&#x662F;&#x4EE5;&#x4E0B;&#x90E8;&#x5206;</p>
+<epacse hidden>23</epacse>
+
 <ul>
-<li>cliConnect<br>主要是与服务端建立连接，每一个连接都会创建一个redisContext结构来保存</li>
-<li>repl<br>repl实现了发送命令并输出Server返回结果的主要逻辑</li>
+<li>cliConnect<br>&#x4E3B;&#x8981;&#x662F;&#x4E0E;&#x670D;&#x52A1;&#x7AEF;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;redisContext&#x7ED3;&#x6784;&#x6765;&#x4FDD;&#x5B58;</li>
+<li>repl<br>repl&#x5B9E;&#x73B0;&#x4E86;&#x53D1;&#x9001;&#x547D;&#x4EE4;&#x5E76;&#x8F93;&#x51FA;Server&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x7684;&#x4E3B;&#x8981;&#x903B;&#x8F91;</li>
 </ul>
-<h2 id="RedisContext"><a href="#RedisContext" class="headerlink" title="RedisContext"></a>RedisContext</h2><p>redisContext结构如下，重要的字段都进行了注释</p>
-<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">redisContext</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> err; <span class="hljs-comment">/* Error flags, 0 when there is no error */</span></span><br><span class="line">    <span class="hljs-keyword">char</span> errstr[<span class="hljs-number">128</span>]; <span class="hljs-comment">/* String representation of error when applicable */</span></span><br><span class="line">    <span class="hljs-keyword">int</span> fd; <span class="hljs-comment">// socket句柄，用户连接redis server</span></span><br><span class="line">    <span class="hljs-keyword">int</span> flags;</span><br><span class="line">    <span class="hljs-keyword">char</span> *obuf; <span class="hljs-comment">/* Write buffer */</span> <span class="hljs-comment">//主要存储发送的命令，resp协议封装后的sds</span></span><br><span class="line">    redisReader *reader; <span class="hljs-comment">/* Protocol reader */</span> <span class="hljs-comment">// 存储server返回的数据</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">enum</span> redisConnectionType connection_type;</span><br><span class="line">    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">timeval</span> *<span class="hljs-title">timeout</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span></span><br><span class="line">        <span class="hljs-keyword">char</span> *host;</span><br><span class="line">        <span class="hljs-keyword">char</span> *source_addr;</span><br><span class="line">        <span class="hljs-keyword">int</span> port;</span><br><span class="line">    &#125; tcp;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span></span><br><span class="line">        <span class="hljs-keyword">char</span> *path;</span><br><span class="line">    &#125; unix_sock;</span><br><span class="line"></span><br><span class="line">&#125; redisContext;</span><br></pre></td></tr></table></figure>
+<h2 id="RedisContext"><a href="#RedisContext" class="headerlink" title="RedisContext"></a>RedisContext</h2><p>redisContext&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF0C;&#x91CD;&#x8981;&#x7684;&#x5B57;&#x6BB5;&#x90FD;&#x8FDB;&#x884C;&#x4E86;&#x6CE8;&#x91CA;</p>
+<epacse hidden>24</epacse>
         <p class="article-more-link">
             <a href="/2019/11/29/redis-cli/#more">阅读更多</a>
         </p>
@@ -219,7 +226,6 @@
     
     
 </article>
-
 
 
 
@@ -276,9 +282,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <script>
     MathJax.Hub.Config({
-        "HTML-CSS": {matchFontHeight: false},
-        SVG: {matchFontHeight: false},
-        CommonHTML: {matchFontHeight: false}
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
     });
 </script>
 
@@ -314,6 +332,11 @@
             color: #9a9a9a;
             background: none;
             border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
         }
 
         .hljs > .clipboard-btn {
@@ -355,6 +378,9 @@
             return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
           }
         });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
       })
     </script>
 

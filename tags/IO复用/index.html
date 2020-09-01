@@ -118,16 +118,18 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2020-02-24T10:39:53.000Z" itemprop="datePublished">2月 24 2020</time>
+            
+                <time datetime="2020-02-24T10:39:53.000Z" itemprop="datePublished">2月 24 2020</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="image/jinan.jpg" alt="济南"></p>
-<h2 id="IO复用"><a href="#IO复用" class="headerlink" title="IO复用"></a>IO复用</h2><p>select、poll和epoll是三个常用的IO多路复用方法，具体的差别和性能从左到右都是有区别的。但对于这几种IO复用方法是如何使用的，还是一知半解。</p>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>这几天，通过阅读redis的源码，对epoll的使用方法有了进一步的认识。因此，这里使用epoll做一个简单的接受io请求的例子<br></p>
+        <p><img src="image/jinan.jpg" alt="&#x6D4E;&#x5357;"></p>
+<h2 id="IO&#x590D;&#x7528;"><a href="#IO&#x590D;&#x7528;" class="headerlink" title="IO&#x590D;&#x7528;"></a>IO&#x590D;&#x7528;</h2><p>select&#x3001;poll&#x548C;epoll&#x662F;&#x4E09;&#x4E2A;&#x5E38;&#x7528;&#x7684;IO&#x591A;&#x8DEF;&#x590D;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x5DEE;&#x522B;&#x548C;&#x6027;&#x80FD;&#x4ECE;&#x5DE6;&#x5230;&#x53F3;&#x90FD;&#x662F;&#x6709;&#x533A;&#x522B;&#x7684;&#x3002;&#x4F46;&#x5BF9;&#x4E8E;&#x8FD9;&#x51E0;&#x79CD;IO&#x590D;&#x7528;&#x65B9;&#x6CD5;&#x662F;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x8FD8;&#x662F;&#x4E00;&#x77E5;&#x534A;&#x89E3;&#x3002;</p>
+<h2 id="&#x5B9E;&#x4F8B;"><a href="#&#x5B9E;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x4F8B;"></a>&#x5B9E;&#x4F8B;</h2><p>&#x8FD9;&#x51E0;&#x5929;&#xFF0C;&#x901A;&#x8FC7;&#x9605;&#x8BFB;redis&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x5BF9;epoll&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x6709;&#x4E86;&#x8FDB;&#x4E00;&#x6B65;&#x7684;&#x8BA4;&#x8BC6;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;epoll&#x505A;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x63A5;&#x53D7;io&#x8BF7;&#x6C42;&#x7684;&#x4F8B;&#x5B50;<br></p>
         <p class="article-more-link">
             <a href="/2020/02/24/epoll/#more">阅读更多</a>
         </p>
@@ -136,7 +138,6 @@
     
     
 </article>
-
 
 
 
@@ -193,9 +194,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <script>
     MathJax.Hub.Config({
-        "HTML-CSS": {matchFontHeight: false},
-        SVG: {matchFontHeight: false},
-        CommonHTML: {matchFontHeight: false}
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
     });
 </script>
 
@@ -231,6 +244,11 @@
             color: #9a9a9a;
             background: none;
             border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
         }
 
         .hljs > .clipboard-btn {
@@ -272,6 +290,9 @@
             return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
           }
         });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
       })
     </script>
 

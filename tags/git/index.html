@@ -118,23 +118,25 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2020-04-26T03:03:37.000Z" itemprop="datePublished">4月 26 2020</time>
+            
+                <time datetime="2020-04-26T03:03:37.000Z" itemprop="datePublished">4月 26 2020</time>
+            
         </span>
         
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>经常使用公司的git仓库，同时也需要使用github，此时git的配置就会出问题。由于git配置的用户名和密码均是全局的，会导致如果使用github的配置如果不指定，就按照公司的git配置中的默认用户名提交。</p>
-<p>解决办法，在github仓库中设置local配置</p>
+        <p>&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#x516C;&#x53F8;&#x7684;git&#x4ED3;&#x5E93;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x9700;&#x8981;&#x4F7F;&#x7528;github&#xFF0C;&#x6B64;&#x65F6;git&#x7684;&#x914D;&#x7F6E;&#x5C31;&#x4F1A;&#x51FA;&#x95EE;&#x9898;&#x3002;&#x7531;&#x4E8E;git&#x914D;&#x7F6E;&#x7684;&#x7528;&#x6237;&#x540D;&#x548C;&#x5BC6;&#x7801;&#x5747;&#x662F;&#x5168;&#x5C40;&#x7684;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x5982;&#x679C;&#x4F7F;&#x7528;github&#x7684;&#x914D;&#x7F6E;&#x5982;&#x679C;&#x4E0D;&#x6307;&#x5B9A;&#xFF0C;&#x5C31;&#x6309;&#x7167;&#x516C;&#x53F8;&#x7684;git&#x914D;&#x7F6E;&#x4E2D;&#x7684;&#x9ED8;&#x8BA4;&#x7528;&#x6237;&#x540D;&#x63D0;&#x4EA4;&#x3002;</p>
+<p>&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#xFF0C;&#x5728;github&#x4ED3;&#x5E93;&#x4E2D;&#x8BBE;&#x7F6E;local&#x914D;&#x7F6E;</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="hljs-built_in">local</span> user.name xxx</span><br><span class="line">git config --<span class="hljs-built_in">local</span> user.email xxx@xxx.com</span><br></pre></td></tr></table></figure>
+
 
     
     </div>
     
     
 </article>
-
 
 
 
@@ -191,9 +193,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <script>
     MathJax.Hub.Config({
-        "HTML-CSS": {matchFontHeight: false},
-        SVG: {matchFontHeight: false},
-        CommonHTML: {matchFontHeight: false}
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
     });
 </script>
 
@@ -229,6 +243,11 @@
             color: #9a9a9a;
             background: none;
             border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
         }
 
         .hljs > .clipboard-btn {
@@ -270,6 +289,9 @@
             return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
           }
         });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
       })
     </script>
 
