@@ -175,8 +175,7 @@
 <blockquote>
 <p>意向锁只阻塞表级别的加锁请求（for example, <a href="https://dev.mysql.com/doc/refman/8.0/en/lock-tables.html" target="_blank" rel="noopener"><code>LOCK TABLES ... WRITE</code></a>)。意图锁主要是为了表明某些客户端正在或将要锁住表中的某一行。</p>
 </blockquote>
-<h2 id="记录锁"><a href="#记录锁" class="headerlink" title="记录锁"></a>记录锁</h2><p>A record lock is a lock on an index record. For example, <code>SELECT c1 FROM t WHERE c1 = 10 FOR UPDATE;</code> prevents any other transaction from inserting, updating, or deleting rows where the value of <code>t.c1</code> is <code>10</code>.</p>
-<p>Record locks always lock index records, even if a table is defined with no indexes. For such cases, <code>InnoDB</code> creates a hidden clustered index and uses this index for record locking. See <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html" target="_blank" rel="noopener">Section 15.6.2.1, “Clustered and Secondary Indexes”</a>.<br></p>
+<h2 id="记录锁-record-lock"><a href="#记录锁-record-lock" class="headerlink" title="记录锁(record lock)"></a>记录锁(record lock)</h2><p>记录锁也叫做行锁，是用来在一条索引记录上加锁来实现。例如<code>SELECT c1 FROM t WHERE c1 = 10 FOR UPDATE;</code> 会阻止其他事务插入、更新或删除<code>t.c1</code>值为<code>10</code>的数据行。记录锁通常通过锁住索引记录来实现，即便一个mysql的table没有定义索引，在这种情况下InnoDB会创建一个隐藏的索引来用该索引来加记录锁。See <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html" target="_blank" rel="noopener">Section 15.6.2.1, “Clustered and Secondary Indexes”</a>.<br></p>
         <p class="article-more-link">
             <a href="/2020/08/31/innodblock/#more">阅读更多</a>
         </p>
