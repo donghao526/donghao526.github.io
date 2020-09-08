@@ -23,7 +23,7 @@
 <meta property="og:description" content="&amp;#x672C;&amp;#x6587;&amp;#x53C2;&amp;#x8003;Mysql&amp;#x5B98;&amp;#x65B9;&amp;#x6587;&amp;#x6863; &amp;#x5171;&amp;#x4EAB;&amp;#x9501;&amp;#x548C;&amp;#x6392;&amp;#x5B83;&amp;#x9501; &amp;#x5171;&amp;#x4EAB;&amp;#x9501;&amp;#xFF08;shared locks&amp;#xFF1A;s lock&amp;#xFF09; &amp;#x63">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://yoursite.com/image/beijing.JPG">
-<meta property="og:updated_time" content="2020-09-08T10:08:56.327Z">
+<meta property="og:updated_time" content="2020-09-08T11:20:25.804Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql Innodb引擎中的锁">
 <meta name="twitter:description" content="&amp;#x672C;&amp;#x6587;&amp;#x53C2;&amp;#x8003;Mysql&amp;#x5B98;&amp;#x65B9;&amp;#x6587;&amp;#x6863; &amp;#x5171;&amp;#x4EAB;&amp;#x9501;&amp;#x548C;&amp;#x6392;&amp;#x5B83;&amp;#x9501; &amp;#x5171;&amp;#x4EAB;&amp;#x9501;&amp;#xFF08;shared locks&amp;#xFF1A;s lock&amp;#xFF09; &amp;#x63">
@@ -237,7 +237,10 @@
 <li><strong>&#x975E;&#x552F;&#x4E00;&#x7D22;&#x5F15;&#x4E0B;&#x7684;&#x60C5;&#x51B5;&#xFF1A;</strong>&#x8BB0;&#x5F55;&#x65E0;&#x8BBA;&#x662F;&#x5426;&#x5B58;&#x5728;&#x90FD;&#x4F1A;&#x5BF9;&#x95F4;&#x9699;&#x52A0;&#x9501;&#xFF0C;&#x9632;&#x6B62;&#x5176;&#x4ED6;&#x4E8B;&#x52A1;&#x5728;&#x4FEE;&#x6539;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x5230;&#x95F4;&#x9699;&#x5185;&#x5BFC;&#x81F4;&#x5E7B;&#x8BFB;</li>
 </ul>
 <hr>
-<h3 id="&#x4E34;&#x952E;&#x9501;"><a href="#&#x4E34;&#x952E;&#x9501;" class="headerlink" title="&#x4E34;&#x952E;&#x9501;"></a><strong>&#x4E34;&#x952E;&#x9501;</strong></h3><p>&#x4E34;&#x5EFA;&#x9501; = &#x884C;&#x9501; + &#x95F4;&#x9699;&#x9501;</p>
+<h3 id="&#x4E34;&#x952E;&#x9501;"><a href="#&#x4E34;&#x952E;&#x9501;" class="headerlink" title="&#x4E34;&#x952E;&#x9501;"></a><strong>&#x4E34;&#x952E;&#x9501;</strong></h3><p>&#x7B80;&#x5355;&#x6765;&#x8BB2;<code>&#x4E34;&#x5EFA;&#x9501; = &#x884C;&#x9501; + &#x8BB0;&#x5F55;&#x524D;&#x7684;&#x95F4;&#x9699;&#x9501;</code>&#xFF0C;&#x95F4;&#x9699;&#x9501;&#x662F;&#x4E00;&#x4E2A;&#x5DE6;&#x5F00;&#x53F3;&#x95ED;&#x7684;&#x533A;&#x95F4;&#xFF0C;&#x5047;&#x8BBE;&#x4E00;&#x5F20;&#x8868;&#x5305;&#x542B;&#x4E86;10&#x3001;11&#x3001;13&#x548C;20&#x8FD9;&#x51E0;&#x4E2A;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E48;&#x53EF;&#x4EE5;&#x5206;&#x5272;&#x7684;&#x95F4;&#x9699;&#x6709;</p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(negative infinity, <span class="hljs-number">10</span>]</span><br><span class="line">(<span class="hljs-number">10</span>, <span class="hljs-number">11</span>]</span><br><span class="line">(<span class="hljs-number">11</span>&#xFF0C;<span class="hljs-number">13</span>]</span><br><span class="line">(<span class="hljs-number">13</span>&#xFF0C;<span class="hljs-number">20</span>]</span><br><span class="line">(<span class="hljs-number">20</span>&#xFF0C;&#x6B63;&#x65E0;&#x7A77;)</span><br></pre></td></tr></table></figure>
+
+<p>&#x5047;&#x5982;&#x6709;SQL&#x8BED;&#x53E5;<code>SELECT * FROM table WHERE value = 13 FOR UPDATE;</code>&#xFF0C;&#x6839;&#x636E;&#x4E34;&#x5EFA;&#x9501;&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x9501;&#x4F4F;&#x4E86;(11&#xFF0C;13]&#x7684;&#x533A;&#x95F4;&#xFF0C;&#x4F46;&#x5B9E;&#x9645;&#x4E0A;(13, 20)&#x7684;&#x95F4;&#x9699;&#x4E5F;&#x4F1A;&#x88AB;&#x9501;&#x4F4F;&#xFF0C;&#x56E0;&#x6B64;&#x5B9E;&#x9645;&#x8981;&#x9501;&#x4F4F;&#x7684;&#x533A;&#x95F4;&#x4E3A;(10, 20)</p>
 
     
     </div>
