@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>I have a dream</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="I have a dream">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="I have a dream">
+<meta property="og:locale" content="zh-cn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="I have a dream">
+
+
+
+
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//cdn.bootcss.com/font-awesome/5.13.0/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    长安城小頑主
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">归档</a>
+            
+            <a class="navbar-item " href="/categories">分类</a>
+            
+            <a class="navbar-item " href="/tags">标签</a>
+            
+            <a class="navbar-item " href="https://github.com/donghao526">关于我</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="搜索" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2020/09/08/002-布隆过滤器/" itemprop="url">布隆过滤器</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-09-08T12:15:13.000Z" itemprop="datePublished">9月 8 2020</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x4E00;&#x79CD;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x7528;&#x6765;&#x5224;&#x65AD;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x662F;&#x5426;&#x5728;&#x67D0;&#x4E2A;&#x96C6;&#x5408;&#x4E2D;&#x3002;&#x7531;&#x4E8E;&#x5177;&#x6709;&#x5047;&#x9633;&#x6027;&#xFF0C;&#x6240;&#x4EE5;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x53EA;&#x80FD;&#x5F97;&#x51FA;&#x67D0;&#x4E2A;&#x5143;&#x7D20;&#x6709;&#x53EF;&#x80FD;&#x5728;&#x8BE5;&#x96C6;&#x5408;&#xFF0C;&#x53CD;&#x4E4B;&#x8BE5;&#x5143;&#x7D20;&#x4E00;&#x5B9A;&#x4E0D;&#x5728;&#x8FD9;&#x4E2A;&#x96C6;&#x5408;&#x4E2D;&#x3002;</p>
+<h2 id="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;"><a href="#&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;" class="headerlink" title="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;"></a><a href="#&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;" title="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;"></a>&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7B80;&#x4ECB;</h2><p>&#x4E00;&#x4E2A;&#x7A7A;&#x7684;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x662F;&#x4E00;&#x4E2A;\(m\)&#x4F4D;&#x5747;&#x4E3A;\(0\)&#x7684;&#x6BD4;&#x7279;&#x4F4D;&#x6570;&#x7EC4;&#xFF0C;&#x540C;&#x65F6;&#x5B9A;&#x4E49;&#x4E86;\(k\)&#x4E2A;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#xFF0C;&#x5C06;&#x67D0;&#x4E2A;&#x5143;&#x7D20;&#x5F97;&#x51FA;&#x7684;&#x54C8;&#x5E0C;&#x503C;&#x6620;&#x5C04;&#x5230;m&#x4E2A;&#x6BD4;&#x7279;&#x4F4D;&#x4E2D;&#x7684;&#x67D0;&#x4E00;&#x4F4D;&#xFF0C;&#x5C06;&#x8BE5;&#x4E3A;&#x7F6E;&#x4E3A;1&#xFF0C;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x7684;&#x5206;&#x5E03;&#x3002;&#x901A;&#x5E38;\(k\)&#x8981;&#x8FDC;&#x8FDC;&#x5C0F;&#x4E8E;\(m\)&#xFF0C;\(k\)&#x548C;\(m\)&#x7684;&#x9009;&#x53D6;&#x53D6;&#x51B3;&#x4E8E;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x5047;&#x9633;&#x6027;&#x6982;&#x7387;&#x3002;<br><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Bloom_filter.svg/649px-Bloom_filter.svg.png" alt></p>
+<h3 id="&#x6DFB;&#x52A0;&#x5143;&#x7D20;"><a href="#&#x6DFB;&#x52A0;&#x5143;&#x7D20;" class="headerlink" title="&#x6DFB;&#x52A0;&#x5143;&#x7D20;"></a><a href="#&#x6DFB;&#x52A0;&#x5143;&#x7D20;" title="&#x6DFB;&#x52A0;&#x5143;&#x7D20;"></a>&#x6DFB;&#x52A0;&#x5143;&#x7D20;</h3><p>&#x5F53;&#x7ED9;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x4E2D;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x65F6;&#xFF0C;&#x5229;&#x7528;\(k\)&#x4E2A;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x5F97;&#x51FA;\(k\)&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x5E76;&#x5C06;\(m\)&#x4E2A;&#x6BD4;&#x7279;&#x4F4D;&#x4E2D;&#x5BF9;&#x5E94;&#x7684;\(k\)&#x4E2A;&#x4F4D;&#x7F6E;&#x8BBE;&#x7F6E;&#x4E3A;\(1\)&#x3002;</p>
+<h3 id="&#x67E5;&#x8BE2;&#x5143;&#x7D20;"><a href="#&#x67E5;&#x8BE2;&#x5143;&#x7D20;" class="headerlink" title="&#x67E5;&#x8BE2;&#x5143;&#x7D20;"></a><a href="#&#x67E5;&#x8BE2;&#x5143;&#x7D20;" title="&#x67E5;&#x8BE2;&#x5143;&#x7D20;"></a>&#x67E5;&#x8BE2;&#x5143;&#x7D20;</h3><p>&#x67E5;&#x8BE2;&#x5143;&#x7D20;&#x65F6;&#x540C;&#x6837;&#x8BA1;&#x7B97;&#x51FA;\(k\)&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x5E76;&#x83B7;&#x53D6;&#x8BE5;\(k\)&#x4E2A;&#x4F4D;&#x7F6E;&#x7684;&#x6240;&#x6709;&#x5143;&#x7D20;&#x503C;&#xFF0C;&#x5F53;&#x6709;&#x4E00;&#x4E2A;&#x4F4D;&#x4E3A;\(0\)&#x7684;&#x8BDD;&#xFF0C;&#x5C31;&#x8BC1;&#x660E;&#x8BE5;&#x5143;&#x7D20;&#x4E0D;&#x5728;&#x8BE5;&#x96C6;&#x5408;&#x91CC;&#x3002;&#x82E5;\(k\)&#x4E2A;&#x4F4D;&#x7F6E;&#x5747;&#x4E3A;\(1\)&#xFF0C;&#x5219;&#x8868;&#x793A;&#x8BE5;&#x5143;&#x7D20;&#x53EF;&#x80FD;&#x5728;&#x96C6;&#x5408;&#x91CC;&#xFF0C;&#x56E0;&#x4E3A;&#x67D0;&#x4E9B;&#x4E3A;\(1\)&#x7684;&#x4F4D;&#x53EF;&#x80FD;&#x662F;&#x522B;&#x7684;&#x5143;&#x7D20;&#x5728;&#x63D2;&#x5165;&#x65F6;&#x8BBE;&#x7F6E;&#x7684;&#x3002;</p>
+<h3 id="&#x5220;&#x9664;&#x5143;&#x7D20;"><a href="#&#x5220;&#x9664;&#x5143;&#x7D20;" class="headerlink" title="&#x5220;&#x9664;&#x5143;&#x7D20;"></a><a href="#&#x5220;&#x9664;&#x5143;&#x7D20;" title="&#x5220;&#x9664;&#x5143;&#x7D20;"></a>&#x5220;&#x9664;&#x5143;&#x7D20;</h3><p>&#x7531;&#x4E8E;&#x5047;&#x9633;&#x6027;&#x7684;&#x5F15;&#x5165;&#xFF0C;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x662F;&#x4E0D;&#x80FD;&#x5220;&#x9664;&#x5143;&#x7D20;&#x7684;&#x3002;  </p>
+<h2 id="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;"><a href="#&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;" class="headerlink" title="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;"></a><a href="#&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;" title="&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;"></a>&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x4F18;&#x70B9;</h2><p>&#x94FE;&#x8868;&#x3001;&#x54C8;&#x5E0C;&#x8868;&#x548C;&#x5E73;&#x8861;&#x4E8C;&#x53C9;&#x6811;&#x90FD;&#x80FD;&#x591F;&#x505A;&#x5143;&#x7D20;&#x7684;&#x67E5;&#x627E;&#xFF0C;&#x4F46;&#x662F;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x660E;&#x663E;&#x5728;&#x65F6;&#x95F4;&#x548C;&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;&#x4E0A;&#x66F4;&#x4F18;</p>
+<h3 id="&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;"><a href="#&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;" class="headerlink" title="&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;"></a><a href="#&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;" title="&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;"></a>&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;</h3><p>&#x4E00;&#x4E2A;&#x62E5;&#x6709;1%&#x7684;&#x9519;&#x8BEF;&#x7387;&#x548C;&#x4E00;&#x4E2A;&#x4F18;&#x5316;&#x540E;&#x7684;\(k\)&#x7684;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#xFF0C;&#x5B58;&#x50A8;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x53EA;&#x9700;&#x8981;\(9.6\)bit&#xFF0C;&#x6CA1;&#x964D;&#x4F4E;\(1%\)&#x7684;&#x9519;&#x8BEF;&#x7387;&#x6BCF;&#x4E2A;&#x5143;&#x7D20;&#x4E5F;&#x53EA;&#x9700;&#x589E;&#x52A0;\(4.8\)bit [&#x6587;&#x7AE0;&#x4E2D;&#x5199;&#x7684;&#x7ED3;&#x8BBA;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x770B;&#x8BC1;&#x660E;&#x8FC7;&#x7A0B;]</p>
+<h3 id="&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;"><a href="#&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;" class="headerlink" title="&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;"></a><a href="#&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;" title="&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;"></a>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;</h3><p>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x663E;&#x7136;&#x662F;\(O(k)\)</p>
+<h2 id="&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;"><a href="#&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;" class="headerlink" title="&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;"></a><a href="#&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;" title="&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;"></a>&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;</h2><p>&#x5047;&#x5B9A;&#x4E00;&#x4E2A;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x9009;&#x62E9;&#x6BCF;&#x4E2A;&#x63D2;&#x5165;&#x4F4D;&#x7F6E;&#x7684;&#x6982;&#x7387;&#x90FD;&#x662F;&#x76F8;&#x7B49;&#x7684;&#xFF0C;&#x4E14;&#x4F4D;&#x6570;&#x7EC4;&#x4E00;&#x5171;\(m\)&#x4F4D;&#xFF0C;&#x90A3;&#x4E48;&#x67D0;&#x4E2A;&#x6BD4;&#x7279;&#x4F4D;&#x88AB;hash&#x51FD;&#x6570;&#x4E0D;&#x8BBE;&#x4E3A;1&#x7684;&#x6982;&#x7387;&#x4E3A;<br>$$ 1 - \frac{1}{m}$$<br>&#x90A3;&#x4E48;&#x901A;&#x8FC7;&#x8BA1;&#x7B97;k&#x4E2A;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x540E;&#xFF0C;&#x8BE5;&#x4F4D;&#x4E0D;&#x88AB;&#x7F6E;&#x4E3A;1&#x7684;&#x6982;&#x7387;&#x4E3A;<br>$$ ( 1 - \frac{1}{m} )^k$$<br>&#x5982;&#x679C;&#x8BE5;&#x8FC7;&#x6EE4;&#x5668;&#x6709;n&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x90A3;&#x4E48;&#x8BE5;&#x4F4D;&#x4E3A;0&#x7684;&#x6982;&#x7387;&#x4E3A;<br>$$ ( 1 - \frac{1}{m} )^{kn}$$<br>&#x8BE5;&#x4F4D;&#x4E3A;1&#x7684;&#x6982;&#x7387;&#x4E3A;<br>$$ 1- ( 1 - \frac{1}{m} )^{kn}$$<br>&#x90A3;&#x4E48;&#x968F;&#x4FBF;&#x627E;k&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x8FD9;&#x4E9B;&#x4F4D;&#x7F6E;&#x90FD;&#x4E3A;1&#x7684;&#x6982;&#x7387;(&#x4E5F;&#x53EF;&#x8BA4;&#x4E3A;&#x662F;&#x5047;&#x9633;&#x6027;&#x6982;&#x7387;)&#x4E3A;<br>$$ (1- ( 1 - \frac{1}{m} )^{kn})^k \approx (1 - e^{-kn/m})^k$$<br>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x8BE5;&#x6982;&#x7387;&#x4E0D;&#x662F;&#x4E25;&#x683C;&#x51C6;&#x786E;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;\(k\)&#x4E2A;&#x4E3A;&#x5728;&#x88AB;&#x7F6E;1&#x65F6;&#xFF0C;&#x4E0D;&#x662F;&#x72EC;&#x7ACB;&#x4E8B;&#x4EF6;&#xFF0C;&#x4F46;&#x662F;&#x6982;&#x7387;&#x5927;&#x7EA6;&#x662F;&#x76F8;&#x4F3C;&#x7684;&#x3002;&#x7531;&#x6B64;&#x53EF;&#x89C1;&#xFF0C;&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;&#x968F;&#x7740;&#x6BD4;&#x7279;&#x4F4D;&#x6570;&#x7EC4;&#x957F;&#x5EA6;\(m\)&#x7684;&#x589E;&#x5927;&#x800C;&#x51CF;&#x5C0F;&#xFF0C;&#x968F;&#x7740;&#x96C6;&#x5408;&#x5143;&#x7D20;\(n\)&#x7684;&#x589E;&#x5927;&#x800C;&#x589E;&#x5927;&#x3002;&#x90A3;&#x4E48;&#x8BC1;&#x660E;&#x4E86;&#x5982;&#x679C;\(m\)&#x8DB3;&#x591F;&#x5927;&#xFF0C;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x51C6;&#x786E;&#x6027;&#x8FD8;&#x662F;&#x5F88;&#x9AD8;&#x7684;&#x3002;</p>
+<h2 id="&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;k"><a href="#&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;k" class="headerlink" title="&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;k"></a><a href="#&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;-k" title="&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;k"></a>&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x6700;&#x9002;&#x5408;&#x7684;k</h2><p>&#x6700;&#x9002;&#x5408;&#x7684;\(k\)&#x5C31;&#x662F;&#x80FD;&#x591F;&#x4F7F;&#x8FC7;&#x6EE4;&#x5668;&#x5047;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;&#x8FBE;&#x5230;&#x6700;&#x4F4E;&#xFF0C;&#x76F4;&#x89C2;&#x6765;&#x8BB2;&#x589E;&#x52A0;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x63D0;&#x5347;&#x51C6;&#x786E;&#x7387;&#xFF0C;&#x4F46;&#x662F;&#x53C8;&#x4F1A;&#x5F71;&#x54CD;&#x66F4;&#x591A;&#x7684;&#x6BD4;&#x7279;&#x4F4D;&#xFF0C;&#x6240;&#x4EE5;&#x968F;&#x7740;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x6570;&#x91CF;k&#x7684;&#x589E;&#x52A0;&#xFF0C;&#x5047;&#x9633;&#x6027;&#x6982;&#x7387;&#x6216;&#x8BB8;&#x589E;&#x52A0;&#x6216;&#x8BB8;&#x51CF;&#x5C11;&#xFF0C;&#x56E0;&#x6B64;&#x600E;&#x4E48;&#x7B97;&#x6700;&#x9002;&#x5408;&#x7684;k&#x5462;&#x3002;&#x6211;&#x4EEC;&#x62FF;&#x51FA;&#x4E0A;&#x8FF0;&#x5F97;&#x5230;&#x7684;&#x6982;&#x7387;&#xFF0C;&#x5047;&#x5B9A;&#x5047;&#x9633;&#x6027;&#x6982;&#x7387;&#x4E3A;\(f\)</p>
+<p>$$ f = (1 - e^{-kn/m})^k$$<br>&#x4E3A;&#x4E86;&#x7B80;&#x5316;&#x8FD0;&#x7B97;&#x5BF9;$f$&#x53D6;&#x5BF9;&#x6570;<br>$$ g = ln(f) = k*ln(1 - e^{-kn/m})$$<br>&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x6C42;&#x5BFC;<br>$$\frac{dg}{dk} = ln(1 - e^{-kn/m}) + \frac{kn}{m} \frac{e^{-kn/m}}{1 - e^{-kn/m}}$$<br>&#x5F53;&#x5BFC;&#x6570;&#x4E3A;0&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x662F;&#x6700;&#x9002;&#x5408;&#x7684;k&#xFF0C;&#x6211;&#x4EEC;&#x5F97;&#x51FA;&#x6700;&#x9002;&#x5408;&#x7684;k&#x5982;&#x4E0B;:<br>$$ k = \frac{m}{n}ln(2) $$</p>
+<h2 id="&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;"><a href="#&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;" class="headerlink" title="&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;"></a><a href="#&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;" title="&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;"></a>&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4F30;&#x7B97;</h2><p>Swamidass &amp; Baldi&#x63D0;&#x51FA;&#x4E86;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x4E2D;&#x5B9E;&#x9645;&#x5143;&#x7D20;&#x4F30;&#x7B97;&#x7684;&#x65B9;&#x5F0F;<br>$$ n^* = - \frac{mln[1-\frac{X}{k}]}{m}  $$</p>
+<p>&#x5176;&#x4E2D;&#xFF0C;\(n^*\)&#x4E3A;&#x5143;&#x7D20;&#x4E2A;&#x6570;&#x7684;&#x8FD1;&#x4F3C;&#x503C;&#xFF0C;\(m\)&#x662F;&#x4F4D;&#x6570;&#x7EC4;&#x957F;&#x5EA6;&#xFF0C;\(k\)&#x662F;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x7684;&#x6570;&#x91CF;, \(X\)&#x662F;&#x4F4D;&#x6570;&#x7EC4;&#x4E2D;&#x88AB;&#x7F6E;&#x4E3A;1&#x7684;&#x4F4D;&#x7684;&#x6570;&#x91CF;&#x3002;<strong>&#x8FD8;&#x6CA1;&#x6709;&#x770B;&#x5B8C;&#x8BC1;&#x660E;&#x8FC7;&#x7A0B;</strong></p>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a><a href="#&#x603B;&#x7ED3;" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x7531;&#x4E8E;&#x5F15;&#x5165;&#x4E86;&#x5047;&#x9633;&#x6027;&#xFF0C;&#x56E0;&#x6B64;&#x4E0D;&#x592A;&#x9002;&#x5408;&#x9AD8;&#x7CBE;&#x5EA6;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x9700;&#x8981;&#x80FD;&#x591F;&#x63A5;&#x53D7;&#x4E00;&#x5B9A;&#x9519;&#x8BEF;&#x5BB9;&#x5FCD;&#x5EA6;&#xFF0C;&#x4F46;&#x662F;&#x67E5;&#x8BE2;&#x548C;&#x63D2;&#x5165;&#x90FD;&#x662F;\(O(k)\)&#x7684;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#xFF0C;&#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E5F;&#x76F8;&#x5F53;&#x53EF;&#x89C2;&#xFF0C;&#x56E0;&#x6B64;&#x5728;&#x5FEB;&#x901F;&#x7684;&#x5143;&#x7D20;&#x67E5;&#x627E;&#x5B9A;&#x4F4D;&#x573A;&#x666F;&#x8FD8;&#x662F;&#x5927;&#x6709;&#x88E8;&#x76CA;&#x7684;&#x3002;</p>
+<h2 id="&#x53C2;&#x8003;&#x6587;&#x732E;"><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x732E;"></a><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;" title="&#x53C2;&#x8003;&#x6587;&#x732E;"></a>&#x53C2;&#x8003;&#x6587;&#x732E;</h2><p><a href="https://en.wikipedia.org/wiki/Bloom_filter#Optimal_number_of_hash_functions" target="_blank" rel="noopener">Bloom_filter</a><br><a href="https://people.eecs.berkeley.edu/~daw/teaching/cs170-s03/Notes/lecture10.pdf" target="_blank" rel="noopener">Notes 10 for CS 170</a><br><a href="http://pubs.acs.org/doi/abs/10.1021/ci600526a" target="_blank" rel="noopener">Mathematical Correction for Fingerprint Similarity Measures to Improve Chemical Retrieval</a></p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2020/08/31/011-innodblock/" itemprop="url">Mysql Innodb引擎中的锁</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-08-31T12:37:09.000Z" itemprop="datePublished">8月 31 2020</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="/image/beijing.jpg" alt="&#x6D4E;&#x5357;"></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html" target="_blank" rel="noopener">&#x672C;&#x6587;&#x53C2;&#x8003;Mysql&#x5B98;&#x65B9;&#x6587;&#x6863;</a></p>
+<h3 id="&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;"><a href="#&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;" class="headerlink" title="&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;"></a><strong>&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;</strong></h3><ul>
+<li>&#x5171;&#x4EAB;&#x9501;&#xFF08;shared locks&#xFF1A;s lock&#xFF09;</li>
+<li>&#x6392;&#x5B83;&#x9501;&#xFF08;exclusive locks&#xFF1A;x lock&#xFF09;</li>
+</ul>
+<h3 id="&#x610F;&#x5411;&#x9501;&#xFF08;intention-locks&#xFF09;-&#x8868;&#x7EA7;&#x522B;"><a href="#&#x610F;&#x5411;&#x9501;&#xFF08;intention-locks&#xFF09;-&#x8868;&#x7EA7;&#x522B;" class="headerlink" title="&#x610F;&#x5411;&#x9501;&#xFF08;intention locks&#xFF09;-  &#x8868;&#x7EA7;&#x522B;"></a><strong>&#x610F;&#x5411;&#x9501;&#xFF08;intention locks&#xFF09;-  &#x8868;&#x7EA7;&#x522B;</strong></h3><ul>
+<li>&#x5171;&#x4EAB;&#x610F;&#x5411;&#x9501;&#xFF08;intention shared lock -&gt; IS&#xFF09;</li>
+<li>&#x6392;&#x4ED6;&#x610F;&#x5411;&#x9501;&#xFF08;intention exclusive lock -&gt; IX&#xFF09;</li>
+</ul>
+<h4 id="&#x610F;&#x5411;&#x9501;&#x4E0E;&#x884C;&#x9501;&#x95F4;&#x7684;&#x5173;&#x7CFB;"><a href="#&#x610F;&#x5411;&#x9501;&#x4E0E;&#x884C;&#x9501;&#x95F4;&#x7684;&#x5173;&#x7CFB;" class="headerlink" title="&#x610F;&#x5411;&#x9501;&#x4E0E;&#x884C;&#x9501;&#x95F4;&#x7684;&#x5173;&#x7CFB;"></a><strong>&#x610F;&#x5411;&#x9501;&#x4E0E;&#x884C;&#x9501;&#x95F4;&#x7684;&#x5173;&#x7CFB;</strong></h4><table>
+<thead>
+<tr>
+<th></th>
+<th>X</th>
+<th>IX</th>
+<th>S</th>
+<th>IS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Conflict</td>
+</tr>
+<tr>
+<td>IX</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Conflict</td>
+<td>Conflict</td>
+</tr>
+<tr>
+<td>S</td>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Compatible</td>
+</tr>
+<tr>
+<td>IS</td>
+<td>Conflict</td>
+<td>Compatible</td>
+<td>Compatible</td>
+<td>Compatible</td>
+</tr>
+</tbody>
+</table>
+<h4 id="&#x610F;&#x5411;&#x9501;&#x6CE8;&#x610F;&#x4E8B;&#x9879;"><a href="#&#x610F;&#x5411;&#x9501;&#x6CE8;&#x610F;&#x4E8B;&#x9879;" class="headerlink" title="&#x610F;&#x5411;&#x9501;&#x6CE8;&#x610F;&#x4E8B;&#x9879;"></a><strong>&#x610F;&#x5411;&#x9501;&#x6CE8;&#x610F;&#x4E8B;&#x9879;</strong></h4><ul>
+<li>&#x4E8B;&#x52A1;&#x7533;&#x8BF7;&#x4E00;&#x4E2A;&#x8868;&#x4E2D;&#x67D0;&#x884C;&#x8BB0;&#x5F55;&#x7684;&#x5171;&#x4EAB;&#x9501;&#x524D;&#xFF0C;&#x5FC5;&#x987B;&#x7533;&#x8BF7;&#x8BE5;&#x8868;&#x7684;IS lock&#x6216;&#x66F4;&#x5F3A;&#x7684;&#x9501;</li>
+<li>&#x4E8B;&#x52A1;&#x7533;&#x8BF7;&#x4E00;&#x4E2A;&#x8868;&#x4E2D;&#x67D0;&#x884C;&#x8BB0;&#x5F55;&#x7684;&#x6392;&#x4ED6;&#x9501;&#x524D;&#xFF0C;&#x5FC5;&#x987B;&#x7533;&#x8BF7;&#x8BE5;&#x8868;&#x7684;IX lock</li>
+<li>&#x610F;&#x5411;&#x9501;&#x53EA;&#x963B;&#x585E;&#x8868;&#x7EA7;&#x522B;&#x7684;&#x52A0;&#x9501;&#x8BF7;&#x6C42;&#xFF08;for example, <a href="https://dev.mysql.com/doc/refman/8.0/en/lock-tables.html" target="_blank" rel="noopener"><code>LOCK TABLES ... WRITE</code></a>)&#x3002;&#x610F;&#x56FE;&#x9501;&#x4E3B;&#x8981;&#x662F;&#x4E3A;&#x4E86;&#x8868;&#x660E;&#x67D0;&#x4E9B;&#x5BA2;&#x6237;&#x7AEF;&#x6B63;&#x5728;&#x6216;&#x5C06;&#x8981;&#x9501;&#x4F4F;&#x8868;&#x4E2D;&#x7684;&#x67D0;&#x4E00;&#x884C;&#x3002;</li>
+</ul>
+<hr>
+<h3 id="&#x8BB0;&#x5F55;&#x9501;-record-lock"><a href="#&#x8BB0;&#x5F55;&#x9501;-record-lock" class="headerlink" title="&#x8BB0;&#x5F55;&#x9501;(record lock)"></a><strong>&#x8BB0;&#x5F55;&#x9501;(record lock)</strong></h3><p>&#x8BB0;&#x5F55;&#x9501;&#x4E5F;&#x53EB;&#x505A;<strong>&#x884C;&#x9501;</strong>&#xFF0C;&#x662F;&#x7528;&#x6765;&#x5728;&#x4E00;&#x6761;&#x7D22;&#x5F15;&#x8BB0;&#x5F55;&#x4E0A;&#x52A0;&#x9501;&#x6765;&#x5B9E;&#x73B0;&#x3002;&#x4F8B;&#x5982;<code>SELECT c1 FROM t WHERE c1 = 10 FOR UPDATE;</code> &#x4F1A;&#x963B;&#x6B62;&#x5176;&#x4ED6;&#x4E8B;&#x52A1;&#x63D2;&#x5165;&#x3001;&#x66F4;&#x65B0;&#x6216;&#x5220;&#x9664;<code>t.c1</code>&#x503C;&#x4E3A;<code>10</code>&#x7684;&#x6570;&#x636E;&#x884C;&#x3002;</p>
+<blockquote>
+<p>&#x8BB0;&#x5F55;&#x9501;&#x901A;&#x5E38;&#x901A;&#x8FC7;&#x9501;&#x4F4F;&#x7D22;&#x5F15;&#x8BB0;&#x5F55;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x5373;&#x4FBF;&#x4E00;&#x4E2A;mysql&#x7684;table&#x6CA1;&#x6709;&#x5B9A;&#x4E49;&#x7D22;&#x5F15;&#xFF0C;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;InnoDB&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x9690;&#x85CF;&#x7684;&#x7D22;&#x5F15;&#x6765;&#x7528;&#x8BE5;&#x7D22;&#x5F15;&#x6765;&#x52A0;&#x8BB0;&#x5F55;&#x9501;&#x3002;See <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html" target="_blank" rel="noopener">Section 15.6.2.1, &#x201C;Clustered and Secondary Indexes&#x201D;</a>.</p>
+</blockquote>
+        <p class="article-more-link">
+            <a href="/2020/08/31/011-innodblock/#more">阅读更多</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2020/04/26/010-git/" itemprop="url">Git 配置</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-04-26T03:03:37.000Z" itemprop="datePublished">4月 26 2020</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#x516C;&#x53F8;&#x7684;git&#x4ED3;&#x5E93;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x9700;&#x8981;&#x4F7F;&#x7528;github&#xFF0C;&#x6B64;&#x65F6;git&#x7684;&#x914D;&#x7F6E;&#x5C31;&#x4F1A;&#x51FA;&#x95EE;&#x9898;&#x3002;&#x7531;&#x4E8E;git&#x914D;&#x7F6E;&#x7684;&#x7528;&#x6237;&#x540D;&#x548C;&#x5BC6;&#x7801;&#x5747;&#x662F;&#x5168;&#x5C40;&#x7684;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x5982;&#x679C;&#x4F7F;&#x7528;github&#x7684;&#x914D;&#x7F6E;&#x5982;&#x679C;&#x4E0D;&#x6307;&#x5B9A;&#xFF0C;&#x5C31;&#x6309;&#x7167;&#x516C;&#x53F8;&#x7684;git&#x914D;&#x7F6E;&#x4E2D;&#x7684;&#x9ED8;&#x8BA4;&#x7528;&#x6237;&#x540D;&#x63D0;&#x4EA4;&#x3002;</p>
+<p>&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#xFF0C;&#x5728;github&#x4ED3;&#x5E93;&#x4E2D;&#x8BBE;&#x7F6E;local&#x914D;&#x7F6E;</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="hljs-built_in">local</span> user.name xxx</span><br><span class="line">git config --<span class="hljs-built_in">local</span> user.email xxx@xxx.com</span><br></pre></td></tr></table></figure>
+
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2020/02/24/009-epoll/" itemprop="url">IO复用之epoll</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-02-24T10:39:53.000Z" itemprop="datePublished">2月 24 2020</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="image/jinan.jpg" alt="&#x6D4E;&#x5357;"></p>
+<h2 id="IO&#x590D;&#x7528;"><a href="#IO&#x590D;&#x7528;" class="headerlink" title="IO&#x590D;&#x7528;"></a>IO&#x590D;&#x7528;</h2><p>select&#x3001;poll&#x548C;epoll&#x662F;&#x4E09;&#x4E2A;&#x5E38;&#x7528;&#x7684;IO&#x591A;&#x8DEF;&#x590D;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x5DEE;&#x522B;&#x548C;&#x6027;&#x80FD;&#x4ECE;&#x5DE6;&#x5230;&#x53F3;&#x90FD;&#x662F;&#x6709;&#x533A;&#x522B;&#x7684;&#x3002;&#x4F46;&#x5BF9;&#x4E8E;&#x8FD9;&#x51E0;&#x79CD;IO&#x590D;&#x7528;&#x65B9;&#x6CD5;&#x662F;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x8FD8;&#x662F;&#x4E00;&#x77E5;&#x534A;&#x89E3;&#x3002;</p>
+<h2 id="&#x5B9E;&#x4F8B;"><a href="#&#x5B9E;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x4F8B;"></a>&#x5B9E;&#x4F8B;</h2><p>&#x8FD9;&#x51E0;&#x5929;&#xFF0C;&#x901A;&#x8FC7;&#x9605;&#x8BFB;redis&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x5BF9;epoll&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x6709;&#x4E86;&#x8FDB;&#x4E00;&#x6B65;&#x7684;&#x8BA4;&#x8BC6;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;epoll&#x505A;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x63A5;&#x53D7;io&#x8BF7;&#x6C42;&#x7684;&#x4F8B;&#x5B50;<br></p>
+        <p class="article-more-link">
+            <a href="/2020/02/24/009-epoll/#more">阅读更多</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2020/02/19/008-redis-server/" itemprop="url">redis-server</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-02-19T02:09:32.000Z" itemprop="datePublished">2月 19 2020</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <ol>
+<li><p>&#x9996;&#x5148;&#x5728;initServer&#x4E2D;&#xFF0C;&#x6CE8;&#x518C;eventloop&#xFF0C;&#x4E3A;io&#x590D;&#x7528;&#x505A;&#x51C6;&#x5907;</p>
+<epacse hidden>23</epacse>
+</li>
+<li><p>ListenToPort&#x521B;&#x5EFA;&#x57FA;&#x4E8E;tcp&#x7684;socket&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x76D1;&#x542C;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x5C06;&#x8BE5;socket&#x8BBE;&#x7F6E;&#x4E3A;&#x975E;&#x963B;&#x585E;</p>
+<epacse hidden>24</epacse>
+</li>
+<li><p>&#x4E3A;&#x6BCF;&#x4E2A;server&#x7684;fd&#x8BBE;&#x7F6E;&#x53EF;&#x8BFB;&#x4E8B;&#x4EF6;&#x56DE;&#x8C03;</p>
+<epacse hidden>25</epacse>
+
+</li>
+</ol>
+        <p class="article-more-link">
+            <a href="/2020/02/19/008-redis-server/#more">阅读更多</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2020/01/07/007-Redis-get-reply/" itemprop="url">Redis cli处理服务端的返回逻辑</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-01-07T03:20:00.000Z" itemprop="datePublished">1月 7 2020</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="image/liancang.jpeg" alt="&#x65E5;&#x672C;&#x9570;&#x4ED3;"></p>
+<h3 id="redisGetReply&#x65B9;&#x6CD5;"><a href="#redisGetReply&#x65B9;&#x6CD5;" class="headerlink" title="redisGetReply&#x65B9;&#x6CD5;"></a>redisGetReply&#x65B9;&#x6CD5;</h3><blockquote>
+<p><strong>redisGetReply</strong> &#x4E2D;&#x7684; redisBufferRead &#x7684;&#x4F5C;&#x7528;&#x662F;&#x5C06;&#x6570;&#x636E;&#x8BFB;&#x53D6;&#x5230; redis context &#x7684; reader &#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A; reader &#x90FD;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x8BFB; buf&#xFF0C;pos &#x548C; len &#x8BB0;&#x5F55;&#x4E86; buf &#x7684;&#x957F;&#x5EA6;&#x548C;&#x8BFB;&#x53D6;&#x4F4D;&#x7F6E;</p>
+</blockquote>
+<epacse hidden>12</epacse>
+
+<ul>
+<li>buf&#xFF1A;&#x8BFB;&#x7F13;&#x51B2;&#x533A;</li>
+<li>pos&#xFF1A;&#x5F53;&#x524D;&#x8BFB;&#x53D6;&#x5230;&#x7684;&#x4F4D;&#x7F6E;</li>
+<li>len&#xFF1A;buff &#x7684;&#x957F;&#x5EA6;</li></ul>
+        <p class="article-more-link">
+            <a href="/2020/01/07/007-Redis-get-reply/#more">阅读更多</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/11/29/006-redis-cli/" itemprop="url">redis-cli的实现原理</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2019-11-29T05:44:11.000Z" itemprop="datePublished">11月 29 2019</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;"><a href="#&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;" class="headerlink" title="&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;"></a>&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;</h2><p>redis&#x6E90;&#x7801;&#xFF1A;src/redis-cli.c&#x4E2D;&#x627E;&#x5230;main&#x51FD;&#x6570;&#xFF0C;main&#x51FD;&#x6570;&#x4E2D;&#x6838;&#x5FC3;&#x7684;&#x5904;&#x7406;&#x5C31;&#x662F;&#x4EE5;&#x4E0B;&#x90E8;&#x5206;</p>
+<epacse hidden>4</epacse>
+
+<ul>
+<li>cliConnect<br>&#x4E3B;&#x8981;&#x662F;&#x4E0E;&#x670D;&#x52A1;&#x7AEF;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;redisContext&#x7ED3;&#x6784;&#x6765;&#x4FDD;&#x5B58;</li>
+<li>repl<br>repl&#x5B9E;&#x73B0;&#x4E86;&#x53D1;&#x9001;&#x547D;&#x4EE4;&#x5E76;&#x8F93;&#x51FA;Server&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x7684;&#x4E3B;&#x8981;&#x903B;&#x8F91;</li>
+</ul>
+<h2 id="RedisContext"><a href="#RedisContext" class="headerlink" title="RedisContext"></a>RedisContext</h2><p>redisContext&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF0C;&#x91CD;&#x8981;&#x7684;&#x5B57;&#x6BB5;&#x90FD;&#x8FDB;&#x884C;&#x4E86;&#x6CE8;&#x91CA;</p>
+<epacse hidden>5</epacse>
+        <p class="article-more-link">
+            <a href="/2019/11/29/006-redis-cli/#more">阅读更多</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/11/11/005-马拉松/" itemprop="url">坚持就会更加坚定</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2019-11-11T06:12:39.000Z" itemprop="datePublished">11月 11 2019</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="image/taishan.jpeg" alt="&#x6CF0;&#x5C71;&#x56FD;&#x9645;&#x9A6C;&#x62C9;&#x677E;"></p>
+<p>  &#x8DDD;&#x79BB;&#x6CF0;&#x5C71;&#x9A6C;&#x62C9;&#x677E;&#x7ED3;&#x675F;&#x5DF2;&#x7ECF;&#x4E24;&#x5468;&#x4E86;&#xFF0C;&#x8FD9;&#x534A;&#x5E74;&#x6765;&#x7684;&#x575A;&#x6301;&#xFF0C;&#x603B;&#x7B97;&#x8FD8;&#x662F;&#x6709;&#x4E9B;&#x8BB8;&#x6536;&#x83B7;&#x3002;</p>
+<p>&#x5E0C;&#x671B;&#x81EA;&#x5DF1;&#x4E0D;&#x8D1F;&#x9752;&#x6625;&#xFF0C;&#x52A0;&#x6CB9;&#x517B;&#x6210;&#x81EA;&#x5F8B;&#x3001;&#x575A;&#x5B9A;&#x7684;&#x597D;&#x4E60;&#x60EF;&#x3002;</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/05/13/004-好文共赏/" itemprop="url">好文共赏</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2019-05-13T12:22:35.000Z" itemprop="datePublished">5月 13 2019</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <ul>
+<li><a href="https://mp.weixin.qq.com/s/muS68_vtXTrIGd1JNmS50A" target="_blank" rel="noopener">&#x63ED;&#x79D8;&#xFF01;&#x73B0;&#x4EE3;IM&#x7CFB;&#x7EDF;&#x7684;&#x6D88;&#x606F;&#x67B6;&#x6784;&#x5982;&#x4F55;&#x8BBE;&#x8BA1;&#xFF1F;</a>&#x3002;&#x4E4B;&#x524D;&#x7684;IM&#x7CFB;&#x7EDF;&#x90FD;&#x505A;&#x7684;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x63A8;&#x62C9;&#x5F88;&#x96BE;&#x5E73;&#x8861;&#xFF0C;&#x6587;&#x4E2D;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x601D;&#x8DEF;&#x3002;</li>
+<li><a href="https://mp.weixin.qq.com/s/F7hmjN5rlHcEifT8NzlYqA" target="_blank" rel="noopener">&#x4E00;&#x4E2A;&#x6280;&#x672F;&#x4EBA;&#xFF0C;&#x5982;&#x4F55;&#x505A;&#x5230;&#x6BD4;&#x522B;&#x4EBA;&#x66F4;&#x7A81;&#x51FA;</a>&#x3002;</li>
+<li><a href="https://softwareengineering.stackexchange.com/questions/110933/how-to-determine-the-levels-of-abstraction" target="_blank" rel="noopener">&#x5982;&#x4F55;&#x51B3;&#x5B9A;&#x51FD;&#x6570;&#x7684;&#x62BD;&#x8C61;&#x5C42;&#x7EA7;</a><br><a href="https://my.oschina.net/jamesview/blog/2994112" target="_blank" rel="noopener">https://my.oschina.net/jamesview/blog/2994112</a></li>
+</ul>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/05/05/003-小长假/" itemprop="url">小长假</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2019-05-05T10:45:35.000Z" itemprop="datePublished">5月 5 2019</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="image/shanghai.jpeg" alt="&#x4E0A;&#x6D77;"><br>&#x5343;&#x4E07;&#x4E0D;&#x8981;&#x5728;&#x5C0F;&#x957F;&#x5047;&#x51FA;&#x884C;&#xFF0C;&#x4EBA;&#x5B9E;&#x5728;&#x592A;&#x591A;&#xFF0C;&#x770B;&#x6765;&#x706D;&#x9738;&#x662F;&#x6709;&#x4E9B;&#x9053;&#x7406;&#x7684;</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
+        
+<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+    <div class="pagination-previous is-invisible is-hidden-mobile">
+        <a href="/page/0/">上一页</a>
+    </div>
+    <div class="pagination-next">
+        <a href="/page/2/">下一页</a>
+    </div>
+    <ul class="pagination-list is-hidden-mobile">
+        
+        <li><a class="pagination-link is-current" href="/">1</a></li>
+        
+        <li><a class="pagination-link" href="/page/2/">2</a></li>
+        
+    </ul>
+</nav>
+    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2021 Echo&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

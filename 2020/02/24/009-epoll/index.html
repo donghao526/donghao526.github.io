@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>IO复用之epoll - I have a dream</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="IO&amp;#x590D;&amp;#x7528;select&amp;#x3001;poll&amp;#x548C;epoll&amp;#x662F;&amp;#x4E09;&amp;#x4E2A;&amp;#x5E38;&amp;#x7528;&amp;#x7684;IO&amp;#x591A;&amp;#x8DEF;&amp;#x590D;&amp;#x7528;&amp;#x65B9;&amp;#x6CD5;&amp;#xFF0C;&amp;#x5177;&amp;#x4F53;&amp;#x7684;&amp;#x5DEE;&amp;#x522B;&amp;#x5">
+<meta name="keywords" content="IO复用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IO复用之epoll">
+<meta property="og:url" content="http://yoursite.com/2020/02/24/009-epoll/index.html">
+<meta property="og:site_name" content="I have a dream">
+<meta property="og:description" content="IO&amp;#x590D;&amp;#x7528;select&amp;#x3001;poll&amp;#x548C;epoll&amp;#x662F;&amp;#x4E09;&amp;#x4E2A;&amp;#x5E38;&amp;#x7528;&amp;#x7684;IO&amp;#x591A;&amp;#x8DEF;&amp;#x590D;&amp;#x7528;&amp;#x65B9;&amp;#x6CD5;&amp;#xFF0C;&amp;#x5177;&amp;#x4F53;&amp;#x7684;&amp;#x5DEE;&amp;#x522B;&amp;#x5">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://yoursite.com/2020/02/24/009-epoll/image/jinan.jpg">
+<meta property="og:updated_time" content="2020-09-08T12:58:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IO复用之epoll">
+<meta name="twitter:description" content="IO&amp;#x590D;&amp;#x7528;select&amp;#x3001;poll&amp;#x548C;epoll&amp;#x662F;&amp;#x4E09;&amp;#x4E2A;&amp;#x5E38;&amp;#x7528;&amp;#x7684;IO&amp;#x591A;&amp;#x8DEF;&amp;#x590D;&amp;#x7528;&amp;#x65B9;&amp;#x6CD5;&amp;#xFF0C;&amp;#x5177;&amp;#x4F53;&amp;#x7684;&amp;#x5DEE;&amp;#x522B;&amp;#x5">
+<meta name="twitter:image" content="http://yoursite.com/2020/02/24/009-epoll/image/jinan.jpg">
+
+
+
+
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//cdn.bootcss.com/font-awesome/5.13.0/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    长安城小頑主
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">归档</a>
+            
+            <a class="navbar-item " href="/categories">分类</a>
+            
+            <a class="navbar-item " href="/tags">标签</a>
+            
+            <a class="navbar-item " href="https://github.com/donghao526">关于我</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="搜索" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            IO复用之epoll
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-02-24T10:39:53.000Z" itemprop="datePublished">2月 24 2020</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="image/jinan.jpg" alt="&#x6D4E;&#x5357;"></p>
+<h2 id="IO&#x590D;&#x7528;"><a href="#IO&#x590D;&#x7528;" class="headerlink" title="IO&#x590D;&#x7528;"></a>IO&#x590D;&#x7528;</h2><p>select&#x3001;poll&#x548C;epoll&#x662F;&#x4E09;&#x4E2A;&#x5E38;&#x7528;&#x7684;IO&#x591A;&#x8DEF;&#x590D;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x5DEE;&#x522B;&#x548C;&#x6027;&#x80FD;&#x4ECE;&#x5DE6;&#x5230;&#x53F3;&#x90FD;&#x662F;&#x6709;&#x533A;&#x522B;&#x7684;&#x3002;&#x4F46;&#x5BF9;&#x4E8E;&#x8FD9;&#x51E0;&#x79CD;IO&#x590D;&#x7528;&#x65B9;&#x6CD5;&#x662F;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x8FD8;&#x662F;&#x4E00;&#x77E5;&#x534A;&#x89E3;&#x3002;</p>
+<h2 id="&#x5B9E;&#x4F8B;"><a href="#&#x5B9E;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x4F8B;"></a>&#x5B9E;&#x4F8B;</h2><p>&#x8FD9;&#x51E0;&#x5929;&#xFF0C;&#x901A;&#x8FC7;&#x9605;&#x8BFB;redis&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x5BF9;epoll&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x6709;&#x4E86;&#x8FDB;&#x4E00;&#x6B65;&#x7684;&#x8BA4;&#x8BC6;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;epoll&#x505A;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x63A5;&#x53D7;io&#x8BF7;&#x6C42;&#x7684;&#x4F8B;&#x5B50;<br><a id="more"></a></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;sys/epoll.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;sys/stat.h&gt;</span><br><span class="line">#include &lt;sys/un.h&gt;</span><br><span class="line">#include &lt;sys/time.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;netinet/tcp.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">server.c</span><br><span class="line">int main(int argc , char *argv[])</span><br><span class="line">{</span><br><span class="line">    int epfd, sfd, new_socket, c, count;</span><br><span class="line">    struct sockaddr_in server, client;</span><br><span class="line">    struct epoll_event *events;</span><br><span class="line">    struct epoll_event ee = {0};</span><br><span class="line">    events = (struct epoll_event*)malloc(sizeof(struct epoll_event)*100);</span><br><span class="line">    //Create socket</span><br><span class="line"></span><br><span class="line">    sfd = socket(AF_INET , SOCK_STREAM , 0);</span><br><span class="line">    if (sfd == -1)</span><br><span class="line">    {</span><br><span class="line">        printf(&quot;Could not create socket&quot;);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    server.sin_family = AF_INET;</span><br><span class="line">    server.sin_addr.s_addr = INADDR_ANY;</span><br><span class="line">    server.sin_port = htons( 9886);</span><br><span class="line"></span><br><span class="line">    //Bind</span><br><span class="line">    if( bind(socket_desc, (struct sockaddr *)&amp;server , sizeof(server)))</span><br><span class="line">    {</span><br><span class="line">        printf(&quot;failed to bind&quot;);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    //Listen</span><br><span class="line">    listen(sfd, 3);</span><br><span class="line"></span><br><span class="line">    // &#x8BBE;&#x7F6E;&#x975E;&#x963B;&#x585E;</span><br><span class="line">    if (fcntl(socket_desc, F_SETFL, O_NONBLOCK) == -1) {</span><br><span class="line">        printf(&quot;set non block faild&quot;);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    //&#x521B;&#x5EFA;epoll</span><br><span class="line">    epfd = epoll_create(1024);</span><br><span class="line">    if (epfd == -1) {</span><br><span class="line">        printf(&quot;epoll create failed&quot;);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    // &#x4E3A;sfd&#xFF0C;&#x76D1;&#x542C;&#x8BFB;io</span><br><span class="line">    ee.events |= EPOLLIN;</span><br><span class="line">    if (epoll_ctl(epfd, EPOLL_CTL_ADD, sfd, &amp;ee) == -1) {</span><br><span class="line">        printf(&quot;register failed&quot;);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    while(1) {</span><br><span class="line">        count = epoll_wait(epfd, events, 100,0);</span><br><span class="line">        if (count &gt; 0) {</span><br><span class="line">        	// &#x8FD9;&#x91CC;&#x5176;&#x5B9E;&#x5DF2;&#x7ECF;&#x5B9A;&#x4F4D;&#x5230;&#x6709;&#x76D1;&#x542C;&#x7684;fd&#xFF0C;&#x8BFB;io&#x5DF2;&#x7ECF;&#x5C31;&#x7EEA;&#xFF0C;&#x6839;&#x636E;count&#x904D;&#x5386;events&#x5217;&#x8868;&#xFF0C;&#x4FBF;&#x53EF;&#x5F97;&#x5230;&#x5B9E;&#x9645;&#x6D88;&#x606F;&#x548C;&#x5BF9;&#x5E94;&#x7684;&#x5904;&#x7406;&#x65B9;&#x6CD5;</span><br><span class="line">            printf(&quot;mo god&quot;);</span><br><span class="line">            break;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">client.c</span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">{</span><br><span class="line">    int sockfd, n,rec_len;</span><br><span class="line">    char recvline[4096], sendline[4096];</span><br><span class="line">    char buf[MAXLINE];</span><br><span class="line">    char *addr = &quot;127.0.0.1&quot;;</span><br><span class="line">    struct sockaddr_in servaddr;</span><br><span class="line"></span><br><span class="line">    if( (sockfd = socket(AF_INET, SOCK_STREAM, 0)) &lt; 0){</span><br><span class="line">        printf(&quot;create socket error: %s(errno: %d)\n&quot;, strerror(errno),errno);</span><br><span class="line">        exit(0);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    memset(&amp;servaddr, 0, sizeof(servaddr));</span><br><span class="line">    servaddr.sin_family = AF_INET;</span><br><span class="line">    servaddr.sin_port = htons(9886);</span><br><span class="line">    if( inet_pton(AF_INET, addr, &amp;servaddr.sin_addr) &lt;= 0){ //inet_pton&#x662F;Linux&#x4E0B;IP&#x5730;&#x5740;&#x8F6C;&#x6362;&#x51FD;&#x6570;&#xFF0C;&#x5C06;IP&#x5730;&#x5740;&#x5728;&#x201C;&#x70B9;&#x5206;&#x5341;&#x8FDB;&#x5236;&#x201D;&#x548C;&#x201C;&#x6574;&#x6570;&#x201D;&#x4E4B;&#x95F4;&#x8F6C;&#x6362;</span><br><span class="line">        printf(&quot;inet_pton error for %s\n&quot;,argv[1]);</span><br><span class="line">        exit(0);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    if( connect(sockfd, (struct sockaddr*)&amp;servaddr, sizeof(servaddr)) &lt; 0){</span><br><span class="line">        printf(&quot;connect error: %s(errno: %d)\n&quot;,strerror(errno),errno);</span><br><span class="line">        exit(0);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    printf(&quot;send msg to server: \n&quot;);</span><br><span class="line">    fgets(sendline, 4096, stdin);</span><br><span class="line">    if( send(sockfd, sendline, strlen(sendline), 0) &lt; 0)  {</span><br><span class="line">        printf(&quot;send msg error: %s(errno: %d)\n&quot;, strerror(errno), errno);</span><br><span class="line">        exit(0);</span><br><span class="line">    }</span><br><span class="line">    if((rec_len = recv(sockfd, buf, MAXLINE,0)) == -1) {</span><br><span class="line">       perror(&quot;recv error&quot;);</span><br><span class="line">       exit(1);</span><br><span class="line">    }</span><br><span class="line">    buf[rec_len]  = &apos;\0&apos;;</span><br><span class="line">    printf(&quot;Received : %s &quot;,buf);</span><br><span class="line">    close(sockfd);</span><br><span class="line">    exit(0);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/IO复用/">#IO复用</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2020/04/26/010-git/">Git 配置</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2020/02/19/008-redis-server/">redis-server</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2021 Echo&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
