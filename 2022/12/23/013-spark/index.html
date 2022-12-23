@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Spark基础学习 - I have a dream</title>
+<title>Spark基础学习-RDD - I have a dream</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,20 +14,20 @@
 
 
 
-    <meta name="description" content="RDDRDD&amp;#x7684;4&amp;#x5927;&amp;#x5C5E;&amp;#x6027;  partitions: &amp;#x6570;&amp;#x636E;&amp;#x5206;&amp;#x7247; partitioner: &amp;#x5206;&amp;#x7247;&amp;#x5207;&amp;#x5272;&amp;#x539F;&amp;#x5219; dependencies: RDD&amp;#x4F9D;&amp;#x8D56; compute: &amp;#x8F6C;">
+    <meta name="description" content="Spark &amp;#x7684;&amp;#x6838;&amp;#x5FC3;&amp;#x662F;&amp;#x5EFA;&amp;#x7ACB;&amp;#x5728;&amp;#x7EDF;&amp;#x4E00;&amp;#x7684;&amp;#x62BD;&amp;#x8C61;&amp;#x5F39;&amp;#x6027;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x6570;&amp;#x636E;&amp;#x96C6;&amp;#xFF08;Resiliennt Distributed Dat">
 <meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark基础学习">
+<meta property="og:title" content="Spark基础学习-RDD">
 <meta property="og:url" content="http://donghao526.github.io/2022/12/23/013-spark/index.html">
 <meta property="og:site_name" content="I have a dream">
-<meta property="og:description" content="RDDRDD&amp;#x7684;4&amp;#x5927;&amp;#x5C5E;&amp;#x6027;  partitions: &amp;#x6570;&amp;#x636E;&amp;#x5206;&amp;#x7247; partitioner: &amp;#x5206;&amp;#x7247;&amp;#x5207;&amp;#x5272;&amp;#x539F;&amp;#x5219; dependencies: RDD&amp;#x4F9D;&amp;#x8D56; compute: &amp;#x8F6C;">
+<meta property="og:description" content="Spark &amp;#x7684;&amp;#x6838;&amp;#x5FC3;&amp;#x662F;&amp;#x5EFA;&amp;#x7ACB;&amp;#x5728;&amp;#x7EDF;&amp;#x4E00;&amp;#x7684;&amp;#x62BD;&amp;#x8C61;&amp;#x5F39;&amp;#x6027;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x6570;&amp;#x636E;&amp;#x96C6;&amp;#xFF08;Resiliennt Distributed Dat">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://donghao526.github.io/image/xuedi.png">
 <meta property="og:image" content="http://donghao526.github.io/image/spark_tudou.jpg">
-<meta property="og:updated_time" content="2022-12-23T05:33:42.278Z">
+<meta property="og:updated_time" content="2022-12-23T05:37:21.354Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark基础学习">
-<meta name="twitter:description" content="RDDRDD&amp;#x7684;4&amp;#x5927;&amp;#x5C5E;&amp;#x6027;  partitions: &amp;#x6570;&amp;#x636E;&amp;#x5206;&amp;#x7247; partitioner: &amp;#x5206;&amp;#x7247;&amp;#x5207;&amp;#x5272;&amp;#x539F;&amp;#x5219; dependencies: RDD&amp;#x4F9D;&amp;#x8D56; compute: &amp;#x8F6C;">
+<meta name="twitter:title" content="Spark基础学习-RDD">
+<meta name="twitter:description" content="Spark &amp;#x7684;&amp;#x6838;&amp;#x5FC3;&amp;#x662F;&amp;#x5EFA;&amp;#x7ACB;&amp;#x5728;&amp;#x7EDF;&amp;#x4E00;&amp;#x7684;&amp;#x62BD;&amp;#x8C61;&amp;#x5F39;&amp;#x6027;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x6570;&amp;#x636E;&amp;#x96C6;&amp;#xFF08;Resiliennt Distributed Dat">
 <meta name="twitter:image" content="http://donghao526.github.io/image/xuedi.png">
 
 
@@ -113,7 +113,7 @@
     <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            Spark基础学习
+            Spark基础学习-RDD
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -132,7 +132,7 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="/image/xuedi.png" alt="&#x96EA;&#x5730;"></p>
+        <p><img src="/image/xuedi.png" alt="&#x96EA;&#x5730;"><br>Spark &#x7684;&#x6838;&#x5FC3;&#x662F;&#x5EFA;&#x7ACB;&#x5728;&#x7EDF;&#x4E00;&#x7684;&#x62BD;&#x8C61;&#x5F39;&#x6027;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x96C6;&#xFF08;Resiliennt Distributed Datasets&#xFF0C;RDD&#xFF09;&#x4E4B;&#x4E0A;&#x7684;&#xFF0C;&#x8FD9;&#x4F7F;&#x5F97; Spark &#x7684;&#x5404;&#x4E2A;&#x7EC4;&#x4EF6;&#x53EF;&#x4EE5;&#x65E0;&#x7F1D;&#x5730;&#x8FDB;&#x884C;&#x96C6;&#x6210;&#xFF0C;&#x80FD;&#x591F;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x5B8C;&#x6210;&#x5927;&#x6570;&#x636E;&#x5904;&#x7406;&#x3002;RDD &#x662F; Spark &#x63D0;&#x4F9B;&#x7684;&#x6700;&#x91CD;&#x8981;&#x7684;&#x62BD;&#x8C61;&#x6982;&#x5FF5;&#xFF0C;&#x5B83;&#x662F;&#x4E00;&#x79CD;&#x6709;&#x5BB9;&#x9519;&#x673A;&#x5236;&#x7684;&#x7279;&#x6B8A;&#x6570;&#x636E;&#x96C6;&#x5408;&#xFF0C;&#x53EF;&#x4EE5;&#x5206;&#x5E03;&#x5728;&#x96C6;&#x7FA4;&#x7684;&#x7ED3;&#x70B9;&#x4E0A;&#xFF0C;&#x4EE5;&#x51FD;&#x6570;&#x5F0F;&#x64CD;&#x4F5C;&#x96C6;&#x5408;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x5404;&#x79CD;&#x5E76;&#x884C;&#x64CD;&#x4F5C;&#x3002;</p>
 <h2 id="RDD"><a href="#RDD" class="headerlink" title="RDD"></a>RDD</h2><p>RDD&#x7684;4&#x5927;&#x5C5E;&#x6027;</p>
 <ul>
 <li>partitions: &#x6570;&#x636E;&#x5206;&#x7247;</li>
