@@ -106,7 +106,7 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2022/12/23/013-spark/" itemprop="url">Spark基础</a>
+            <a href="/2022/12/23/013-spark/" itemprop="url">Spark基础学习</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -116,43 +116,25 @@
             
         </span>
         
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/技术研究/">技术研究</a>
+        </span>
+        
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h1 id="Spark&#x57FA;&#x7840;"><a href="#Spark&#x57FA;&#x7840;" class="headerlink" title="Spark&#x57FA;&#x7840;"></a>Spark&#x57FA;&#x7840;</h1><h2 id="RDD"><a href="#RDD" class="headerlink" title="RDD"></a>RDD</h2><p>RDD&#x7684;4&#x5927;&#x5C5E;&#x6027;</p>
+        <p><img src="../image/xuedi.png" alt="&#x96EA;&#x5730;"></p>
+<h2 id="RDD"><a href="#RDD" class="headerlink" title="RDD"></a>RDD</h2><p>RDD&#x7684;4&#x5927;&#x5C5E;&#x6027;</p>
 <ul>
 <li>partitions: &#x6570;&#x636E;&#x5206;&#x7247;</li>
 <li>partitioner: &#x5206;&#x7247;&#x5207;&#x5272;&#x539F;&#x5219;</li>
 <li>dependencies: RDD&#x4F9D;&#x8D56;</li>
-<li>compute: &#x8F6C;&#x6362;&#x51FD;&#x6570;</li>
-</ul>
-<h2 id="&#x5B9E;&#x4F8B;"><a href="#&#x5B9E;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x4F8B;"></a>&#x5B9E;&#x4F8B;</h2><p><img src="../image/spark_tudou.jpg" alt="&#x571F;&#x8C46;&#x52A0;&#x5DE5;&#x5B9E;&#x4F8B;"></p>
-<p>&#x5982;&#x679C;&#x628A;&#x201C;&#x5E26;&#x6CE5;&#x571F;&#x8C46;&#x201D;&#x770B;&#x6210;&#x662F; RDD &#x7684;&#x8BDD;&#xFF0C;&#x90A3;&#x4E48; RDD &#x7684; partitions &#x5C5E;&#x6027;&#xFF0C;&#x56CA;&#x62EC;&#x7684;&#x6B63;&#x662F;&#x9EBB;&#x888B;&#x91CC;&#x90A3;&#x4E00;&#x9897;&#x9897;&#x810F;&#x516E;&#x516E;&#x7684;&#x571F;&#x8C46;&#x3002;&#x540C;&#x7406;&#xFF0C;&#x6D41;&#x6C34;&#x7EBF;&#x4E0A;&#x6240;&#x6709;&#x6D17;&#x51C0;&#x7684;&#x571F;&#x8C46;&#xFF0C;&#x4E00;&#x540C;&#x6784;&#x6210;&#x4E86;&#x201C;&#x5E72;&#x51C0;&#x571F;&#x8C46;&#x201D;RDD&#x7684;partitions &#x5C5E;&#x6027;&#x3002;</p>
-<p>&#x6211;&#x4EEC;&#x518D;&#x6765;&#x770B;RDD&#x7684;partitioner &#x5C5E;&#x6027;&#xFF0C;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x4E86;&#x628A;&#x539F;&#x59CB;&#x6570;&#x636E;&#x96C6;&#x5207;&#x5272;&#x6210;&#x6570;&#x636E;&#x5206;&#x7247;&#x7684;&#x5207;&#x5272;&#x89C4;&#x5219;&#x3002;&#x5728;&#x571F;&#x8C46;&#x5DE5;&#x574A;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x201C;&#x5E26;&#x6CE5;&#x571F;&#x8C46;&#x201D;RDD &#x7684;&#x5207;&#x5272;&#x89C4;&#x5219;&#x662F;&#x968F;&#x673A;&#x62FF;&#x53D6;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4ECE;&#x9EBB;&#x888B;&#x4E2D;&#x968F;&#x673A;&#x62FF;&#x53D6;&#x4E00;&#x9897;&#x810F;&#x516E;&#x516E;&#x7684;&#x571F;&#x8C46;&#x653E;&#x5230;&#x6D41;&#x6C34;&#x7EBF;&#x4E0A;&#x3002;&#x540E;&#x9762;&#x7684;&#x98DF;&#x6750;&#x5F62;&#x6001;&#xFF0C;&#x5982;&#x201C;&#x5E72;&#x51C0;&#x8C46;&#x201D;&#x3001;&#x201C;&#x571F;&#x8C46;&#x7247;&#x201D;&#x548C;&#x201C;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x201D;&#xFF0C;&#x5219;&#x6CBF;&#x7528;&#x4E86;&#x201C;&#x5E26;&#x6CE5;&#x571F;&#x8C46;&#x201D;RDD &#x7684;&#x5207;&#x5272;&#x89C4;&#x5219;&#x3002;&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;&#x540E;&#x7EED;&#x7684;&#x8FD9;&#x4E9B;RDD&#xFF0C;&#x5206;&#x522B;&#x7EE7;&#x627F;&#x4E86;&#x524D;&#x4E00;&#x4E2A; RDD &#x7684; partitioner &#x5C5E;&#x6027;&#x3002;</p>
-<p>&#x8FD9;&#x91CC;&#x9762;&#x4E0E;&#x4F17;&#x4E0D;&#x540C;&#x7684;&#x662F;&#x201C;&#x5206;&#x53D1;&#x7684;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x201D;&#x3002;&#x663E;&#x7136;&#xFF0C;&#x201C;&#x5206;&#x53D1;&#x7684;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x201D;&#x662F;&#x901A;&#x8FC7;&#x5BF9;&#x201C;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x201D;&#x6309;&#x7167;&#x5927;&#x3001;&#x4E2D;&#x3001;&#x5C0F;&#x53F7;&#x505A;&#x5206;&#x53D1;&#x5F97;&#x5230;&#x7684;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5BF9;&#x4E8E;&#x201C;&#x5206;&#x53D1;&#x7684;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x201D;&#x6765;&#x8BF4;&#xFF0C;&#x5B83;&#x7684;partitioner &#x5C5E;&#x6027;&#xFF0C;&#x91CD;&#x65B0;&#x5B9A;&#x4E49;&#x4E86;&#x8FD9;&#x4E2A; RDD &#x6570;&#x636E;&#x5206;&#x7247;&#x7684;&#x5207;&#x5272;&#x89C4;&#x5219;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x628A;&#x5148;&#x524D; RDD &#x7684;&#x6570;&#x636E;&#x5206;&#x7247;&#x6253;&#x6563;&#xFF0C;&#x6309;&#x7167;&#x85AF;&#x7247;&#x5C3A;&#x5BF8;&#x91CD;&#x65B0;&#x6784;&#x5EFA;&#x6570;&#x636E;&#x5206;&#x7247;&#x3002;</p>
-<p>&#x7531;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x6570;&#x636E;&#x5206;&#x7247;&#x7684;&#x5206;&#x5E03;&#xFF0C;&#x662F;&#x7531; RDD &#x7684; partitioner &#x51B3;&#x5B9A;&#x7684;&#x3002;&#x56E0;&#x6B64;&#xFF0C;RDD &#x7684; partitions &#x5C5E;&#x6027;&#xFF0C;&#x4E0E;&#x5B83;&#x7684; partitioner &#x5C5E;&#x6027;&#x662F;&#x5F3A;&#x76F8;&#x5173;&#x7684;&#x3002;</p>
-<h2 id="&#x4F9D;&#x8D56;&#x548C;&#x8F6C;&#x6362;"><a href="#&#x4F9D;&#x8D56;&#x548C;&#x8F6C;&#x6362;" class="headerlink" title="&#x4F9D;&#x8D56;&#x548C;&#x8F6C;&#x6362;"></a>&#x4F9D;&#x8D56;&#x548C;&#x8F6C;&#x6362;</h2><p>&#x5728;&#x6570;&#x636E;&#x5F62;&#x6001;&#x7684;&#x8F6C;&#x6362;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A; RDD &#x90FD;&#x4F1A;&#x901A;&#x8FC7; dependencies &#x5C5E;&#x6027;&#x6765;&#x8BB0;&#x5F55;&#x5B83;&#x6240;&#x4F9D;&#x8D56;&#x7684;&#x524D;&#x4E00;&#x4E2A;&#x3001;&#x6216;&#x662F;&#x591A;&#x4E2A; RDD&#xFF0C;&#x7B80;&#x79F0;&#x201C;&#x7236; RDD&#x201D;&#x3002;<br>&#x4E0E;&#x6B64;&#x540C;&#x65F6;&#xFF0C;RDD &#x4F7F;&#x7528; compute &#x5C5E;&#x6027;&#xFF0C;&#x6765;&#x8BB0;&#x5F55;&#x4ECE;&#x7236; RDD &#x5230;&#x5F53;&#x524D; RDD &#x7684;&#x8F6C;&#x6362;&#x64CD;&#x4F5C;&#x3002;</p>
-<p>&#x62FF; Word Count &#x5F53;&#x4E2D;&#x7684; wordRDD &#x6765;&#x4E3E;&#x4F8B;&#xFF0C;&#x5B83;&#x7684;&#x7236; RDD &#x662F; lineRDD&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x5B83;&#x7684;dependencies &#x5C5E;&#x6027;&#x8BB0;&#x5F55;&#x7684;&#x662F; lineRDD&#x3002;&#x4ECE; lineRDD &#x5230; wordRDD &#x7684;&#x8F6C;&#x6362;&#xFF0C;&#x5176;&#x6240;&#x4F9D;&#x8D56;&#x7684;&#x64CD;&#x4F5C;&#x662F; flatMap&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;wordRDD &#x7684; compute &#x5C5E;&#x6027;&#xFF0C;&#x8BB0;&#x5F55;&#x7684;&#x662F; flatMap &#x8FD9;&#x4E2A;&#x8F6C;&#x6362;&#x51FD;&#x6570;&#x3002;</p>
-<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x603B;&#x7ED3;&#x4E0B;&#x6765;&#xFF0C;&#x85AF;&#x7247;&#x7684;&#x52A0;&#x5DE5;&#x6D41;&#x7A0B;&#xFF0C;&#x4E0E;RDD&#x7684;&#x6982;&#x5FF5;&#x548C;4&#x5927;&#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#x7684;</p>
-<ul>
-<li>&#x4E0D;&#x540C;&#x7684;&#x98DF;&#x6750;&#x5F62;&#x6001;&#xFF0C;&#x5982;&#x5E26;&#x6CE5;&#x571F;&#x8C46;&#x3001;&#x571F;&#x8C46;&#x7247;&#x3001;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x7B49;&#x7B49;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x5C31;&#x662F;RDD&#x6982;&#x5FF5;&#xFF1B;</li>
-<li>&#x540C;&#x4E00;&#x79CD;&#x98DF;&#x6750;&#x5F62;&#x6001;&#x5728;&#x4E0D;&#x540C;&#x6D41;&#x6C34;&#x7EBF;&#x4E0A;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x7269;&#xFF0C;&#x5C31;&#x662F;RDD&#x7684;partitions&#x5C5E;&#x6027;&#xFF1B;</li>
-<li>&#x98DF;&#x6750;&#x6309;&#x7167;&#x4EC0;&#x4E48;&#x89C4;&#x5219;&#x88AB;&#x5206;&#x914D;&#x5230;&#x54EA;&#x6761;&#x6D41;&#x6C34;&#x7EBF;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x5C31;&#x662F;RDD&#x7684;partitioner&#x5C5E;&#x6027;&#xFF1B;</li>
-<li>&#x6BCF;&#x4E00;&#x79CD;&#x98DF;&#x6750;&#x5F62;&#x6001;&#x90FD;&#x4F1A;&#x4F9D;&#x8D56;&#x4E0A;&#x4E00;&#x79CD;&#x5F62;&#x6001;&#xFF0C;&#x8FD9;&#x79CD;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x5BF9;&#x5E94;&#x7684;&#x662F;RDD&#x4E2D;&#x7684;dependencies &#x5C5E;&#x6027;&#xFF1B;</li>
-<li>&#x4E0D;&#x540C;&#x73AF;&#x8282;&#x7684;&#x52A0;&#x5DE5;&#x65B9;&#x6CD5;&#x5BF9;&#x5E94;RDD&#x7684;compute&#x5C5E;&#x6027;&#x3002;</li>
-</ul>
-<h2 id="&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x548C;&#x5EF6;&#x8FDF;&#x8BA1;&#x7B97;"><a href="#&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x548C;&#x5EF6;&#x8FDF;&#x8BA1;&#x7B97;" class="headerlink" title="&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x548C;&#x5EF6;&#x8FDF;&#x8BA1;&#x7B97;"></a>&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x548C;&#x5EF6;&#x8FDF;&#x8BA1;&#x7B97;</h2><p>RDD&#x4EE3;&#x8868;&#x7684;&#x662F;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5F62;&#x6001;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;RDD&#x5230;RDD&#x4E4B;&#x95F4;&#x7684;&#x8F6C;&#x6362;&#xFF0C;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x6570;&#x636E;&#x5F62;&#x6001;&#x4E0A;&#x7684;&#x8F6C;&#x6362;&#xFF08;Transformations&#xFF09;&#x3002;<br>&#x5728;RDD&#x7684;&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x4E2D;&#xFF0C;&#x4E00;&#x5171;&#x6709;&#x4E24;&#x79CD;&#x7B97;&#x5B50;&#xFF0C;Transformations &#x7C7B;&#x7B97;&#x5B50;&#x548C; Actions &#x7C7B;&#x7B97;&#x5B50;&#x3002;&#x5F00;&#x53D1;&#x8005;&#x9700;&#x8981;&#x4F7F;&#x7528; Transformations &#x7C7B;&#x7B97;&#x5B50;&#xFF0C;&#x5B9A;&#x4E49;&#x5E76;&#x63CF;&#x8FF0;&#x6570;&#x636E;&#x5F62;&#x6001;&#x7684;&#x8F6C;&#x6362;&#x8FC7;&#x7A0B;&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528;Actions&#x7C7B;&#x7B97;&#x5B50;&#xFF0C;&#x5C06;&#x8BA1;&#x7B97;&#x7ED3;&#x679C;&#x6536;&#x96C6;&#x8D77;&#x6765;&#x3001;&#x6216;&#x662F;&#x7269;&#x5316;&#x5230;&#x78C1;&#x76D8;&#x3002;</p>
-<p>&#x5728;&#x8FD9;&#x6837;&#x7684;&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x4E0B;&#xFF0C;Spark &#x5728;&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x8BA1;&#x7B97;&#x88AB;&#x5212;&#x5206;&#x4E3A;&#x4E24;&#x4E2A;&#x73AF;&#x8282;&#x3002;</p>
-<ol>
-<li>&#x57FA;&#x4E8E;&#x4E0D;&#x7528;&#x6570;&#x636E;&#x5F62;&#x6001;&#x4E4B;&#x95F4;&#x7684;&#x8F6C;&#x6362;&#xFF0C;&#x6784;&#x5EFA;&#x8BA1;&#x7B97;&#x6D41;&#x56FE;&#xFF08;DAG&#xFF0C;Directed Acyclic Graph&#xFF09;&#xFF1B;</li>
-<li>&#x901A;&#x8FC7;Actions&#x7C7B;&#x7B97;&#x5B50;&#xFF0C;&#x4EE5;&#x56DE;&#x6EAF;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x89E6;&#x53D1;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x8BA1;&#x7B97;&#x6D41;&#x56FE;&#x3002;</li>
-</ol>
-<blockquote>
-<p>&#x5F00;&#x53D1;&#x8005;&#x8C03;&#x7528;&#x7684;&#x5404;&#x7C7B; Transformations &#x7B97;&#x5B50;&#xFF0C;&#x5E76;&#x4E0D;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x8BA1;&#x7B97;&#xFF0C;&#x5F53;&#x4E14;&#x4EC5;&#x5F53;&#x5F00;&#x53D1;&#x8005;&#x8C03;&#x7528;Actions&#x7B97;&#x5B50;&#x65F6;&#xFF0C;&#x4E4B;&#x524D;&#x8C03;&#x7528;&#x7684;&#x8F6C;&#x6362;&#x7B97;&#x5B50;&#x624D;&#x4F1A;&#x4ED8;&#x8BF8;&#x6267;&#x884C;&#x3002;&#x5728;&#x4E1A;&#x5185;&#xFF0C;&#x8FD9;&#x6837;&#x7684;&#x8BA1;&#x7B97;&#x6A21;&#x5F0F;&#x6709;&#x4E2A;&#x4E13;&#x95E8;&#x7684;&#x672F;&#x8BED;&#xFF0C;&#x53EB;&#x4F5C;&#x201C;&#x5EF6;&#x8FDF;&#x8BA1;&#x7B97;&#x201D;&#xFF08;Lazy Evaluation&#xFF09;</p>
-</blockquote>
-<p>? &#x4EC0;&#x4E48;&#x662F;Transformations&#x7B97;&#x5B50;&#xFF0C;&#x4EC0;&#x4E48;&#x662F;Actions&#x7C7B;&#x7B97;&#x5B50;&#xFF0C;&#x9700;&#x8981;&#x53BB;&#x67E5;</p>
-
+<li>compute: &#x8F6C;&#x6362;&#x51FD;&#x6570;</li></ul>
+        <p class="article-more-link">
+            <a href="/2022/12/23/013-spark/#more">阅读更多</a>
+        </p>
     
     </div>
     
@@ -254,7 +236,7 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="/image/beijing.jpg" alt="&#x6D4E;&#x5357;"></p>
+        <p><img src="../image/beijing.jpg" alt="&#x6545;&#x5BAB;&#x89D2;&#x697C;"></p>
 <p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html" target="_blank" rel="noopener">&#x672C;&#x6587;&#x53C2;&#x8003;Mysql&#x5B98;&#x65B9;&#x6587;&#x6863;</a></p>
 <h3 id="&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;"><a href="#&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;" class="headerlink" title="&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;"></a><strong>&#x5171;&#x4EAB;&#x9501;&#x548C;&#x6392;&#x5B83;&#x9501;</strong></h3><ul>
 <li>&#x5171;&#x4EAB;&#x9501;&#xFF08;shared locks&#xFF1A;s lock&#xFF09;</li>
@@ -377,7 +359,7 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="image/jinan.jpg" alt="&#x6D4E;&#x5357;"></p>
+        <p><img src="../image/jinan.jpg" alt="&#x6D4E;&#x5357;"></p>
 <h2 id="IO&#x590D;&#x7528;"><a href="#IO&#x590D;&#x7528;" class="headerlink" title="IO&#x590D;&#x7528;"></a>IO&#x590D;&#x7528;</h2><p>select&#x3001;poll&#x548C;epoll&#x662F;&#x4E09;&#x4E2A;&#x5E38;&#x7528;&#x7684;IO&#x591A;&#x8DEF;&#x590D;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x5DEE;&#x522B;&#x548C;&#x6027;&#x80FD;&#x4ECE;&#x5DE6;&#x5230;&#x53F3;&#x90FD;&#x662F;&#x6709;&#x533A;&#x522B;&#x7684;&#x3002;&#x4F46;&#x5BF9;&#x4E8E;&#x8FD9;&#x51E0;&#x79CD;IO&#x590D;&#x7528;&#x65B9;&#x6CD5;&#x662F;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x8FD8;&#x662F;&#x4E00;&#x77E5;&#x534A;&#x89E3;&#x3002;</p>
 <h2 id="&#x5B9E;&#x4F8B;"><a href="#&#x5B9E;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x4F8B;"></a>&#x5B9E;&#x4F8B;</h2><p>&#x8FD9;&#x51E0;&#x5929;&#xFF0C;&#x901A;&#x8FC7;&#x9605;&#x8BFB;redis&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x5BF9;epoll&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x6709;&#x4E86;&#x8FDB;&#x4E00;&#x6B65;&#x7684;&#x8BA4;&#x8BC6;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;epoll&#x505A;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x63A5;&#x53D7;io&#x8BF7;&#x6C42;&#x7684;&#x4F8B;&#x5B50;<br></p>
         <p class="article-more-link">
@@ -412,13 +394,13 @@
     
         <ol>
 <li><p>&#x9996;&#x5148;&#x5728;initServer&#x4E2D;&#xFF0C;&#x6CE8;&#x518C;eventloop&#xFF0C;&#x4E3A;io&#x590D;&#x7528;&#x505A;&#x51C6;&#x5907;</p>
-<epacse hidden>4</epacse>
+<epacse hidden>21</epacse>
 </li>
 <li><p>ListenToPort&#x521B;&#x5EFA;&#x57FA;&#x4E8E;tcp&#x7684;socket&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x76D1;&#x542C;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x5C06;&#x8BE5;socket&#x8BBE;&#x7F6E;&#x4E3A;&#x975E;&#x963B;&#x585E;</p>
-<epacse hidden>5</epacse>
+<epacse hidden>22</epacse>
 </li>
 <li><p>&#x4E3A;&#x6BCF;&#x4E2A;server&#x7684;fd&#x8BBE;&#x7F6E;&#x53EF;&#x8BFB;&#x4E8B;&#x4EF6;&#x56DE;&#x8C03;</p>
-<epacse hidden>6</epacse>
+<epacse hidden>23</epacse>
 
 </li>
 </ol>
@@ -452,11 +434,11 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="image/liancang.jpeg" alt="&#x65E5;&#x672C;&#x9570;&#x4ED3;"></p>
+        <p><img src="../image/liancang.jpeg" alt="&#x65E5;&#x672C;&#x9570;&#x4ED3;"></p>
 <h3 id="redisGetReply&#x65B9;&#x6CD5;"><a href="#redisGetReply&#x65B9;&#x6CD5;" class="headerlink" title="redisGetReply&#x65B9;&#x6CD5;"></a>redisGetReply&#x65B9;&#x6CD5;</h3><blockquote>
 <p><strong>redisGetReply</strong> &#x4E2D;&#x7684; redisBufferRead &#x7684;&#x4F5C;&#x7528;&#x662F;&#x5C06;&#x6570;&#x636E;&#x8BFB;&#x53D6;&#x5230; redis context &#x7684; reader &#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A; reader &#x90FD;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x8BFB; buf&#xFF0C;pos &#x548C; len &#x8BB0;&#x5F55;&#x4E86; buf &#x7684;&#x957F;&#x5EA6;&#x548C;&#x8BFB;&#x53D6;&#x4F4D;&#x7F6E;</p>
 </blockquote>
-<epacse hidden>10</epacse>
+<epacse hidden>12</epacse>
 
 <ul>
 <li>buf&#xFF1A;&#x8BFB;&#x7F13;&#x51B2;&#x533A;</li>
@@ -493,14 +475,14 @@
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <h2 id="&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;"><a href="#&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;" class="headerlink" title="&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;"></a>&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;</h2><p>redis&#x6E90;&#x7801;&#xFF1A;src/redis-cli.c&#x4E2D;&#x627E;&#x5230;main&#x51FD;&#x6570;&#xFF0C;main&#x51FD;&#x6570;&#x4E2D;&#x6838;&#x5FC3;&#x7684;&#x5904;&#x7406;&#x5C31;&#x662F;&#x4EE5;&#x4E0B;&#x90E8;&#x5206;</p>
-<epacse hidden>33</epacse>
+<epacse hidden>4</epacse>
 
 <ul>
 <li>cliConnect<br>&#x4E3B;&#x8981;&#x662F;&#x4E0E;&#x670D;&#x52A1;&#x7AEF;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;redisContext&#x7ED3;&#x6784;&#x6765;&#x4FDD;&#x5B58;</li>
 <li>repl<br>repl&#x5B9E;&#x73B0;&#x4E86;&#x53D1;&#x9001;&#x547D;&#x4EE4;&#x5E76;&#x8F93;&#x51FA;Server&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x7684;&#x4E3B;&#x8981;&#x903B;&#x8F91;</li>
 </ul>
 <h2 id="RedisContext"><a href="#RedisContext" class="headerlink" title="RedisContext"></a>RedisContext</h2><p>redisContext&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF0C;&#x91CD;&#x8981;&#x7684;&#x5B57;&#x6BB5;&#x90FD;&#x8FDB;&#x884C;&#x4E86;&#x6CE8;&#x91CA;</p>
-<epacse hidden>34</epacse>
+<epacse hidden>5</epacse>
         <p class="article-more-link">
             <a href="/2019/11/29/006-redis-cli/#more">阅读更多</a>
         </p>
