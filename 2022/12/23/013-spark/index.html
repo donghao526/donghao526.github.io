@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Spark基础学习 - I have a dream</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="RDDRDD&amp;#x7684;4&amp;#x5927;&amp;#x5C5E;&amp;#x6027;  partitions: &amp;#x6570;&amp;#x636E;&amp;#x5206;&amp;#x7247; partitioner: &amp;#x5206;&amp;#x7247;&amp;#x5207;&amp;#x5272;&amp;#x539F;&amp;#x5219; dependencies: RDD&amp;#x4F9D;&amp;#x8D56; compute: &amp;#x8F6C;">
+<meta name="keywords" content="大数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark基础学习">
+<meta property="og:url" content="http://donghao526.github.io/2022/12/23/013-spark/index.html">
+<meta property="og:site_name" content="I have a dream">
+<meta property="og:description" content="RDDRDD&amp;#x7684;4&amp;#x5927;&amp;#x5C5E;&amp;#x6027;  partitions: &amp;#x6570;&amp;#x636E;&amp;#x5206;&amp;#x7247; partitioner: &amp;#x5206;&amp;#x7247;&amp;#x5207;&amp;#x5272;&amp;#x539F;&amp;#x5219; dependencies: RDD&amp;#x4F9D;&amp;#x8D56; compute: &amp;#x8F6C;">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://donghao526.github.io/image/xuedi.png">
+<meta property="og:image" content="http://donghao526.github.io/image/spark_tudou.jpg">
+<meta property="og:updated_time" content="2022-12-23T05:29:02.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark基础学习">
+<meta name="twitter:description" content="RDDRDD&amp;#x7684;4&amp;#x5927;&amp;#x5C5E;&amp;#x6027;  partitions: &amp;#x6570;&amp;#x636E;&amp;#x5206;&amp;#x7247; partitioner: &amp;#x5206;&amp;#x7247;&amp;#x5207;&amp;#x5272;&amp;#x539F;&amp;#x5219; dependencies: RDD&amp;#x4F9D;&amp;#x8D56; compute: &amp;#x8F6C;">
+<meta name="twitter:image" content="http://donghao526.github.io/image/xuedi.png">
+
+
+
+
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//cdn.bootcss.com/font-awesome/5.13.0/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    长安城小頑主
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">归档</a>
+            
+            <a class="navbar-item " href="/categories">分类</a>
+            
+            <a class="navbar-item " href="/tags">标签</a>
+            
+            <a class="navbar-item " href="https://github.com/donghao526">关于我</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="搜索" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Spark基础学习
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2022-12-23T03:21:39.000Z" itemprop="datePublished">12月 23 2022</time>
+            
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/技术研究/">技术研究</a>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="/image/xuedi.png" alt="&#x96EA;&#x5730;"></p>
+<h2 id="RDD"><a href="#RDD" class="headerlink" title="RDD"></a>RDD</h2><p>RDD&#x7684;4&#x5927;&#x5C5E;&#x6027;</p>
+<ul>
+<li>partitions: &#x6570;&#x636E;&#x5206;&#x7247;</li>
+<li>partitioner: &#x5206;&#x7247;&#x5207;&#x5272;&#x539F;&#x5219;</li>
+<li>dependencies: RDD&#x4F9D;&#x8D56;</li>
+<li>compute: &#x8F6C;&#x6362;&#x51FD;&#x6570;<a id="more"></a>
+<h2 id="&#x5B9E;&#x4F8B;"><a href="#&#x5B9E;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x4F8B;"></a>&#x5B9E;&#x4F8B;</h2><img src="/image/spark_tudou.jpg" alt="&#x571F;&#x8C46;&#x52A0;&#x5DE5;&#x5B9E;&#x4F8B;"></li>
+</ul>
+<p>&#x5982;&#x679C;&#x628A;&#x201C;&#x5E26;&#x6CE5;&#x571F;&#x8C46;&#x201D;&#x770B;&#x6210;&#x662F; RDD &#x7684;&#x8BDD;&#xFF0C;&#x90A3;&#x4E48; RDD &#x7684; partitions &#x5C5E;&#x6027;&#xFF0C;&#x56CA;&#x62EC;&#x7684;&#x6B63;&#x662F;&#x9EBB;&#x888B;&#x91CC;&#x90A3;&#x4E00;&#x9897;&#x9897;&#x810F;&#x516E;&#x516E;&#x7684;&#x571F;&#x8C46;&#x3002;&#x540C;&#x7406;&#xFF0C;&#x6D41;&#x6C34;&#x7EBF;&#x4E0A;&#x6240;&#x6709;&#x6D17;&#x51C0;&#x7684;&#x571F;&#x8C46;&#xFF0C;&#x4E00;&#x540C;&#x6784;&#x6210;&#x4E86;&#x201C;&#x5E72;&#x51C0;&#x571F;&#x8C46;&#x201D;RDD&#x7684;partitions &#x5C5E;&#x6027;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x518D;&#x6765;&#x770B;RDD&#x7684;partitioner &#x5C5E;&#x6027;&#xFF0C;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x4E86;&#x628A;&#x539F;&#x59CB;&#x6570;&#x636E;&#x96C6;&#x5207;&#x5272;&#x6210;&#x6570;&#x636E;&#x5206;&#x7247;&#x7684;&#x5207;&#x5272;&#x89C4;&#x5219;&#x3002;&#x5728;&#x571F;&#x8C46;&#x5DE5;&#x574A;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x201C;&#x5E26;&#x6CE5;&#x571F;&#x8C46;&#x201D;RDD &#x7684;&#x5207;&#x5272;&#x89C4;&#x5219;&#x662F;&#x968F;&#x673A;&#x62FF;&#x53D6;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4ECE;&#x9EBB;&#x888B;&#x4E2D;&#x968F;&#x673A;&#x62FF;&#x53D6;&#x4E00;&#x9897;&#x810F;&#x516E;&#x516E;&#x7684;&#x571F;&#x8C46;&#x653E;&#x5230;&#x6D41;&#x6C34;&#x7EBF;&#x4E0A;&#x3002;&#x540E;&#x9762;&#x7684;&#x98DF;&#x6750;&#x5F62;&#x6001;&#xFF0C;&#x5982;&#x201C;&#x5E72;&#x51C0;&#x8C46;&#x201D;&#x3001;&#x201C;&#x571F;&#x8C46;&#x7247;&#x201D;&#x548C;&#x201C;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x201D;&#xFF0C;&#x5219;&#x6CBF;&#x7528;&#x4E86;&#x201C;&#x5E26;&#x6CE5;&#x571F;&#x8C46;&#x201D;RDD &#x7684;&#x5207;&#x5272;&#x89C4;&#x5219;&#x3002;&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;&#x540E;&#x7EED;&#x7684;&#x8FD9;&#x4E9B;RDD&#xFF0C;&#x5206;&#x522B;&#x7EE7;&#x627F;&#x4E86;&#x524D;&#x4E00;&#x4E2A; RDD &#x7684; partitioner &#x5C5E;&#x6027;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x9762;&#x4E0E;&#x4F17;&#x4E0D;&#x540C;&#x7684;&#x662F;&#x201C;&#x5206;&#x53D1;&#x7684;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x201D;&#x3002;&#x663E;&#x7136;&#xFF0C;&#x201C;&#x5206;&#x53D1;&#x7684;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x201D;&#x662F;&#x901A;&#x8FC7;&#x5BF9;&#x201C;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x201D;&#x6309;&#x7167;&#x5927;&#x3001;&#x4E2D;&#x3001;&#x5C0F;&#x53F7;&#x505A;&#x5206;&#x53D1;&#x5F97;&#x5230;&#x7684;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5BF9;&#x4E8E;&#x201C;&#x5206;&#x53D1;&#x7684;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x201D;&#x6765;&#x8BF4;&#xFF0C;&#x5B83;&#x7684;partitioner &#x5C5E;&#x6027;&#xFF0C;&#x91CD;&#x65B0;&#x5B9A;&#x4E49;&#x4E86;&#x8FD9;&#x4E2A; RDD &#x6570;&#x636E;&#x5206;&#x7247;&#x7684;&#x5207;&#x5272;&#x89C4;&#x5219;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x628A;&#x5148;&#x524D; RDD &#x7684;&#x6570;&#x636E;&#x5206;&#x7247;&#x6253;&#x6563;&#xFF0C;&#x6309;&#x7167;&#x85AF;&#x7247;&#x5C3A;&#x5BF8;&#x91CD;&#x65B0;&#x6784;&#x5EFA;&#x6570;&#x636E;&#x5206;&#x7247;&#x3002;</p>
+<p>&#x7531;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x6570;&#x636E;&#x5206;&#x7247;&#x7684;&#x5206;&#x5E03;&#xFF0C;&#x662F;&#x7531; RDD &#x7684; partitioner &#x51B3;&#x5B9A;&#x7684;&#x3002;&#x56E0;&#x6B64;&#xFF0C;RDD &#x7684; partitions &#x5C5E;&#x6027;&#xFF0C;&#x4E0E;&#x5B83;&#x7684; partitioner &#x5C5E;&#x6027;&#x662F;&#x5F3A;&#x76F8;&#x5173;&#x7684;&#x3002;</p>
+<h2 id="&#x4F9D;&#x8D56;&#x548C;&#x8F6C;&#x6362;"><a href="#&#x4F9D;&#x8D56;&#x548C;&#x8F6C;&#x6362;" class="headerlink" title="&#x4F9D;&#x8D56;&#x548C;&#x8F6C;&#x6362;"></a>&#x4F9D;&#x8D56;&#x548C;&#x8F6C;&#x6362;</h2><p>&#x5728;&#x6570;&#x636E;&#x5F62;&#x6001;&#x7684;&#x8F6C;&#x6362;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A; RDD &#x90FD;&#x4F1A;&#x901A;&#x8FC7; dependencies &#x5C5E;&#x6027;&#x6765;&#x8BB0;&#x5F55;&#x5B83;&#x6240;&#x4F9D;&#x8D56;&#x7684;&#x524D;&#x4E00;&#x4E2A;&#x3001;&#x6216;&#x662F;&#x591A;&#x4E2A; RDD&#xFF0C;&#x7B80;&#x79F0;&#x201C;&#x7236; RDD&#x201D;&#x3002;<br>&#x4E0E;&#x6B64;&#x540C;&#x65F6;&#xFF0C;RDD &#x4F7F;&#x7528; compute &#x5C5E;&#x6027;&#xFF0C;&#x6765;&#x8BB0;&#x5F55;&#x4ECE;&#x7236; RDD &#x5230;&#x5F53;&#x524D; RDD &#x7684;&#x8F6C;&#x6362;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x62FF; Word Count &#x5F53;&#x4E2D;&#x7684; wordRDD &#x6765;&#x4E3E;&#x4F8B;&#xFF0C;&#x5B83;&#x7684;&#x7236; RDD &#x662F; lineRDD&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x5B83;&#x7684;dependencies &#x5C5E;&#x6027;&#x8BB0;&#x5F55;&#x7684;&#x662F; lineRDD&#x3002;&#x4ECE; lineRDD &#x5230; wordRDD &#x7684;&#x8F6C;&#x6362;&#xFF0C;&#x5176;&#x6240;&#x4F9D;&#x8D56;&#x7684;&#x64CD;&#x4F5C;&#x662F; flatMap&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;wordRDD &#x7684; compute &#x5C5E;&#x6027;&#xFF0C;&#x8BB0;&#x5F55;&#x7684;&#x662F; flatMap &#x8FD9;&#x4E2A;&#x8F6C;&#x6362;&#x51FD;&#x6570;&#x3002;</p>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x603B;&#x7ED3;&#x4E0B;&#x6765;&#xFF0C;&#x85AF;&#x7247;&#x7684;&#x52A0;&#x5DE5;&#x6D41;&#x7A0B;&#xFF0C;&#x4E0E;RDD&#x7684;&#x6982;&#x5FF5;&#x548C;4&#x5927;&#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#x7684;</p>
+<ul>
+<li>&#x4E0D;&#x540C;&#x7684;&#x98DF;&#x6750;&#x5F62;&#x6001;&#xFF0C;&#x5982;&#x5E26;&#x6CE5;&#x571F;&#x8C46;&#x3001;&#x571F;&#x8C46;&#x7247;&#x3001;&#x5373;&#x98DF;&#x85AF;&#x7247;&#x7B49;&#x7B49;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x5C31;&#x662F;RDD&#x6982;&#x5FF5;&#xFF1B;</li>
+<li>&#x540C;&#x4E00;&#x79CD;&#x98DF;&#x6750;&#x5F62;&#x6001;&#x5728;&#x4E0D;&#x540C;&#x6D41;&#x6C34;&#x7EBF;&#x4E0A;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x7269;&#xFF0C;&#x5C31;&#x662F;RDD&#x7684;partitions&#x5C5E;&#x6027;&#xFF1B;</li>
+<li>&#x98DF;&#x6750;&#x6309;&#x7167;&#x4EC0;&#x4E48;&#x89C4;&#x5219;&#x88AB;&#x5206;&#x914D;&#x5230;&#x54EA;&#x6761;&#x6D41;&#x6C34;&#x7EBF;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x5C31;&#x662F;RDD&#x7684;partitioner&#x5C5E;&#x6027;&#xFF1B;</li>
+<li>&#x6BCF;&#x4E00;&#x79CD;&#x98DF;&#x6750;&#x5F62;&#x6001;&#x90FD;&#x4F1A;&#x4F9D;&#x8D56;&#x4E0A;&#x4E00;&#x79CD;&#x5F62;&#x6001;&#xFF0C;&#x8FD9;&#x79CD;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x5BF9;&#x5E94;&#x7684;&#x662F;RDD&#x4E2D;&#x7684;dependencies &#x5C5E;&#x6027;&#xFF1B;</li>
+<li>&#x4E0D;&#x540C;&#x73AF;&#x8282;&#x7684;&#x52A0;&#x5DE5;&#x65B9;&#x6CD5;&#x5BF9;&#x5E94;RDD&#x7684;compute&#x5C5E;&#x6027;&#x3002;</li>
+</ul>
+<h2 id="&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x548C;&#x5EF6;&#x8FDF;&#x8BA1;&#x7B97;"><a href="#&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x548C;&#x5EF6;&#x8FDF;&#x8BA1;&#x7B97;" class="headerlink" title="&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x548C;&#x5EF6;&#x8FDF;&#x8BA1;&#x7B97;"></a>&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x548C;&#x5EF6;&#x8FDF;&#x8BA1;&#x7B97;</h2><p>RDD&#x4EE3;&#x8868;&#x7684;&#x662F;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5F62;&#x6001;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;RDD&#x5230;RDD&#x4E4B;&#x95F4;&#x7684;&#x8F6C;&#x6362;&#xFF0C;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x6570;&#x636E;&#x5F62;&#x6001;&#x4E0A;&#x7684;&#x8F6C;&#x6362;&#xFF08;Transformations&#xFF09;&#x3002;<br>&#x5728;RDD&#x7684;&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x4E2D;&#xFF0C;&#x4E00;&#x5171;&#x6709;&#x4E24;&#x79CD;&#x7B97;&#x5B50;&#xFF0C;Transformations &#x7C7B;&#x7B97;&#x5B50;&#x548C; Actions &#x7C7B;&#x7B97;&#x5B50;&#x3002;&#x5F00;&#x53D1;&#x8005;&#x9700;&#x8981;&#x4F7F;&#x7528; Transformations &#x7C7B;&#x7B97;&#x5B50;&#xFF0C;&#x5B9A;&#x4E49;&#x5E76;&#x63CF;&#x8FF0;&#x6570;&#x636E;&#x5F62;&#x6001;&#x7684;&#x8F6C;&#x6362;&#x8FC7;&#x7A0B;&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528;Actions&#x7C7B;&#x7B97;&#x5B50;&#xFF0C;&#x5C06;&#x8BA1;&#x7B97;&#x7ED3;&#x679C;&#x6536;&#x96C6;&#x8D77;&#x6765;&#x3001;&#x6216;&#x662F;&#x7269;&#x5316;&#x5230;&#x78C1;&#x76D8;&#x3002;</p>
+<p>&#x5728;&#x8FD9;&#x6837;&#x7684;&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x4E0B;&#xFF0C;Spark &#x5728;&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x8BA1;&#x7B97;&#x88AB;&#x5212;&#x5206;&#x4E3A;&#x4E24;&#x4E2A;&#x73AF;&#x8282;&#x3002;</p>
+<ol>
+<li>&#x57FA;&#x4E8E;&#x4E0D;&#x7528;&#x6570;&#x636E;&#x5F62;&#x6001;&#x4E4B;&#x95F4;&#x7684;&#x8F6C;&#x6362;&#xFF0C;&#x6784;&#x5EFA;&#x8BA1;&#x7B97;&#x6D41;&#x56FE;&#xFF08;DAG&#xFF0C;Directed Acyclic Graph&#xFF09;&#xFF1B;</li>
+<li>&#x901A;&#x8FC7;Actions&#x7C7B;&#x7B97;&#x5B50;&#xFF0C;&#x4EE5;&#x56DE;&#x6EAF;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x89E6;&#x53D1;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x8BA1;&#x7B97;&#x6D41;&#x56FE;&#x3002;</li>
+</ol>
+<blockquote>
+<p>&#x5F00;&#x53D1;&#x8005;&#x8C03;&#x7528;&#x7684;&#x5404;&#x7C7B; Transformations &#x7B97;&#x5B50;&#xFF0C;&#x5E76;&#x4E0D;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x8BA1;&#x7B97;&#xFF0C;&#x5F53;&#x4E14;&#x4EC5;&#x5F53;&#x5F00;&#x53D1;&#x8005;&#x8C03;&#x7528;Actions&#x7B97;&#x5B50;&#x65F6;&#xFF0C;&#x4E4B;&#x524D;&#x8C03;&#x7528;&#x7684;&#x8F6C;&#x6362;&#x7B97;&#x5B50;&#x624D;&#x4F1A;&#x4ED8;&#x8BF8;&#x6267;&#x884C;&#x3002;&#x5728;&#x4E1A;&#x5185;&#xFF0C;&#x8FD9;&#x6837;&#x7684;&#x8BA1;&#x7B97;&#x6A21;&#x5F0F;&#x6709;&#x4E2A;&#x4E13;&#x95E8;&#x7684;&#x672F;&#x8BED;&#xFF0C;&#x53EB;&#x4F5C;&#x201C;&#x5EF6;&#x8FDF;&#x8BA1;&#x7B97;&#x201D;&#xFF08;Lazy Evaluation&#xFF09;</p>
+</blockquote>
+<p>? &#x4EC0;&#x4E48;&#x662F;Transformations&#x7B97;&#x5B50;&#xFF0C;&#x4EC0;&#x4E48;&#x662F;Actions&#x7C7B;&#x7B97;&#x5B50;&#xFF0C;&#x9700;&#x8981;&#x53BB;&#x67E5;</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/大数据/">#大数据</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2021/09/09/012-go_base/">Go的一些知识</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 Echo&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
