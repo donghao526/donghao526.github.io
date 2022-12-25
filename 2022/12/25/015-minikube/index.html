@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Go内存分配 - 温暖且坚定</title>
+<title>kubectl - 温暖且坚定</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,18 +14,18 @@
 
 
 
-    <meta name="description" content="&amp;#x53C2;&amp;#x8003;&amp;#x6587;&amp;#x732E; &amp;#x6280;&amp;#x672F;&amp;#x5E72;&amp;#x8D27; | &amp;#x7406;&amp;#x89E3; Go &amp;#x5185;&amp;#x5B58;&amp;#x5206;&amp;#x914D;  Go&amp;#x5185;&amp;#x5B58;&amp;#x5206;&amp;#x914D;&amp;#x539F;&amp;#x5219; Sharing down typically stay">
-<meta name="keywords" content="Golang">
+    <meta name="description" content="Install minikube&amp;#x5B89;&amp;#x88C5;minikube&amp;#xFF0C;&amp;#x53C2;&amp;#x8003; https://minikube.sigs.k8s.io/docs/start/ Start minikube&amp;#x542F;&amp;#x52A8;minikube&amp;#xFF0C;driver&amp;#x6211;&amp;#x4EEC;&amp;#x9009;&amp;#x62E9;docker 1mi">
+<meta name="keywords" content="k8s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go内存分配">
-<meta property="og:url" content="http://donghao526.github.io/2022/12/25/014-go内存分配/index.html">
+<meta property="og:title" content="kubectl">
+<meta property="og:url" content="http://donghao526.github.io/2022/12/25/015-minikube/index.html">
 <meta property="og:site_name" content="温暖且坚定">
-<meta property="og:description" content="&amp;#x53C2;&amp;#x8003;&amp;#x6587;&amp;#x732E; &amp;#x6280;&amp;#x672F;&amp;#x5E72;&amp;#x8D27; | &amp;#x7406;&amp;#x89E3; Go &amp;#x5185;&amp;#x5B58;&amp;#x5206;&amp;#x914D;  Go&amp;#x5185;&amp;#x5B58;&amp;#x5206;&amp;#x914D;&amp;#x539F;&amp;#x5219; Sharing down typically stay">
+<meta property="og:description" content="Install minikube&amp;#x5B89;&amp;#x88C5;minikube&amp;#xFF0C;&amp;#x53C2;&amp;#x8003; https://minikube.sigs.k8s.io/docs/start/ Start minikube&amp;#x542F;&amp;#x52A8;minikube&amp;#xFF0C;driver&amp;#x6211;&amp;#x4EEC;&amp;#x9009;&amp;#x62E9;docker 1mi">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2022-12-25T07:58:50.877Z">
+<meta property="og:updated_time" content="2022-12-25T11:08:19.483Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go内存分配">
-<meta name="twitter:description" content="&amp;#x53C2;&amp;#x8003;&amp;#x6587;&amp;#x732E; &amp;#x6280;&amp;#x672F;&amp;#x5E72;&amp;#x8D27; | &amp;#x7406;&amp;#x89E3; Go &amp;#x5185;&amp;#x5B58;&amp;#x5206;&amp;#x914D;  Go&amp;#x5185;&amp;#x5B58;&amp;#x5206;&amp;#x914D;&amp;#x539F;&amp;#x5219; Sharing down typically stay">
+<meta name="twitter:title" content="kubectl">
+<meta name="twitter:description" content="Install minikube&amp;#x5B89;&amp;#x88C5;minikube&amp;#xFF0C;&amp;#x53C2;&amp;#x8003; https://minikube.sigs.k8s.io/docs/start/ Start minikube&amp;#x542F;&amp;#x52A8;minikube&amp;#xFF0C;driver&amp;#x6211;&amp;#x4EEC;&amp;#x9009;&amp;#x62E9;docker 1mi">
 
 
 
@@ -110,7 +110,7 @@
     <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            Go内存分配
+            kubectl
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -129,46 +129,37 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h3 id="&#x53C2;&#x8003;&#x6587;&#x732E;"><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x732E;"></a>&#x53C2;&#x8003;&#x6587;&#x732E;</h3><ul>
-<li><a href="https://cloud.tencent.com/developer/article/1861429" target="_blank" rel="noopener">&#x6280;&#x672F;&#x5E72;&#x8D27; | &#x7406;&#x89E3; Go &#x5185;&#x5B58;&#x5206;&#x914D;</a></li>
-</ul>
-<h3 id="Go&#x5185;&#x5B58;&#x5206;&#x914D;&#x539F;&#x5219;"><a href="#Go&#x5185;&#x5B58;&#x5206;&#x914D;&#x539F;&#x5219;" class="headerlink" title="Go&#x5185;&#x5B58;&#x5206;&#x914D;&#x539F;&#x5219;"></a>Go&#x5185;&#x5B58;&#x5206;&#x914D;&#x539F;&#x5219;</h3><ul>
-<li>Sharing down typically stays on the stack<ul>
-<li>&#x5728;&#x8C03;&#x7528;&#x65B9;&#x521B;&#x5EFA;&#x7684;&#x53D8;&#x91CF;&#x6216;&#x5BF9;&#x8C61;&#xFF0C;&#x901A;&#x8FC7;&#x53C2;&#x6570;&#x7684;&#x5F62;&#x5F0F;&#x4F20;&#x9012;&#x7ED9;&#x88AB;&#x8C03;&#x7528;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x65F6;&#xFF0C;&#x5728;&#x8C03;&#x7528;&#x65B9;&#x521B;&#x5EFA;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x901A;&#x5E38;&#x5728;&#x6808;&#x4E0A;&#x3002;&#x8FD9;&#x79CD;&#x5728;&#x8C03;&#x7528;&#x65B9;&#x521B;&#x5EFA;&#x5185;&#x5B58;&#xFF0C;&#x5728;&#x88AB;&#x8C03;&#x7528;&#x65B9;&#x4F7F;&#x7528;&#x8BE5;&#x5185;&#x5B58;&#x7684;&#x201C;&#x5185;&#x5B58;&#x5171;&#x4EAB;&#x201D;&#x65B9;&#x5F0F;&#xFF0C;&#x79F0;&#x4E4B;&#x4E3A; Sharing down&#x3002;</li>
-</ul>
-</li>
-<li>Sharing up typically escapes to the heap<ul>
-<li>&#x5728;&#x88AB;&#x8C03;&#x7528;&#x51FD;&#x6570;&#x5185;&#x521B;&#x5EFA;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x4EE5;&#x6307;&#x9488;&#x7684;&#x5F62;&#x5F0F;&#x8FD4;&#x56DE;&#x7ED9;&#x8C03;&#x7528;&#x65B9;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x901A;&#x5E38;&#xFF0C;&#x521B;&#x5EFA;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x5728;&#x5806;&#x4E0A;&#x3002;&#x8FD9;&#x79CD;&#x5728;&#x88AB;&#x8C03;&#x7528;&#x65B9;&#x521B;&#x5EFA;&#xFF0C;&#x5728;&#x8C03;&#x7528;&#x65B9;&#x4F7F;&#x7528;&#x7684;&#x201C;&#x5185;&#x5B58;&#x5171;&#x4EAB;&#x201D;&#x65B9;&#x5F0F;&#xFF0C;&#x79F0;&#x4E4B;&#x4E3A; Sharing up&#x3002;</li>
-</ul>
-</li>
-<li>Only the compiler knows<ul>
-<li>&#x4E4B;&#x6240;&#x4EE5;&#x4E0A;&#x9762;&#x4E24;&#x6761;&#x539F;&#x5219;&#x90FD;&#x52A0;&#x4E86;&#x901A;&#x5E38;&#xFF0C;&#x56E0;&#x4E3A;&#x5177;&#x4F53;&#x7684;&#x5206;&#x914D;&#x65B9;&#x5F0F;&#xFF0C;&#x662F;&#x7531;&#x7F16;&#x8BD1;&#x5668;&#x786E;&#x5B9A;&#x7684;&#xFF0C;&#x4E00;&#x4E9B;&#x7F16;&#x8BD1;&#x5668;&#x540E;&#x7AEF;&#x4F18;&#x5316;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x7A81;&#x7834;&#x8FD9;&#x4E24;&#x4E2A;&#x539F;&#x5219;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x5206;&#x914D;&#x903B;&#x8F91;&#xFF0C;&#x53EA;&#x6709;&#x7F16;&#x8BD1;&#x5668;&#xFF08;&#x6216;&#x5F00;&#x53D1;&#x7F16;&#x8BD1;&#x5668;&#x7684;&#x4EBA;&#xFF09;&#x77E5;&#x9053;&#x3002;</li>
-</ul>
-</li>
-</ul>
-<h3 id="&#x5806;&#x5206;&#x914D;&#x5185;&#x5B58;&#x7684;GC&#x95EE;&#x9898;"><a href="#&#x5806;&#x5206;&#x914D;&#x5185;&#x5B58;&#x7684;GC&#x95EE;&#x9898;" class="headerlink" title="&#x5806;&#x5206;&#x914D;&#x5185;&#x5B58;&#x7684;GC&#x95EE;&#x9898;"></a>&#x5806;&#x5206;&#x914D;&#x5185;&#x5B58;&#x7684;GC&#x95EE;&#x9898;</h3><ul>
-<li>Golang GC</li>
-</ul>
+        <h2 id="Install-minikube"><a href="#Install-minikube" class="headerlink" title="Install minikube"></a>Install minikube</h2><p>&#x5B89;&#x88C5;minikube&#xFF0C;&#x53C2;&#x8003; <a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener">https://minikube.sigs.k8s.io/docs/start/</a></p>
+<h2 id="Start-minikube"><a href="#Start-minikube" class="headerlink" title="Start minikube"></a>Start minikube</h2><p>&#x542F;&#x52A8;minikube&#xFF0C;driver&#x6211;&#x4EEC;&#x9009;&#x62E9;docker</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube start --driver=docker</span><br></pre></td></tr></table></figure>
 
+<h3 id="Interact-with-your-cluster"><a href="#Interact-with-your-cluster" class="headerlink" title="Interact with your cluster"></a>Interact with your cluster</h3><p>kubectl get po -A</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span>@<span class="hljs-built_in">echo</span> &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0; kubectl get po -A</span><br><span class="line">NAMESPACE     NAME                               READY   STATUS    RESTARTS      AGE</span><br><span class="line">kube-system   coredns-565d847f94-b8swq           1/1     Running   2 (62s ago)   26m</span><br><span class="line">kube-system   etcd-minikube                      1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   kube-apiserver-minikube            1/1     Running   1 (68s ago)   26m</span><br><span class="line">kube-system   kube-controller-manager-minikube   1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   kube-proxy-859rk                   1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   kube-scheduler-minikube            1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   storage-provisioner                1/1     Running   3 (61s ago)   26m</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo@echo &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0;  kubectl create deployment hello-minikube --image=kicbase/echo-server:1.0</span><br><span class="line"></span><br><span class="line">deployment.apps/hello-minikube created</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span>@<span class="hljs-built_in">echo</span> &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0;  kubectl expose deployment hello-minikube --<span class="hljs-built_in">type</span>=NodePort --port=8080</span><br><span class="line"></span><br><span class="line">service/hello-minikube exposed</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span>@<span class="hljs-built_in">echo</span> &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0; kubectl get services hello-minikube</span><br><span class="line"></span><br><span class="line">NAME             TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE</span><br><span class="line">hello-minikube   NodePort   10.107.69.159   &lt;none&gt;        8080:30227/TCP   9s</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">minikube service hello-minikube</span><br><span class="line"></span><br><span class="line">|-----------|----------------|-------------|---------------------------|</span><br><span class="line">| NAMESPACE |      NAME      | TARGET PORT |            URL            |</span><br><span class="line">|-----------|----------------|-------------|---------------------------|</span><br><span class="line">| default   | hello-minikube |        8080 | http://192.168.49.2:30227 |</span><br><span class="line">|-----------|----------------|-------------|---------------------------|</span><br><span class="line">&#x1F3C3;  Starting tunnel for service hello-minikube.</span><br><span class="line">|-----------|----------------|-------------|------------------------|</span><br><span class="line">| NAMESPACE |      NAME      | TARGET PORT |          URL           |</span><br><span class="line">|-----------|----------------|-------------|------------------------|</span><br><span class="line">| default   | hello-minikube |             | http://127.0.0.1:52191 |</span><br><span class="line">|-----------|----------------|-------------|------------------------|</span><br><span class="line">&#x1F389;  &#x6B63;&#x901A;&#x8FC7;&#x9ED8;&#x8BA4;&#x6D4F;&#x89C8;&#x5668;&#x6253;&#x5F00;&#x670D;&#x52A1; default/hello-minikube...</span><br><span class="line">&#x2757;  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</span><br></pre></td></tr></table></figure>
     
     </div>
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Golang/">#Golang</a></span>
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/k8s/">#k8s</a></span>
     
     </div>
     
     
     <div class="columns is-mobile is-multiline article-nav">
-        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
-            
-            <a href="/2022/12/25/015-minikube/">kubectl</a>
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">
             
-            <a href="/2022/12/23/013-spark/">Spark基础学习-RDD</a>
+            <a href="/2022/12/25/014-go内存分配/">Go内存分配</a>
             
         </span>
     </div>

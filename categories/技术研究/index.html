@@ -113,6 +113,52 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2022/12/25/015-minikube/" itemprop="url">kubectl</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2022-12-25T07:38:39.000Z" itemprop="datePublished">12月 25 2022</time>
+            
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/技术研究/">技术研究</a>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="Install-minikube"><a href="#Install-minikube" class="headerlink" title="Install minikube"></a>Install minikube</h2><p>&#x5B89;&#x88C5;minikube&#xFF0C;&#x53C2;&#x8003; <a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener">https://minikube.sigs.k8s.io/docs/start/</a></p>
+<h2 id="Start-minikube"><a href="#Start-minikube" class="headerlink" title="Start minikube"></a>Start minikube</h2><p>&#x542F;&#x52A8;minikube&#xFF0C;driver&#x6211;&#x4EEC;&#x9009;&#x62E9;docker</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube start --driver=docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="Interact-with-your-cluster"><a href="#Interact-with-your-cluster" class="headerlink" title="Interact with your cluster"></a>Interact with your cluster</h3><p>kubectl get po -A</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span>@<span class="hljs-built_in">echo</span> &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0; kubectl get po -A</span><br><span class="line">NAMESPACE     NAME                               READY   STATUS    RESTARTS      AGE</span><br><span class="line">kube-system   coredns-565d847f94-b8swq           1/1     Running   2 (62s ago)   26m</span><br><span class="line">kube-system   etcd-minikube                      1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   kube-apiserver-minikube            1/1     Running   1 (68s ago)   26m</span><br><span class="line">kube-system   kube-controller-manager-minikube   1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   kube-proxy-859rk                   1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   kube-scheduler-minikube            1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   storage-provisioner                1/1     Running   3 (61s ago)   26m</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo@echo &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0;  kubectl create deployment hello-minikube --image=kicbase/echo-server:1.0</span><br><span class="line"></span><br><span class="line">deployment.apps/hello-minikube created</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span>@<span class="hljs-built_in">echo</span> &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0;  kubectl expose deployment hello-minikube --<span class="hljs-built_in">type</span>=NodePort --port=8080</span><br><span class="line"></span><br><span class="line">service/hello-minikube exposed</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span>@<span class="hljs-built_in">echo</span> &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0; kubectl get services hello-minikube</span><br><span class="line"></span><br><span class="line">NAME             TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE</span><br><span class="line">hello-minikube   NodePort   10.107.69.159   &lt;none&gt;        8080:30227/TCP   9s</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">minikube service hello-minikube</span><br><span class="line"></span><br><span class="line">|-----------|----------------|-------------|---------------------------|</span><br><span class="line">| NAMESPACE |      NAME      | TARGET PORT |            URL            |</span><br><span class="line">|-----------|----------------|-------------|---------------------------|</span><br><span class="line">| default   | hello-minikube |        8080 | http://192.168.49.2:30227 |</span><br><span class="line">|-----------|----------------|-------------|---------------------------|</span><br><span class="line">&#x1F3C3;  Starting tunnel for service hello-minikube.</span><br><span class="line">|-----------|----------------|-------------|------------------------|</span><br><span class="line">| NAMESPACE |      NAME      | TARGET PORT |          URL           |</span><br><span class="line">|-----------|----------------|-------------|------------------------|</span><br><span class="line">| default   | hello-minikube |             | http://127.0.0.1:52191 |</span><br><span class="line">|-----------|----------------|-------------|------------------------|</span><br><span class="line">&#x1F389;  &#x6B63;&#x901A;&#x8FC7;&#x9ED8;&#x8BA4;&#x6D4F;&#x89C8;&#x5668;&#x6253;&#x5F00;&#x670D;&#x52A1; default/hello-minikube...</span><br><span class="line">&#x2757;  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</span><br></pre></td></tr></table></figure>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2022/12/25/014-go内存分配/" itemprop="url">Go内存分配</a>
         
     </h1>

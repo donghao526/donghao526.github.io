@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>标签 - 温暖且坚定</title>
+<title>标签: k8s - 温暖且坚定</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,10 +14,9 @@
 
 
 
-    <meta name="keywords" content="nginx,life,redis,IO复用,run,Golang,git,k8s,mysql,大数据">
-<meta property="og:type" content="website">
+    <meta property="og:type" content="website">
 <meta property="og:title" content="温暖且坚定">
-<meta property="og:url" content="http://donghao526.github.io/tags/index.html">
+<meta property="og:url" content="http://donghao526.github.io/tags/k8s/index.html">
 <meta property="og:site_name" content="温暖且坚定">
 <meta property="og:locale" content="zh-cn">
 <meta name="twitter:card" content="summary">
@@ -83,7 +82,7 @@
             
             <a class="navbar-item " href="/categories">分类</a>
             
-            <a class="navbar-item is-active" href="/tags">标签</a>
+            <a class="navbar-item " href="/tags">标签</a>
             
             <a class="navbar-item " href="https://github.com/donghao526">关于我</a>
             
@@ -104,55 +103,60 @@
     <section class="section section-heading">
     <div class="container">
         <div class="content">
-            <h5>#标签</h5>
+            <h5>#k8s</h5>
         </div>
     </div>
 </section>
 <section class="section">
     <div class="container">
-        <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2022/12/25/015-minikube/" itemprop="url">kubectl</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
             
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/nginx/">#nginx&nbsp;(1)</a>
-            </span>
+                <time datetime="2022-12-25T07:38:39.000Z" itemprop="datePublished">12月 25 2022</time>
             
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/life/">#life&nbsp;(2)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/redis/">#redis&nbsp;(3)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/IO复用/">#IO复用&nbsp;(1)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/run/">#run&nbsp;(1)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/Golang/">#Golang&nbsp;(2)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/git/">#git&nbsp;(1)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/k8s/">#k8s&nbsp;(1)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/mysql/">#mysql&nbsp;(1)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/大数据/">#大数据&nbsp;(1)</a>
-            </span>
-            
-        </div>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/技术研究/">技术研究</a>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="Install-minikube"><a href="#Install-minikube" class="headerlink" title="Install minikube"></a>Install minikube</h2><p>&#x5B89;&#x88C5;minikube&#xFF0C;&#x53C2;&#x8003; <a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener">https://minikube.sigs.k8s.io/docs/start/</a></p>
+<h2 id="Start-minikube"><a href="#Start-minikube" class="headerlink" title="Start minikube"></a>Start minikube</h2><p>&#x542F;&#x52A8;minikube&#xFF0C;driver&#x6211;&#x4EEC;&#x9009;&#x62E9;docker</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube start --driver=docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="Interact-with-your-cluster"><a href="#Interact-with-your-cluster" class="headerlink" title="Interact with your cluster"></a>Interact with your cluster</h3><p>kubectl get po -A</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span>@<span class="hljs-built_in">echo</span> &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0; kubectl get po -A</span><br><span class="line">NAMESPACE     NAME                               READY   STATUS    RESTARTS      AGE</span><br><span class="line">kube-system   coredns-565d847f94-b8swq           1/1     Running   2 (62s ago)   26m</span><br><span class="line">kube-system   etcd-minikube                      1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   kube-apiserver-minikube            1/1     Running   1 (68s ago)   26m</span><br><span class="line">kube-system   kube-controller-manager-minikube   1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   kube-proxy-859rk                   1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   kube-scheduler-minikube            1/1     Running   2 (67s ago)   26m</span><br><span class="line">kube-system   storage-provisioner                1/1     Running   3 (61s ago)   26m</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo@echo &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0;  kubectl create deployment hello-minikube --image=kicbase/echo-server:1.0</span><br><span class="line"></span><br><span class="line">deployment.apps/hello-minikube created</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span>@<span class="hljs-built_in">echo</span> &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0;  kubectl expose deployment hello-minikube --<span class="hljs-built_in">type</span>=NodePort --port=8080</span><br><span class="line"></span><br><span class="line">service/hello-minikube exposed</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span>@<span class="hljs-built_in">echo</span> &#xE0B0; ~ &#xE0B0; &#xE0A0; master &#xB1; &#xE0B0; kubectl get services hello-minikube</span><br><span class="line"></span><br><span class="line">NAME             TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE</span><br><span class="line">hello-minikube   NodePort   10.107.69.159   &lt;none&gt;        8080:30227/TCP   9s</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">minikube service hello-minikube</span><br><span class="line"></span><br><span class="line">|-----------|----------------|-------------|---------------------------|</span><br><span class="line">| NAMESPACE |      NAME      | TARGET PORT |            URL            |</span><br><span class="line">|-----------|----------------|-------------|---------------------------|</span><br><span class="line">| default   | hello-minikube |        8080 | http://192.168.49.2:30227 |</span><br><span class="line">|-----------|----------------|-------------|---------------------------|</span><br><span class="line">&#x1F3C3;  Starting tunnel for service hello-minikube.</span><br><span class="line">|-----------|----------------|-------------|------------------------|</span><br><span class="line">| NAMESPACE |      NAME      | TARGET PORT |          URL           |</span><br><span class="line">|-----------|----------------|-------------|------------------------|</span><br><span class="line">| default   | hello-minikube |             | http://127.0.0.1:52191 |</span><br><span class="line">|-----------|----------------|-------------|------------------------|</span><br><span class="line">&#x1F389;  &#x6B63;&#x901A;&#x8FC7;&#x9ED8;&#x8BA4;&#x6D4F;&#x89C8;&#x5668;&#x6253;&#x5F00;&#x670D;&#x52A1; default/hello-minikube...</span><br><span class="line">&#x2757;  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</span><br></pre></td></tr></table></figure>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
     </div>
 </section>
     <footer class="footer">
