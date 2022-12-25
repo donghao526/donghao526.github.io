@@ -37,7 +37,7 @@ a.tag.article-tag {
 
 .article .article-title a,
 .article .article-meta a {
-  color: inherit;
+  color: #070606;
   border-bottom: 1px dotted transparent; }
   .article .article-title a:hover,
   .article .article-meta a:hover {
@@ -75,7 +75,7 @@ a.tag.article-tag {
     border-bottom-color: #464646; }
 
 .article .article-nav a {
-  color: #030303;
+  color: black;
   position: relative;
   display: inline-block; }
 
@@ -104,7 +104,7 @@ a.tag.article-tag {
 
 .article .caption {
   display: block;
-  color: #2c2c2c;
+  color: black;
   font-size: .95rem;
   text-align: center; }
 
@@ -218,14 +218,14 @@ a.tag.article-tag {
     border-left-color: black; }
   .archive .article time {
     font-size: .9rem;
-    color: #514f4f; }
+    color: black; }
   .archive .article h6 {
     margin: 0; }
     .archive .article h6 a {
       color: inherit;
       border-bottom: 1px dotted transparent; }
       .archive .article h6 a:hover {
-        border-bottom-color: darkgray; }
+        border-bottom-color: black; }
 
 .footer {
   font-size: .9rem;
