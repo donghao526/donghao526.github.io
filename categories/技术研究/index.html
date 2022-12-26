@@ -446,14 +446,14 @@
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <h2 id="&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;"><a href="#&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;" class="headerlink" title="&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;"></a>&#x9996;&#x5148;&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5165;&#x53E3;</h2><p>redis&#x6E90;&#x7801;&#xFF1A;src/redis-cli.c&#x4E2D;&#x627E;&#x5230;main&#x51FD;&#x6570;&#xFF0C;main&#x51FD;&#x6570;&#x4E2D;&#x6838;&#x5FC3;&#x7684;&#x5904;&#x7406;&#x5C31;&#x662F;&#x4EE5;&#x4E0B;&#x90E8;&#x5206;</p>
-<epacse hidden>5</epacse>
+<epacse hidden>4</epacse>
 
 <ul>
 <li>cliConnect<br>&#x4E3B;&#x8981;&#x662F;&#x4E0E;&#x670D;&#x52A1;&#x7AEF;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;redisContext&#x7ED3;&#x6784;&#x6765;&#x4FDD;&#x5B58;</li>
 <li>repl<br>repl&#x5B9E;&#x73B0;&#x4E86;&#x53D1;&#x9001;&#x547D;&#x4EE4;&#x5E76;&#x8F93;&#x51FA;Server&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x7684;&#x4E3B;&#x8981;&#x903B;&#x8F91;</li>
 </ul>
 <h2 id="RedisContext"><a href="#RedisContext" class="headerlink" title="RedisContext"></a>RedisContext</h2><p>redisContext&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF0C;&#x91CD;&#x8981;&#x7684;&#x5B57;&#x6BB5;&#x90FD;&#x8FDB;&#x884C;&#x4E86;&#x6CE8;&#x91CA;</p>
-<epacse hidden>6</epacse>
+<epacse hidden>5</epacse>
         <p class="article-more-link">
             <a href="/2019/11/29/006-redis-cli/#more">阅读更多</a>
         </p>
@@ -549,6 +549,7 @@
                 $('.article.gallery').lightGallery({ selector: '.gallery-item' });
             }
             if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery > p > .gallery-item').unwrap();
                 $('.justified-gallery').justifiedGallery();
             }
         });

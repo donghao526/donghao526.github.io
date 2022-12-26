@@ -9,7 +9,8 @@ a.tag.article-tag {
 @media screen and (min-width: 1200px) {
   .container {
     max-width: 1000px;
-    width: 1000px; }
+    width: 1000px;
+    color: #090909; }
   .navbar.is-transparent .navbar-dropdown a.navbar-item:hover {
     color: #3273dc; } }
 
@@ -20,7 +21,8 @@ a.tag.article-tag {
     font-size: 1.5rem;
     font-weight: 600; }
   .navbar-main .navbar-item {
-    text-align: center; }
+    text-align: center;
+    color: #000; }
   .navbar-main a.navbar-item.is-active {
     color: #3273dc; }
   .navbar-main .toc .navbar-dropdown {
@@ -445,12 +447,12 @@ figure.highlight {
   padding: 8px 15px; }
 
 .ins-section .ins-section-header {
-  color: #9a9a9a;
+  color: #000000;
   border-bottom: 1px solid #e2e2e2; }
 
 .ins-section .ins-slug {
   margin-left: 5px;
-  color: #9a9a9a; }
+  color: #090909; }
 
 .ins-section .ins-slug:before {
   content: '('; }
