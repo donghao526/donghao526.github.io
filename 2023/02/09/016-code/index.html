@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>归档: 2021 - 温暖且坚定</title>
+<title>minikube简单入门 - 温暖且坚定</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,13 +14,18 @@
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="温暖且坚定">
-<meta property="og:url" content="http://donghao526.github.io/archives/2021/index.html">
+    <meta name="description" content="123456789101112131415161718192021222324252627282930message Expression {    MetaInfo metaInfo = 1;        ExpressionType type = 2;    // &amp;#x503C;&amp;#x8868;&amp;#x8FBE;&amp;#x5F0F;    Value valExpr = 3;    // &amp;#x">
+<meta name="keywords" content="k8s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="minikube简单入门">
+<meta property="og:url" content="http://donghao526.github.io/2023/02/09/016-code/index.html">
 <meta property="og:site_name" content="温暖且坚定">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930message Expression {    MetaInfo metaInfo = 1;        ExpressionType type = 2;    // &amp;#x503C;&amp;#x8868;&amp;#x8FBE;&amp;#x5F0F;    Value valExpr = 3;    // &amp;#x">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2023-02-09T13:47:32.201Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="温暖且坚定">
+<meta name="twitter:title" content="minikube简单入门">
+<meta name="twitter:description" content="123456789101112131415161718192021222324252627282930message Expression {    MetaInfo metaInfo = 1;        ExpressionType type = 2;    // &amp;#x503C;&amp;#x8868;&amp;#x8FBE;&amp;#x5F0F;    Value valExpr = 3;    // &amp;#x">
 
 
 
@@ -102,22 +107,57 @@
 
     <section class="section">
     <div class="container">
-    
-    
-        <div class="archive content">
-            <h4 class="title is-4" id="2021">2021</h4>
-            <div class="articles">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            minikube简单入门
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
             
-                <div class="article content>">
-                    <time class="is-text-small" datetime="2021-09-09T11:46:40.000Z" itemprop="datePublished">
-                        9月 9</time>
-                    <h6 class="title is-6"><a href="/2021/09/09/012-go_base/">Go的一些知识</a></h6>
-                </div>
+                <time datetime="2023-02-09T11:09:39.000Z" itemprop="datePublished">2月 9 2023</time>
             
-            </div>
-        </div>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/技术研究/">技术研究</a>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <figure class="highlight protobuf hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">message Expression {</span><br><span class="line">    MetaInfo metaInfo = 1;    </span><br><span class="line">    ExpressionType type = 2;</span><br><span class="line">    // &#x503C;&#x8868;&#x8FBE;&#x5F0F;</span><br><span class="line">    Value valExpr = 3;</span><br><span class="line">    // &#x8BA1;&#x7B97;&#x8868;&#x8FBE;&#x5F0F;</span><br><span class="line">    CalcExpression calcExpr = 4;</span><br><span class="line">    // &#x903B;&#x8F91;&#x8868;&#x8FBE;&#x5F0F;</span><br><span class="line">    LogicExpression logicExpr = 5;</span><br><span class="line">    // &#x5173;&#x7CFB;&#x8868;&#x8FBE;&#x5F0F;</span><br><span class="line">    RelationExpression relationExpr = 6;</span><br><span class="line">    // &#x51FD;&#x6570;&#x8868;&#x8FBE;&#x5F0F;</span><br><span class="line">    FuncExpression funcExpr = 7;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">message CalcExpression {</span><br><span class="line">    MetaInfo metaInfo = 1;    </span><br><span class="line">    CalcExpressionType type = 2;</span><br><span class="line">    CalcExpression left = 3;</span><br><span class="line">    CalcExpression right = 4;</span><br><span class="line">    Value value = 5;</span><br><span class="line">    FuncExpression func = 6;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">message RelationExpression {</span><br><span class="line">    MetaInfo metaInfo = 1;    </span><br><span class="line">    RelationExpressionType type = 2;</span><br><span class="line">    CalcExpression left = 3;</span><br><span class="line">    CalcExpression right = 4;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/k8s/">#k8s</a></span>
+    
+    </div>
     
     
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2023/05/24/017-bash_profile&bash_rc/">.bashrc和.bash_profile区别</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2022/12/25/015-minikube/">minikube简单入门</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
     </div>
 </section>
     <footer class="footer">

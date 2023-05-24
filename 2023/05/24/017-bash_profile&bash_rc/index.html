@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>.bashrc和.bash_profile区别 - 温暖且坚定</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="&amp;#x5728;&amp;#x4F7F;&amp;#x7528;Linux&amp;#x7684;&amp;#x65F6;&amp;#x5019;&amp;#xFF0C;&amp;#x6211;&amp;#x4EEC;&amp;#x7ECF;&amp;#x5E38;&amp;#x8BBE;&amp;#x7F6E;&amp;#x73AF;&amp;#x5883;&amp;#x53D8;&amp;#x91CF;&amp;#xFF0C;.bash_profile&amp;#x548C;.bashrc&amp;#x6587;&amp;#x4EF6;&amp;#x90FD">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content=".bashrc和.bash_profile区别">
+<meta property="og:url" content="http://donghao526.github.io/2023/05/24/017-bash_profile&bash_rc/index.html">
+<meta property="og:site_name" content="温暖且坚定">
+<meta property="og:description" content="&amp;#x5728;&amp;#x4F7F;&amp;#x7528;Linux&amp;#x7684;&amp;#x65F6;&amp;#x5019;&amp;#xFF0C;&amp;#x6211;&amp;#x4EEC;&amp;#x7ECF;&amp;#x5E38;&amp;#x8BBE;&amp;#x7F6E;&amp;#x73AF;&amp;#x5883;&amp;#x53D8;&amp;#x91CF;&amp;#xFF0C;.bash_profile&amp;#x548C;.bashrc&amp;#x6587;&amp;#x4EF6;&amp;#x90FD">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://donghao526.github.io/image/bash.png">
+<meta property="og:updated_time" content="2023-05-24T03:05:35.098Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=".bashrc和.bash_profile区别">
+<meta name="twitter:description" content="&amp;#x5728;&amp;#x4F7F;&amp;#x7528;Linux&amp;#x7684;&amp;#x65F6;&amp;#x5019;&amp;#xFF0C;&amp;#x6211;&amp;#x4EEC;&amp;#x7ECF;&amp;#x5E38;&amp;#x8BBE;&amp;#x7F6E;&amp;#x73AF;&amp;#x5883;&amp;#x53D8;&amp;#x91CF;&amp;#xFF0C;.bash_profile&amp;#x548C;.bashrc&amp;#x6587;&amp;#x4EF6;&amp;#x90FD">
+<meta name="twitter:image" content="http://donghao526.github.io/image/bash.png">
+
+
+
+
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//cdn.bootcss.com/font-awesome/5.13.0/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    EchoChris
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">归档</a>
+            
+            <a class="navbar-item " href="/categories">分类</a>
+            
+            <a class="navbar-item " href="/tags">标签</a>
+            
+            <a class="navbar-item " href="https://github.com/donghao526">关于我</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="搜索" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            .bashrc和.bash_profile区别
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2023-05-24T03:00:13.000Z" itemprop="datePublished">5月 24 2023</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="/image/bash.png" alt=".bash_profile vs .bashrc"><br>&#x5728;&#x4F7F;&#x7528;Linux&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x7ECF;&#x5E38;&#x8BBE;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF0C;.bash_profile&#x548C;.bashrc&#x6587;&#x4EF6;&#x90FD;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x8BBE;&#x7F6E;&#xFF0C;&#x90A3;&#x4E48;&#x4E24;&#x8005;&#x5230;&#x5E95;&#x6709;&#x4EC0;&#x4E48;&#x533A;&#x522B;</p>
+<h2 id="1-Interactive-Login&#x548C;Non-Login-Shell"><a href="#1-Interactive-Login&#x548C;Non-Login-Shell" class="headerlink" title="1. Interactive Login&#x548C;Non-Login Shell"></a>1. Interactive Login&#x548C;Non-Login Shell</h2><ul>
+<li><strong>Interactive Shell</strong>: a shell that reads and writes to a user&#x2019;s terminal</li>
+<li><strong>Non-interactive Shell</strong>: a shell that is not associated with a terminal, like when executing a script.</li>
+</ul>
+<h3 id="1-1-Interactive-Shell"><a href="#1-1-Interactive-Shell" class="headerlink" title="1.1 Interactive Shell"></a>1.1 <strong>Interactive Shell</strong></h3><p>An interactive shell can be either login or non-login shell.</p>
+<ul>
+<li><strong>login shell:</strong> A login shell is invoked when a user login to the terminal either remotely via ssh or locally, or when Bash is launched with the <code>--login</code> option</li>
+<li><strong>non-login shell:</strong> An interactive non-login shell is invoked from the login shell, such as when typing <code>bash</code> in the shell prompt or when opening a new Gnome terminal tab.</li>
+</ul>
+<h3 id="1-2-Bash-Startup-Files"><a href="#1-2-Bash-Startup-Files" class="headerlink" title="1.2 Bash Startup Files"></a>1.2 Bash Startup Files</h3><blockquote>
+<p>When invoked as an interactive login shell, Bash looks for the <code>/etc/profile</code> file, and if the <a href="https://linuxize.com/post/bash-check-if-file-exists/" target="_blank" rel="noopener">file exists</a> , it runs the commands listed in the file. Then Bash searches for <code>~/.bash_profile</code>, <code>~/.bash_login</code>, and <code>~/.profile</code> files, in the listed order, and executes commands from the first readable file found.</p>
+</blockquote>
+<blockquote>
+<p>When Bash is invoked as an interactive non-login shell, it reads and executes commands from <code>~/.bashrc</code>, if that file exists, and it is readable.</p>
+</blockquote>
+<h3 id="1-3-&#x505A;&#x4E2A;&#x5B9E;&#x9A8C;"><a href="#1-3-&#x505A;&#x4E2A;&#x5B9E;&#x9A8C;" class="headerlink" title="1.3 &#x505A;&#x4E2A;&#x5B9E;&#x9A8C;"></a>1.3 &#x505A;&#x4E2A;&#x5B9E;&#x9A8C;</h3><p>&#x7ED9;Shell1&#x4E2D;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;alias</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[toni@os ~/workpalce/pay_otel]$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;alias gitst=&apos;git status&apos;&quot;</span> &gt;&gt; ~/.bashrc </span><br><span class="line">[toni@os ~/workpalce/pay_otel]$ gitst</span><br><span class="line">Hey! No <span class="hljs-built_in">command</span> <span class="hljs-string">&apos;gitst&apos;</span> found, did you mean <span class="hljs-string">&apos;dist&apos;</span>?</span><br><span class="line">[toni@os ~/workpalce/pay_otel]$</span><br></pre></td></tr></table></figure>
+
+<p>&#x8BBE;&#x7F6E;&#x5B8C;&#x540E;&#x7ACB;&#x523B;&#x6253;&#x5F00;&#x4E00;&#x4E2A;&#x65B0;&#x7684;Shell&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8BBE;&#x7F6E;&#x7684;alias&#x662F;&#x7ACB;&#x523B;&#x5269;&#x4E0B;&#x7684;&#xFF0C;&#x8BF4;&#x660E;.bashrc&#x662F;interactive non-login shell&#x4F1A;&#x8BFB;&#x53D6;&#x7684;</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[toni@os ~/workpalce/pay_otel]$ gitst</span><br><span class="line">On branch master</span><br><span class="line">Your branch is up to date with <span class="hljs-string">&apos;origin/master&apos;</span>.</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="hljs-keyword">for</span> commit:</span><br><span class="line">  (use <span class="hljs-string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="hljs-string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="hljs-keyword">in</span> working directory)</span><br><span class="line">        modified:   dtools.sh</span><br><span class="line">        modified:   pay_otel.go</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="hljs-string">&quot;git add&quot;</span> and/or <span class="hljs-string">&quot;git commit -a&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-bashrc&#x4E0E;-bash-profile&#x7684;&#x533A;&#x522B;"><a href="#2-bashrc&#x4E0E;-bash-profile&#x7684;&#x533A;&#x522B;" class="headerlink" title="2. .bashrc&#x4E0E;.bash_profile&#x7684;&#x533A;&#x522B;"></a>2. <strong><strong>.bashrc&#x4E0E;.bash_profile&#x7684;&#x533A;&#x522B;</strong></strong></h2><ul>
+<li><code>.bash_profile</code> is read and executed when Bash is invoked as an interactive login shell, while <code>.bashrc</code> is executed for an interactive non-login shell</li>
+<li>Use <code>.bash_profile</code> to run commands that should run only once, such as customizing the <code>$PATH</code> <a href="https://linuxize.com/post/how-to-set-and-list-environment-variables-in-linux/" target="_blank" rel="noopener">environment variable</a> .</li>
+<li>Put the commands that should run every time you launch a new shell in the <code>.bashrc</code> file. This include your <a href="https://linuxize.com/post/how-to-create-bash-aliases/" target="_blank" rel="noopener">aliases and functions</a> , custom prompts, <a href="https://linuxize.com/post/history-command-in-linux/" target="_blank" rel="noopener">history customizations</a> , and so on.</li>
+<li>Typically, <code>~/.bash_profile</code> contains lines like below that source the <code>.bashrc</code> file. This means each time you log in to the terminal, both files are read and executed.</li>
+</ul>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> [ -f ~/.bashrc ]; <span class="hljs-keyword">then</span></span><br><span class="line">	. ~/.bashrc</span><br><span class="line"><span class="hljs-keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Most Linux distributions are using <code>~/.profile</code> instead of <code>~/.bash_profile</code>. The <code>~/.profile</code> file is read by all shells, while <code>~/.bash_profile</code> only by Bash.</p>
+</blockquote>
+<h2 id="3-&#x53C2;&#x8003;"><a href="#3-&#x53C2;&#x8003;" class="headerlink" title="3. &#x53C2;&#x8003;"></a>3. &#x53C2;&#x8003;</h2><ol>
+<li><a href="https://linuxize.com/post/bashrc-vs-bash-profile/" target="_blank" rel="noopener">.bash_profile vs .bash_rc</a></li>
+</ol>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Linux/">#Linux</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2023/02/09/016-code/">minikube简单入门</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2023 Echo&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery > p > .gallery-item').unwrap();
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

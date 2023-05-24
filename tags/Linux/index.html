@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>小长假 - 温暖且坚定</title>
+<title>标签: Linux - 温暖且坚定</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,20 +14,13 @@
 
 
 
-    <meta name="description" content="&amp;#x5343;&amp;#x4E07;&amp;#x4E0D;&amp;#x8981;&amp;#x5728;&amp;#x5C0F;&amp;#x957F;&amp;#x5047;&amp;#x51FA;&amp;#x884C;&amp;#xFF0C;&amp;#x4EBA;&amp;#x5B9E;&amp;#x5728;&amp;#x592A;&amp;#x591A;&amp;#xFF0C;&amp;#x770B;&amp;#x6765;&amp;#x706D;&amp;#x9738;&amp;#x662F;&amp;#x6709;&amp;#x4E9B;&amp;#x9053;">
-<meta name="keywords" content="life">
-<meta property="og:type" content="article">
-<meta property="og:title" content="小长假">
-<meta property="og:url" content="http://donghao526.github.io/2019/05/05/003-小长假/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="温暖且坚定">
+<meta property="og:url" content="http://donghao526.github.io/tags/Linux/index.html">
 <meta property="og:site_name" content="温暖且坚定">
-<meta property="og:description" content="&amp;#x5343;&amp;#x4E07;&amp;#x4E0D;&amp;#x8981;&amp;#x5728;&amp;#x5C0F;&amp;#x957F;&amp;#x5047;&amp;#x51FA;&amp;#x884C;&amp;#xFF0C;&amp;#x4EBA;&amp;#x5B9E;&amp;#x5728;&amp;#x592A;&amp;#x591A;&amp;#xFF0C;&amp;#x770B;&amp;#x6765;&amp;#x706D;&amp;#x9738;&amp;#x662F;&amp;#x6709;&amp;#x4E9B;&amp;#x9053;">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="http://donghao526.github.io/image/shanghai.jpeg">
-<meta property="og:updated_time" content="2022-12-23T05:29:28.699Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小长假">
-<meta name="twitter:description" content="&amp;#x5343;&amp;#x4E07;&amp;#x4E0D;&amp;#x8981;&amp;#x5728;&amp;#x5C0F;&amp;#x957F;&amp;#x5047;&amp;#x51FA;&amp;#x884C;&amp;#xFF0C;&amp;#x4EBA;&amp;#x5B9E;&amp;#x5728;&amp;#x592A;&amp;#x591A;&amp;#xFF0C;&amp;#x770B;&amp;#x6765;&amp;#x706D;&amp;#x9738;&amp;#x662F;&amp;#x6709;&amp;#x4E9B;&amp;#x9053;">
-<meta name="twitter:image" content="http://donghao526.github.io/image/shanghai.jpeg">
+<meta name="twitter:title" content="温暖且坚定">
 
 
 
@@ -107,18 +100,26 @@
     </div>
 </nav>
 
-    <section class="section">
+    <section class="section section-heading">
     <div class="container">
-    <article class="article content gallery" itemscope itemprop="blogPost">
+        <div class="content">
+            <h5>#Linux</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            小长假
+            <a href="/2023/05/24/017-bash_profile&bash_rc/" itemprop="url">.bashrc和.bash_profile区别</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             
-                <time datetime="2019-05-05T10:45:35.000Z" itemprop="datePublished">5月 5 2019</time>
+                <time datetime="2023-05-24T03:00:13.000Z" itemprop="datePublished">5月 24 2023</time>
             
         </span>
         
@@ -126,34 +127,54 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="/image/shanghai.jpeg" alt="&#x4E0A;&#x6D77;"><br>&#x5343;&#x4E07;&#x4E0D;&#x8981;&#x5728;&#x5C0F;&#x957F;&#x5047;&#x51FA;&#x884C;&#xFF0C;&#x4EBA;&#x5B9E;&#x5728;&#x592A;&#x591A;&#xFF0C;&#x770B;&#x6765;&#x706D;&#x9738;&#x662F;&#x6709;&#x4E9B;&#x9053;&#x7406;&#x7684;</p>
+        <p><img src="/image/bash.png" alt=".bash_profile vs .bashrc"><br>&#x5728;&#x4F7F;&#x7528;Linux&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x7ECF;&#x5E38;&#x8BBE;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF0C;.bash_profile&#x548C;.bashrc&#x6587;&#x4EF6;&#x90FD;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x8BBE;&#x7F6E;&#xFF0C;&#x90A3;&#x4E48;&#x4E24;&#x8005;&#x5230;&#x5E95;&#x6709;&#x4EC0;&#x4E48;&#x533A;&#x522B;</p>
+<h2 id="1-Interactive-Login&#x548C;Non-Login-Shell"><a href="#1-Interactive-Login&#x548C;Non-Login-Shell" class="headerlink" title="1. Interactive Login&#x548C;Non-Login Shell"></a>1. Interactive Login&#x548C;Non-Login Shell</h2><ul>
+<li><strong>Interactive Shell</strong>: a shell that reads and writes to a user&#x2019;s terminal</li>
+<li><strong>Non-interactive Shell</strong>: a shell that is not associated with a terminal, like when executing a script.</li>
+</ul>
+<h3 id="1-1-Interactive-Shell"><a href="#1-1-Interactive-Shell" class="headerlink" title="1.1 Interactive Shell"></a>1.1 <strong>Interactive Shell</strong></h3><p>An interactive shell can be either login or non-login shell.</p>
+<ul>
+<li><strong>login shell:</strong> A login shell is invoked when a user login to the terminal either remotely via ssh or locally, or when Bash is launched with the <code>--login</code> option</li>
+<li><strong>non-login shell:</strong> An interactive non-login shell is invoked from the login shell, such as when typing <code>bash</code> in the shell prompt or when opening a new Gnome terminal tab.</li>
+</ul>
+<h3 id="1-2-Bash-Startup-Files"><a href="#1-2-Bash-Startup-Files" class="headerlink" title="1.2 Bash Startup Files"></a>1.2 Bash Startup Files</h3><blockquote>
+<p>When invoked as an interactive login shell, Bash looks for the <code>/etc/profile</code> file, and if the <a href="https://linuxize.com/post/bash-check-if-file-exists/" target="_blank" rel="noopener">file exists</a> , it runs the commands listed in the file. Then Bash searches for <code>~/.bash_profile</code>, <code>~/.bash_login</code>, and <code>~/.profile</code> files, in the listed order, and executes commands from the first readable file found.</p>
+</blockquote>
+<blockquote>
+<p>When Bash is invoked as an interactive non-login shell, it reads and executes commands from <code>~/.bashrc</code>, if that file exists, and it is readable.</p>
+</blockquote>
+<h3 id="1-3-&#x505A;&#x4E2A;&#x5B9E;&#x9A8C;"><a href="#1-3-&#x505A;&#x4E2A;&#x5B9E;&#x9A8C;" class="headerlink" title="1.3 &#x505A;&#x4E2A;&#x5B9E;&#x9A8C;"></a>1.3 &#x505A;&#x4E2A;&#x5B9E;&#x9A8C;</h3><p>&#x7ED9;Shell1&#x4E2D;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;alias</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[toni@os ~/workpalce/pay_otel]$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;alias gitst=&apos;git status&apos;&quot;</span> &gt;&gt; ~/.bashrc </span><br><span class="line">[toni@os ~/workpalce/pay_otel]$ gitst</span><br><span class="line">Hey! No <span class="hljs-built_in">command</span> <span class="hljs-string">&apos;gitst&apos;</span> found, did you mean <span class="hljs-string">&apos;dist&apos;</span>?</span><br><span class="line">[toni@os ~/workpalce/pay_otel]$</span><br></pre></td></tr></table></figure>
+
+<p>&#x8BBE;&#x7F6E;&#x5B8C;&#x540E;&#x7ACB;&#x523B;&#x6253;&#x5F00;&#x4E00;&#x4E2A;&#x65B0;&#x7684;Shell&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8BBE;&#x7F6E;&#x7684;alias&#x662F;&#x7ACB;&#x523B;&#x5269;&#x4E0B;&#x7684;&#xFF0C;&#x8BF4;&#x660E;.bashrc&#x662F;interactive non-login shell&#x4F1A;&#x8BFB;&#x53D6;&#x7684;</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[toni@os ~/workpalce/pay_otel]$ gitst</span><br><span class="line">On branch master</span><br><span class="line">Your branch is up to date with <span class="hljs-string">&apos;origin/master&apos;</span>.</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="hljs-keyword">for</span> commit:</span><br><span class="line">  (use <span class="hljs-string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="hljs-string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="hljs-keyword">in</span> working directory)</span><br><span class="line">        modified:   dtools.sh</span><br><span class="line">        modified:   pay_otel.go</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="hljs-string">&quot;git add&quot;</span> and/or <span class="hljs-string">&quot;git commit -a&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-bashrc&#x4E0E;-bash-profile&#x7684;&#x533A;&#x522B;"><a href="#2-bashrc&#x4E0E;-bash-profile&#x7684;&#x533A;&#x522B;" class="headerlink" title="2. .bashrc&#x4E0E;.bash_profile&#x7684;&#x533A;&#x522B;"></a>2. <strong><strong>.bashrc&#x4E0E;.bash_profile&#x7684;&#x533A;&#x522B;</strong></strong></h2><ul>
+<li><code>.bash_profile</code> is read and executed when Bash is invoked as an interactive login shell, while <code>.bashrc</code> is executed for an interactive non-login shell</li>
+<li>Use <code>.bash_profile</code> to run commands that should run only once, such as customizing the <code>$PATH</code> <a href="https://linuxize.com/post/how-to-set-and-list-environment-variables-in-linux/" target="_blank" rel="noopener">environment variable</a> .</li>
+<li>Put the commands that should run every time you launch a new shell in the <code>.bashrc</code> file. This include your <a href="https://linuxize.com/post/how-to-create-bash-aliases/" target="_blank" rel="noopener">aliases and functions</a> , custom prompts, <a href="https://linuxize.com/post/history-command-in-linux/" target="_blank" rel="noopener">history customizations</a> , and so on.</li>
+<li>Typically, <code>~/.bash_profile</code> contains lines like below that source the <code>.bashrc</code> file. This means each time you log in to the terminal, both files are read and executed.</li>
+</ul>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> [ -f ~/.bashrc ]; <span class="hljs-keyword">then</span></span><br><span class="line">	. ~/.bashrc</span><br><span class="line"><span class="hljs-keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Most Linux distributions are using <code>~/.profile</code> instead of <code>~/.bash_profile</code>. The <code>~/.profile</code> file is read by all shells, while <code>~/.bash_profile</code> only by Bash.</p>
+</blockquote>
+<h2 id="3-&#x53C2;&#x8003;"><a href="#3-&#x53C2;&#x8003;" class="headerlink" title="3. &#x53C2;&#x8003;"></a>3. &#x53C2;&#x8003;</h2><ol>
+<li><a href="https://linuxize.com/post/bashrc-vs-bash-profile/" target="_blank" rel="noopener">.bash_profile vs .bash_rc</a></li>
+</ol>
 
     
     </div>
     
-    <div class="columns is-variable is-1 is-multiline is-mobile">
-    
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/life/">#life</a></span>
-    
-    </div>
-    
-    
-    <div class="columns is-mobile is-multiline article-nav">
-        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
-            
-            <a href="/2019/05/13/004-好文共赏/">好文共赏</a>
-            
-        </span>
-        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-next">
-            
-        </span>
-    </div>
     
 </article>
 
 
 
 
+    
+    
     </div>
 </section>
     <footer class="footer">
