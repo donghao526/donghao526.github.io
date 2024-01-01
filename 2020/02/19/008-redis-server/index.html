@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>redis-server - 温暖且坚定</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="&amp;#x9996;&amp;#x5148;&amp;#x5728;initServer&amp;#x4E2D;&amp;#xFF0C;&amp;#x6CE8;&amp;#x518C;eventloop&amp;#xFF0C;&amp;#x4E3A;io&amp;#x590D;&amp;#x7528;&amp;#x505A;&amp;#x51C6;&amp;#x5907; 4  ListenToPort&amp;#x521B;&amp;#x5EFA;&amp;#x57FA;&amp;#x4E8E;tcp&amp;#x7684;socket&amp;">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis-server">
+<meta property="og:url" content="http://donghao526.github.io/2020/02/19/008-redis-server/index.html">
+<meta property="og:site_name" content="温暖且坚定">
+<meta property="og:description" content="&amp;#x9996;&amp;#x5148;&amp;#x5728;initServer&amp;#x4E2D;&amp;#xFF0C;&amp;#x6CE8;&amp;#x518C;eventloop&amp;#xFF0C;&amp;#x4E3A;io&amp;#x590D;&amp;#x7528;&amp;#x505A;&amp;#x51C6;&amp;#x5907; 4  ListenToPort&amp;#x521B;&amp;#x5EFA;&amp;#x57FA;&amp;#x4E8E;tcp&amp;#x7684;socket&amp;">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2022-12-23T07:55:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis-server">
+<meta name="twitter:description" content="&amp;#x9996;&amp;#x5148;&amp;#x5728;initServer&amp;#x4E2D;&amp;#xFF0C;&amp;#x6CE8;&amp;#x518C;eventloop&amp;#xFF0C;&amp;#x4E3A;io&amp;#x590D;&amp;#x7528;&amp;#x505A;&amp;#x51C6;&amp;#x5907; 4  ListenToPort&amp;#x521B;&amp;#x5EFA;&amp;#x57FA;&amp;#x4E8E;tcp&amp;#x7684;socket&amp;">
+
+
+
+
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//cdn.bootcss.com/font-awesome/5.13.0/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    EchoChris
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">归档</a>
+            
+            <a class="navbar-item " href="/categories">分类</a>
+            
+            <a class="navbar-item " href="/tags">标签</a>
+            
+            <a class="navbar-item " href="https://github.com/donghao526">关于我</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="搜索" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            redis-server
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-02-19T02:09:32.000Z" itemprop="datePublished">2月 19 2020</time>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <ol>
+<li><p>&#x9996;&#x5148;&#x5728;initServer&#x4E2D;&#xFF0C;&#x6CE8;&#x518C;eventloop&#xFF0C;&#x4E3A;io&#x590D;&#x7528;&#x505A;&#x51C6;&#x5907;</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server.c</span><br><span class="line">server.el = aeCreateEventLoop(server.maxclients+CONFIG_FDSET_INCR);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ListenToPort&#x521B;&#x5EFA;&#x57FA;&#x4E8E;tcp&#x7684;socket&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x76D1;&#x542C;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x5C06;&#x8BE5;socket&#x8BBE;&#x7F6E;&#x4E3A;&#x975E;&#x963B;&#x585E;</p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server.c</span><br><span class="line"><span class="hljs-comment">/* Open the TCP listening socket for the user commands. */</span></span><br><span class="line"><span class="hljs-keyword">if</span> (server.port != <span class="hljs-number">0</span> &amp;&amp;</span><br><span class="line">    listenToPort(server.port,server.ipfd,&amp;server.ipfd_count) == C_ERR)</span><br><span class="line">    <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&#x4E3A;&#x6BCF;&#x4E2A;server&#x7684;fd&#x8BBE;&#x7F6E;&#x53EF;&#x8BFB;&#x4E8B;&#x4EF6;&#x56DE;&#x8C03;</p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>; j &lt; server.ipfd_count; j++) {</span><br><span class="line">    <span class="hljs-keyword">if</span> (aeCreateFileEvent(server.el, server.ipfd[j], AE_READABLE, acceptTcpHandler,<span class="hljs-literal">NULL</span>) == AE_ERR) {</span><br><span class="line">        serverPanic(<span class="hljs-string">&quot;Unrecoverable error creating server.ipfd file event.&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<a id="more"></a>
+<ol start="4">
+<li><p>aeCreateFileEvent</p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">ae.c</span><br><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">aeFileEvent</span> {</span></span><br><span class="line">    <span class="hljs-keyword">int</span> mask; <span class="hljs-comment">/* one of AE_(READABLE|WRITABLE|BARRIER) */</span></span><br><span class="line">    aeFileProc *rfileProc;</span><br><span class="line">    aeFileProc *wfileProc;</span><br><span class="line">    <span class="hljs-keyword">void</span> *clientData;</span><br><span class="line">} aeFileEvent;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">aeCreateFileEvent</span><span class="hljs-params">(aeEventLoop *eventLoop, <span class="hljs-keyword">int</span> fd, <span class="hljs-keyword">int</span> mask,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">        aeFileProc *proc, <span class="hljs-keyword">void</span> *clientData)</span></span></span><br><span class="line"><span class="hljs-function"></span>{</span><br><span class="line">    <span class="hljs-keyword">if</span> (fd &gt;= eventLoop-&gt;setsize) {</span><br><span class="line">        errno = ERANGE;</span><br><span class="line">        <span class="hljs-keyword">return</span> AE_ERR;</span><br><span class="line">    }</span><br><span class="line">    <span class="hljs-comment">// &#x83B7;&#x53D6;&#x5BF9;&#x5E94;server socket fd&#x5BF9;&#x5E94;&#x7684;event</span></span><br><span class="line">    aeFileEvent *fe = &amp;eventLoop-&gt;events[fd];</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// &#x628A;fd&#x5199;&#x5165;eventloop&#x7684;state&#x91CC;</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (aeApiAddEvent(eventLoop, fd, mask) == <span class="hljs-number">-1</span>)</span><br><span class="line">        <span class="hljs-keyword">return</span> AE_ERR;</span><br><span class="line">        </span><br><span class="line">    <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x8BE5;fd&#x5BF9;&#x5E94;event&#x7684;&#x8BFB;&#x72B6;&#x6001;&#x6216;&#x5199;&#x72B6;&#x6001;</span></span><br><span class="line">    fe-&gt;mask |= mask;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// &#x6CE8;&#x518C;&#x8BFB;&#x5199;&#x5904;&#x7406;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;proc</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (mask &amp; AE_READABLE) fe-&gt;rfileProc = proc;</span><br><span class="line">    <span class="hljs-keyword">if</span> (mask &amp; AE_WRITABLE) fe-&gt;wfileProc = proc;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// &#x5B58;&#x50A8;&#x6570;&#x636E;</span></span><br><span class="line">    fe-&gt;clientData = clientData;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// &#x66F4;&#x65B0;eventloop&#x7684;&#x6700;&#x5927;fd</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (fd &gt; eventLoop-&gt;maxfd)</span><br><span class="line">        eventLoop-&gt;maxfd = fd;</span><br><span class="line">    <span class="hljs-keyword">return</span> AE_OK;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&#x518D;&#x6765;&#x770B;&#x770B;acceptTcpHandler</p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">acceptTcpHandler</span><span class="hljs-params">(aeEventLoop *el, <span class="hljs-keyword">int</span> fd, <span class="hljs-keyword">void</span> *privdata, <span class="hljs-keyword">int</span> mask)</span> </span>{</span><br><span class="line">    <span class="hljs-keyword">int</span> cport, cfd, max = MAX_ACCEPTS_PER_CALL;</span><br><span class="line">    <span class="hljs-keyword">char</span> cip[NET_IP_STR_LEN];</span><br><span class="line">    UNUSED(el);</span><br><span class="line">    UNUSED(mask);</span><br><span class="line">    UNUSED(privdata);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">while</span>(max--) {</span><br><span class="line">        &#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;server&#x7684;fd&#xFF0C;accept&#x4E00;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;fd&#xFF0C;&#x5C01;&#x88C5;&#x4E86;&#x666E;&#x901A;&#x7684;accept</span><br><span class="line">        cfd = anetTcpAccept(server.neterr, fd, cip, <span class="hljs-keyword">sizeof</span>(cip), &amp;cport);</span><br><span class="line">        <span class="hljs-keyword">if</span> (cfd == ANET_ERR) {</span><br><span class="line">            <span class="hljs-keyword">if</span> (errno != EWOULDBLOCK)</span><br><span class="line">                serverLog(LL_WARNING,</span><br><span class="line">                    <span class="hljs-string">&quot;Accepting client connection: %s&quot;</span>, server.neterr);</span><br><span class="line">            <span class="hljs-keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        serverLog(LL_VERBOSE,<span class="hljs-string">&quot;Accepted %s:%d&quot;</span>, cip, cport);</span><br><span class="line">        acceptCommonHandler(connCreateAcceptedSocket(cfd),<span class="hljs-number">0</span>,cip);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>acceptCommonHandler</p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">acceptCommonHandler</span><span class="hljs-params">(connection *conn, <span class="hljs-keyword">int</span> flags, <span class="hljs-keyword">char</span> *ip)</span> </span>{</span><br><span class="line">    client *c;</span><br><span class="line">    UNUSED(ip);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/* Admission control will happen before a client is created and connAccept()</span></span><br><span class="line"><span class="hljs-comment">     * called, because we don&apos;t want to even start transport-level negotiation</span></span><br><span class="line"><span class="hljs-comment">     * if rejected.</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (listLength(server.clients) &gt;= server.maxclients) {</span><br><span class="line">        <span class="hljs-keyword">char</span> *err = <span class="hljs-string">&quot;-ERR max number of clients reached\r\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* That&apos;s a best effort error message, don&apos;t check write errors.</span></span><br><span class="line"><span class="hljs-comment">         * Note that for TLS connections, no handshake was done yet so nothing is written</span></span><br><span class="line"><span class="hljs-comment">         * and the connection will just drop.</span></span><br><span class="line"><span class="hljs-comment">         */</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (connWrite(conn,err,<span class="hljs-built_in">strlen</span>(err)) == <span class="hljs-number">-1</span>) {</span><br><span class="line">            <span class="hljs-comment">/* Nothing to do, Just to avoid the warning... */</span></span><br><span class="line">        }</span><br><span class="line">        server.stat_rejected_conn++;</span><br><span class="line">        connClose(conn);</span><br><span class="line">        <span class="hljs-keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/* Create connection and client */</span></span><br><span class="line">    <span class="hljs-comment">// &#x521B;&#x5EFA;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x8BBE;&#x7F6E;&#x8BE5;fd&#x975E;&#x963B;&#x585E;&#xFF0C;&#x5E76;&#x4E14;&#x8BBE;&#x7F6E;&#x8BFB;&#x51FD;&#x6570;readQueryFromClient</span></span><br><span class="line">    <span class="hljs-keyword">if</span> ((c = createClient(conn)) == <span class="hljs-literal">NULL</span>) {</span><br><span class="line">        <span class="hljs-keyword">char</span> conninfo[<span class="hljs-number">100</span>];</span><br><span class="line">        serverLog(LL_WARNING,</span><br><span class="line">            <span class="hljs-string">&quot;Error registering fd event for the new client: %s (conn: %s)&quot;</span>,</span><br><span class="line">            connGetLastError(conn),</span><br><span class="line">            connGetInfo(conn, conninfo, <span class="hljs-keyword">sizeof</span>(conninfo)));</span><br><span class="line">        connClose(conn); <span class="hljs-comment">/* May be already closed, just ignore errors */</span></span><br><span class="line">        <span class="hljs-keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/* Last chance to keep flags */</span></span><br><span class="line">    c-&gt;flags |= flags;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/* Initiate accept.</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * Note that connAccept() is free to do two things here:</span></span><br><span class="line"><span class="hljs-comment">     * 1. Call clientAcceptHandler() immediately;</span></span><br><span class="line"><span class="hljs-comment">     * 2. Schedule a future call to clientAcceptHandler().</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * Because of that, we must do nothing else afterwards.</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (connAccept(conn, clientAcceptHandler) == C_ERR) {</span><br><span class="line">        <span class="hljs-keyword">char</span> conninfo[<span class="hljs-number">100</span>];</span><br><span class="line">        serverLog(LL_WARNING,</span><br><span class="line">                <span class="hljs-string">&quot;Error accepting a client connection: %s (conn: %s)&quot;</span>,</span><br><span class="line">                connGetLastError(conn), connGetInfo(conn, conninfo, <span class="hljs-keyword">sizeof</span>(conninfo)));</span><br><span class="line">        freeClient(connGetPrivateData(conn));</span><br><span class="line">        <span class="hljs-keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis&#x7684;eventloop&#x5728;&#x54EA; -&gt; aeMain<br><code>`</code></p>
+</li>
+</ol>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/redis/">#redis</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2020/02/24/009-epoll/">IO复用之epoll</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2020/01/07/007-Redis-get-reply/">Redis cli处理服务端的返回逻辑</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2024 Echo&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery > p > .gallery-item').unwrap();
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
